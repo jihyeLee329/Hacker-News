@@ -1,55 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-const NewsItem = ({ article }) => {
-  const { title, description, url, urlToImage } = article;
-  const NewsItemBlock = styled.div`
-  display: flex;
-  .thumbnail {
-    margin-right: 1rem;
-    img {
-      display: block;
-      width: 160px;
-      height: 100px;
-      object-fit: cover;
-    }
-  }
-  .contents {
-    h2 {
-      margin: 0;
-      a {
-        color: black;
-      }
-    }
-    p {
-      margin: 0;
-      line-height: 1.5;
-      margin-top: 0.5rem;
-      white-space: normal;
-    }
-  }
-  & + & {
-    margin-top: 3rem;
-  }
-`;
-  return (
-    <NewsItemBlock>
-      {urlToImage && (
-        <div className="thumbnail">
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            <img src={urlToImage} alt="thumbnail" />
-          </a>
-        </div>
-      )}
-      <div className="contents">
-        <h2>
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {title}
-          </a>
-        </h2>
-        <p>{description}</p>
-      </div>
-    </NewsItemBlock>
-  );
-};
+import React,{useState, useEffect} from 'react';
+import { getStory } from '../HNApi';
+export const NewsItem = ({storyId}) => {
+  const [news,setNews] = useState({})
+  useEffect(()=>{
+    getStory(storyId).then(data=>data && data.url && setNews(data))
+  },[]);
+  return  news && news.url?(
+    <>
+    (<a href={news.url}>{news.title}</a> By : <p>{news.by}</p>
+    Posted : <p>{news.time}</p>
+    <p>ID: {news.id}</p>
+    </>
+      ): null;
 
-export default NewsItem;
+}
