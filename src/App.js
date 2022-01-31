@@ -1,31 +1,41 @@
-import './css/common.css';
-import Header from './components/Header'
-import { HashRouter as Router, Route, Link} from 'react-router-dom'
-import Home from './Router/Home'
-import Article from './Router/Article'
-import Ask from './Router/Ask'
-import Show from './Router/Show'
-import Jobs from './Router/Jobs'
-import {NewList} from './components/NewList'
+//css
+import "./css/common.css";
+import styled from "styled-components";
+import Header from "./components/Header";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
+import Home from "./Router/Home";
+import Article from "./Router/Article";
+import Ask from "./Router/Ask";
+import Show from "./Router/Show";
+import Jobs from "./Router/Jobs";
+import { TopList } from "./components/TopList";
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 
 //import ReactDOM from 'react-dom';
 //import { BrowserRouter } from 'react-router-dom';
 function App() {
-  
-  
   return (
     <>
-     <NewList />
-    <div className="wrapper">
-      <Header />
-        <Route path="/article"> <Article /></Route>
-        <Route path="/ask" ><Ask /></Route>
-        <Route path="/show"><Show /></Route>
-        <Route path="/jobs"><Jobs /></Route>
-        <Route path="/" exact><Home/></Route> 
-    </div>
+      <div className="wrapper">
+        <Header />
+
+        <Route path="/article">
+          <Article />
+        </Route>
+        <Route path="/ask">
+          <Ask />
+        </Route>
+        <Route path="/show">
+          <Show />
+        </Route>
+        <Route path="/jobs">
+          <Jobs />
+        </Route>
+        <Route path="/" exact>
+          <TopList />
+        </Route>
+      </div>
       {/* <전체>
         <헤더></헤더>
         <헤더제외 컨텐츠>
@@ -41,9 +51,8 @@ function App() {
           </인조이헤커뉴스>
         </헤더제외>
       </전체> */}
-
     </>
-    );
+  );
 }
 
 export default App;
