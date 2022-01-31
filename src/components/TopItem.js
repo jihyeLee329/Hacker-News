@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getTopStory } from "../HNApi";
 import styled from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
 const TopItemWrap = styled.div`
   width: 100%;
   background: #f2f3f7;
@@ -54,9 +57,6 @@ const TopItemCard = styled.div`
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
-
-
-출처: https://wisesilver.tistory.com/19 [SILVERTORY]
   }
 `;
 
