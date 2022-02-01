@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getTopStory } from "../HNApi";
+import { getTopStory } from "../../API/HNApi";
 import styled from "styled-components";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 const TopItemWrap = styled.div`
@@ -60,23 +59,26 @@ const TopItemCard = styled.div`
   }
 `;
 
-export const TopItem = ({ topStoryId }) => {
+export const TopItem = ({ topStoryId, index, onDimmed }) => {
   const [top, setTop] = useState({});
   useEffect(() => {
     getTopStory(topStoryId).then((data) => data && data.url && setTop(data));
   }, []);
-
   return top && top.url ? (
-    <TopItemWrap>
-      <TopItemCard>
-        <div>
-          <a href={top.url}>
-            <span className="ranking">01</span>
-            <div className="title">{top.title}</div>
-          </a>
-          <div className="user">{top.by}</div>
-        </div>
-      </TopItemCard>
-    </TopItemWrap>
+    <>
+      <TopItemWrap>
+        <TopItemCard>
+          <div>
+            <a href={top.url}>
+              <span className="ranking">0{index + 1}</span>
+              <div className="title">{top.title}</div>
+            </a>
+            <button className="user" onClick={onDimmed}>
+              {top.by}
+            </button>
+          </div>
+        </TopItemCard>
+      </TopItemWrap>
+    </>
   ) : null;
 };

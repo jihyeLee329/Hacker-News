@@ -1,6 +1,5 @@
 //css
 import "./css/common.css";
-import styled from "styled-components";
 import Header from "./components/Header";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import Home from "./Router/Home";
@@ -8,16 +7,21 @@ import Article from "./Router/Article";
 import Ask from "./Router/Ask";
 import Show from "./Router/Show";
 import Jobs from "./Router/Jobs";
-import { TopList } from "./components/TopList";
 
 import React, { useEffect, useState } from "react";
+import Dimmed from "./components/Dimmed";
 
-//import ReactDOM from 'react-dom';
-//import { BrowserRouter } from 'react-router-dom';
 function App() {
+  const [dimmed, setDimmed] = useState(false);
+  function onDimmed() {
+    setDimmed(!dimmed);
+    console.log(dimmed);
+  }
+
   return (
     <>
       <div className="wrapper">
+        <Dimmed dimmed={dimmed} />
         <Header />
 
         <Route path="/article">
@@ -33,7 +37,7 @@ function App() {
           <Jobs />
         </Route>
         <Route path="/" exact>
-          <TopList />
+          <Home onDimmed={onDimmed} />
         </Route>
       </div>
       {/* <전체>

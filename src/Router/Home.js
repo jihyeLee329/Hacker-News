@@ -1,7 +1,10 @@
-import React from 'react'
-
+import React from "react";
+import { TopList } from "../components/Top/TopList";
 //---------- 메인 컴포넌트  ------------- //
-export default function Home (){
-
-  return <h1> Home2 </h1>
+export default function Home() {
+  return (
+    <>
+      <TopList />
+    </>
+  );
 }
