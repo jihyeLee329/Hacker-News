@@ -3,6 +3,7 @@ import { getTopStory } from "../../API/HNApi";
 import styled from "styled-components";
 import "swiper/css";
 
+
 const TopItemWrap = styled.div`
   width: 100%;
   background: #f2f3f7;
@@ -50,20 +51,36 @@ const TopItemCard = styled.div`
     color: #767676;
     font-weight: 500;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* ★★ line-height:20px일때 ★★ */
-    height: 96px; /* ★★ line-height * 3 ★★ */
+    -webkit-line-clamp: 4; 
+    height: 96px;
     word-wrap: break-word;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 `;
+const UserInfo = styled.div`
 
+
+`;
 export const TopItem = ({ topStoryId, index, onDimmed }) => {
+  const [userInfo,setUserInfo]= useState({});
   const [top, setTop] = useState({});
   useEffect(() => {
     getTopStory(topStoryId).then((data) => data && data.url && setTop(data));
+    console.log(top)
   }, []);
+
+  //userId 클릭했을 때 
+  // function ClickedUserID (){
+  //  console.log(top.id)
+  // }
+  // const getUserInfo  = async()=>{
+  //  const userID = String(top.id)
+  //   const result = await axios.get(`https://hacker-news.firebaseio.com/v0/user/${userID}.json`);
+  //       console.log(result);
+  //   return result;
+  // }
   return top && top.url ? (
     <>
       <TopItemWrap>
@@ -73,12 +90,13 @@ export const TopItem = ({ topStoryId, index, onDimmed }) => {
               <span className="ranking">0{index + 1}</span>
               <div className="title">{top.title}</div>
             </a>
-            <button className="user" onClick={onDimmed}>
+            <div className="user" onClick={onDimmed} userid={top.id}>
               {top.by}
-            </button>
+            </div>
           </div>
         </TopItemCard>
       </TopItemWrap>
+      <UserInfo></UserInfo>
     </>
   ) : null;
 };

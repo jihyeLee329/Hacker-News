@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getTopStoryIds } from "../../API/HNApi";
 import { TopItem } from "./TopItem";
-import Dimmed from "../Dimmed";
 import styled from "styled-components";
 
 // Import Swiper
@@ -43,12 +42,8 @@ const TopListWrap = styled.div`
   }
 `;
 
-export const TopList = ({ onDimmed }) => {
-  const [topStoryIds, setTopStoryIds] = useState([]);
-  useEffect(() => {
-    getTopStoryIds().then((data) => setTopStoryIds(data));
-  }, []);
-
+export const TopList = ({ onDimmed, topStoryIds }) => {
+  
   return (
     <>
       <TopListWrap>
@@ -59,7 +54,7 @@ export const TopList = ({ onDimmed }) => {
         </h1>
         <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
           {topStoryIds.slice(0, 5).map((topStoryId, index) => (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <TopItem
                 topStoryId={topStoryId}
                 key={topStoryId}

@@ -1,7 +1,7 @@
 //css
 import "./css/common.css";
 import Header from "./components/Header";
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route} from "react-router-dom";
 import Home from "./Router/Home";
 import Article from "./Router/Article";
 import Ask from "./Router/Ask";
@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
 
 function App() {
+  //dimmed 효과
   const [dimmed, setDimmed] = useState(false);
   function onDimmed() {
     setDimmed(!dimmed);

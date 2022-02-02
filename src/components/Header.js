@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import {HashRouter as Router, Route,Link } from 'react-router-dom'; 
+import {Link } from 'react-router-dom'; 
 import Nav from './Nav'
 
 const HeaderWrap = styled.header`
   width:100%;
   padding:0 20px;
-  > div{ padding: 16px 0 12px; box-sizing: border-box;}
+  > div{ padding: 16px 0 0; box-sizing: border-box;}
 `;
 const LogoWrap = styled.div`
   display:inline-block; height:32px;
@@ -16,11 +16,7 @@ const LogoImg = styled.img`
 display:inline-block; 
 width: 102px; height: auto;
 `;
-// const LogoTxt = styled.div`
-//   display:inline-block; vertical-align:top; margin-left:8px;
-//   span{font-size:10px; color:#111; opacity:.4; font-weight:300;}
-//   h1{font-size:18px; line-height:1.2; font-weight:300;}
-// `
+
 const IconWrap = styled.div`
   font-size:0; display:inline-block; vertical-align:top ;height:30px;
   span{ 
