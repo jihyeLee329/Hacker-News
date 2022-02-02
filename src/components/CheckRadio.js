@@ -17,13 +17,18 @@ const ModeChgBtn = styled.button`
   position:absolute; right:20px;
 `;
 
-export default function CheckRadio ({checked, changeChk, onZoomToggle, onToggle}){
+export default function CheckRadio ({checked, changeChk, onZoomToggle, onToggle, listName}){
 
   return <CheckRadioBlick>
     <input onChange={changeChk} checked={!checked} id="new" type="radio" name="list"/>
     <label htmlFor="new">NEW</label>
+    
+    {listName === 'jobs' ? null :
+    <>
     <input onChange={changeChk} checked={checked} id="top" type="radio" name="list" />
     <label htmlFor="top" >TOP</label>
+    </>}
+    
     <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
       {onToggle ? <img src="/img/ic_small_mode.svg" alt="작게보기"/> : <img src="/img/ic_zoom_mode.svg" alt="크게보기"/>}
     </ModeChgBtn>
