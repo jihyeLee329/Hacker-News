@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getTopStory } from "../../API/HNApi";
+import { getData } from "../../API/HNApi";
 import styled from "styled-components";
 import "swiper/css";
 
@@ -66,10 +66,9 @@ const UserInfo = styled.div`
 export const TopItem = ({ topStoryId, index, onDimmed }) => {
   const [top, setTop] = useState({});
   useEffect(() => {
-    getTopStory(topStoryId).then((data) => data && data.url && setTop(data));
-    console.log(top)
+    getData(topStoryId).then((data) => data && data.url && setTop(data));
   }, []);
-
+  console.log(top);
   //userId 클릭했을 때 
   // function ClickedUserID (){
   //  console.log(top.id)

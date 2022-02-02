@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getTopStoryIds } from "../../API/HNApi";
 import { TopItem } from "./TopItem";
 import styled from "styled-components";
 
