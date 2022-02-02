@@ -12,10 +12,9 @@ function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}
     getJobsIds().then((data) => setJobsIds(data));
   },[]);
 
-  
   return(
     <>
-    <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+    <CheckRadio checked={!checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
     {jobsIds.slice(0,10).map((id,index)=>(
       onToggle ? 
         <LookZoom id={id} key={id} index={id} listName={listName} /> :

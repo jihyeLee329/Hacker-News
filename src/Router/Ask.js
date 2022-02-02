@@ -11,7 +11,6 @@ function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}
     setListName("ask");
     getAskIds().then((data) => setAskIds(data));
   },[]);
-
   
   return(
     <>
