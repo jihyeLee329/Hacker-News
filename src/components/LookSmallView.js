@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react'
-import {getAsk} from '../API/HNApi'
-import {Link} from 'react-router-dom'
+import {getAsk, getJobs, getShow, getTopStory} from '../API/HNApi'
 import styled from 'styled-components';
 
 const List = styled.div`
- & +& {margin-top:12px;}
- width:calc(100vw - 40px); 
- margin:0 auto;
+& +& {margin-top:12px;}
+width:calc(100vw - 40px); 
+margin:0 auto;
 span, .userId{ font-size:12px; line-height:16px;}
 box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 border-radius: 16px;
@@ -48,8 +47,21 @@ function LookSmallView({id, index, listName}) {
     const [time, setTime] = useState(0);
     const [idUrl ,setIdUrl] = useState("");
     useEffect(()=>{
-      getAsk(id).then((data) => data && setListId(data));
-      setIdUrl(`https://news.ycombinator.com/item?id=${id}`)
+      switch(listName){
+        case 'ask' : 
+          getAsk(id).then((data) => data && setListId(data));
+          break;
+        case 'top' :
+          getTopStory(id).then((data) => data && data.url && setListId(data));
+          break;
+        case 'show':
+          getShow(id).then((data) => data && data.url && setListId(data));
+          break;
+        case 'jobs' :
+          getJobs(id).then((data) => data && data.url && setListId(data));
+          break;
+        default :return  setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+      } 
       setTime(timeForToday);
     },[listId]);
 
@@ -71,12 +83,8 @@ function LookSmallView({id, index, listName}) {
           if (betweenTimeDay < 365) {
               return `${betweenTimeDay} days ago`;
           }
-          
-         
     }
     
-
-
   return (
     <List>
       <a href={idUrl}>

@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react'
-import {getAsk} from '../API/HNApi'
+import {getAsk, getTopStory, getShow, getJobs} from '../API/HNApi'
 import styled from 'styled-components';
-import {Link} from 'react-router-dom'
 
 const List = styled.div`
- & +& {margin-top:12px;}
- width:calc(100vw - 40px); 
- margin:0 auto;
+& +& {margin-top:12px;}
+width:calc(100vw - 40px); 
+margin:0 auto;
 box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 border-radius: 16px;
 padding:16px 16px 12px; background:#fff;
@@ -34,10 +33,21 @@ padding:16px 16px 12px; background:#fff;
 function LookZoom({id, listName}) {
     const [listId, setListId] = useState({});
     useEffect(() => {
-      if(listName === 'ask'){
-        getAsk(id).then((data) => data && setListId(data));
-        setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
-      }
+      switch(listName){
+        case 'ask' : 
+          getAsk(id).then((data) => data && setListId(data));
+          break;
+        case 'top' :
+          getTopStory(id).then((data) => data && data.url && setListId(data));
+          break;
+        case 'show':
+          getShow(id).then((data) => data && data.url && setListId(data));
+          break;
+        case 'jobs' :
+          getJobs(id).then((data) => data && setListId(data));
+          break;
+        default :return  setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+      } 
     }, []);
     const [idUrl ,setIdUrl] = useState("");
 
