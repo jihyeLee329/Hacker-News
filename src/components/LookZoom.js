@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
-import {getAsk, getTopStory, getShow, getJobs} from '../API/HNApi'
+import {getData} from '../API/HNApi'
 import styled from 'styled-components';
+import useIsMount from "./useIsMount";
 
 const List = styled.div`
 & +& {margin-top:12px;}
@@ -8,14 +9,14 @@ width:calc(100vw - 40px);
 margin:0 auto;
 box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 border-radius: 16px;
-padding:16px 16px 12px; background:#fff;
+padding:16px 16px 0; background:#fff;
   .list_title{
     font-size:18px; line-height:24px;
     padding-bottom:12px; 
   }
   >div:not(.list_title) {
     border-top: 1px solid #F0F0F6;
-    padding-top:8px;display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
+    padding-top:8px; padding-bottom:12px; display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
   .userId{color:#767676; line-height:inherit; font-size:inherit; width:35%;
     &:after{content:url(/img/ic_arrow.svg); display:inline-block; vertical-align:top;}
   }
@@ -33,24 +34,16 @@ padding:16px 16px 12px; background:#fff;
 
 function LookZoom({id, listName}) {
     const [listId, setListId] = useState({});
-    useEffect(() => {
-      switch(listName){
-        case 'ask' : 
-          getAsk(id).then((data) => data && setListId(data));
-          break;
-        case 'top' :
-          getTopStory(id).then((data) => data && data.url && setListId(data));
-          break;
-        case 'show':
-          getShow(id).then((data) => data && data.url && setListId(data));
-          break;
-        case 'jobs' :
-          getJobs(id).then((data) => data && setListId(data));
-          break;
-        default :return  setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
-      } 
-    }, [listName]);
     const [idUrl ,setIdUrl] = useState("");
+    const isMount = useIsMount();
+
+    useEffect(() => {
+      if (isMount.current) {
+        getData(id).then((data) => data && setListId(data));
+        setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+      }
+    }, [isMount]);
+
 
 
   return (

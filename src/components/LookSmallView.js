@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
-import {getAsk, getJobs, getShow, getTopStory} from '../API/HNApi'
+import {getData} from '../API/HNApi'
 import styled from 'styled-components';
+import useIsMount from "./useIsMount";
 
 const List = styled.div`
 & +& {margin-top:12px;}
@@ -9,7 +10,7 @@ margin:0 auto;
 span, .userId{ font-size:12px; line-height:16px;}
 box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 border-radius: 16px;
-padding:16px 16px 12px; background:#fff;
+padding:16px 16px 0; background:#fff;
   .list_top{position:relative;}
   .list_rank{
     font-size:20px; line-height:22px; color:#FF6600; margin-right:4px; 
@@ -24,8 +25,8 @@ padding:16px 16px 12px; background:#fff;
     padding-bottom:12px; 
     & + div{border-top: 1px solid F0F0F6;}
   }
-  >div:not(.list_top) {display:flex;justify-content:space-between; padding-top:8px;}
-  .userId{color:#767676; width:35%;
+  >div:not(.list_top) {display:flex;justify-content:space-between; padding-top:8px;padding-bottom:12px; }
+  .userId{color:#767676; width:45%;
     &:after{content:url(/img/ic_arrow.svg); display:inline-block; vertical-align:top;}
   }
   .userId + a {width:74.5%;text-align:right;}
@@ -42,47 +43,35 @@ padding:16px 16px 12px; background:#fff;
   `;
 
 function LookSmallView({id, index, listName}) {
-  
     const [listId, setListId] = useState({});
     const [time, setTime] = useState(0);
     const [idUrl ,setIdUrl] = useState("");
-    useEffect(()=>{
-      switch(listName){
-        case 'ask' : 
-          getAsk(id).then((data) => data && setListId(data));
-          break;
-        case 'top' :
-          getTopStory(id).then((data) => data && data.url && setListId(data));
-          break;
-        case 'show':
-          getShow(id).then((data) => data && data.url && setListId(data));
-          break;
-        case 'jobs' :
-          getJobs(id).then((data) => data && data.url && setListId(data));
-          break;
-        default :return  setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
-      } 
-      setTime(timeForToday);
-    },[listId]);
+    const isMount = useIsMount();
 
+    useEffect(()=>{
+      if (isMount.current) {
+        getData(id).then((data) => data && setListId(data));
+        setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+        setTime(timeForToday);
+      }
+    },[isMount, listId.time]);
+    //시간 구하는 함수 
     function timeForToday(){
       const pstTime = listId.time*1000;
-          const todayTime = new Date().getTime();
-          const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
-          if (betweenTime < 1) return '방금전';
-          if (betweenTime < 60) {
-              return `${betweenTime} minutes ago`;
-          }
-    
-          const betweenTimeHour = Math.floor(betweenTime / 60);
-          if (betweenTimeHour < 24) {
-              return `${betweenTimeHour} hours ago`;
-          }
-    
-          const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-          if (betweenTimeDay < 365) {
-              return `${betweenTimeDay} days ago`;
-          }
+      const todayTime = new Date().getTime();
+      const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
+      if (betweenTime < 1) return '방금전';
+      if (betweenTime < 60) {
+          return `${betweenTime} minutes ago`;
+      }
+      const betweenTimeHour = Math.floor(betweenTime / 60);
+      if (betweenTimeHour < 24) {
+          return `${betweenTimeHour} hours ago`;
+      }
+      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+      if (betweenTimeDay < 365) {
+          return `${betweenTimeDay} days ago`;
+      }
     }
     
   return (
