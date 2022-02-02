@@ -45,9 +45,13 @@ padding:16px 16px 12px; background:#fff;
 function LookSmallView({id, index, listName}) {
   
     const [listId, setListId] = useState({});
-    useEffect(() => {
-        getAsk(id).then((data) => data && setListId(data));
-    }, []);
+    const [time, setTime] = useState(0);
+    const [idUrl ,setIdUrl] = useState("");
+    useEffect(()=>{
+      getAsk(id).then((data) => data && setListId(data));
+      setIdUrl(`https://news.ycombinator.com/item?id=${id}`)
+      setTime(timeForToday);
+    },[listId]);
 
     function timeForToday(){
       const pstTime = listId.time*1000;
@@ -67,19 +71,12 @@ function LookSmallView({id, index, listName}) {
           if (betweenTimeDay < 365) {
               return `${betweenTimeDay} days ago`;
           }
-    
-          return `${Math.floor(betweenTimeDay / 365)} years ago`;
+          
+         
     }
     
-    const [time, setTime] = useState(0);
-    useEffect(()=>{
-      setTime(timeForToday);
-    },[]);
 
-    const [idUrl ,setIdUrl] = useState("");
-    useEffect(()=>{
-     setIdUrl(`https://news.ycombinator.com/item?id=${id}`)
-    },[]) 
+
   return (
     <List>
       <a href={idUrl}>

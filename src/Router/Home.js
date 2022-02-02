@@ -15,9 +15,9 @@ export default function Home({onDimmed}) {
 
   return (
     <>
-      <TopList onDimmed={onDimmed} topStoryIds={topStoryIds}/>
+      <TopList onDimmed={onDimmed} topStoryIds={topStoryIds} />
       <CheckRadio/>
-      <LookZoom />
+      <LookZoom id={topStoryIds}/>
     </>
   );
 }

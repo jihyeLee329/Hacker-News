@@ -64,7 +64,6 @@ const UserInfo = styled.div`
 
 `;
 export const TopItem = ({ topStoryId, index, onDimmed }) => {
-  const [userInfo,setUserInfo]= useState({});
   const [top, setTop] = useState({});
   useEffect(() => {
     getTopStory(topStoryId).then((data) => data && data.url && setTop(data));
@@ -96,7 +95,7 @@ export const TopItem = ({ topStoryId, index, onDimmed }) => {
           </div>
         </TopItemCard>
       </TopItemWrap>
-      <UserInfo></UserInfo>
+      
     </>
   ) : null;
 };

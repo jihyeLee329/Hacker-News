@@ -19,6 +19,21 @@ function App() {
     console.log(dimmed);
   }
 
+  //사용자 정보 
+  const [user, setUser] = useState({});
+
+  //체크여부
+  const [checked ,setChecked] = useState(true);
+  function changeChk (){
+    setChecked(!checked)
+  }
+
+  //look 버튼 
+  const [onToggle, setOnToggle] = useState(true);
+  function onZoomToggle(){
+    setOnToggle(!onToggle);
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -26,10 +41,10 @@ function App() {
         <Header />
 
         <Route path="/article">
-          <Article />
+          <Article checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
         <Route path="/ask">
-          <Ask />
+          <Ask checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle}/>
         </Route>
         <Route path="/show">
           <Show />

@@ -11,16 +11,16 @@ const CheckRadioBlick = styled.div`
   }
 `
 
-export default function CheckRadio (){
-  const [checked ,setChecked] = useState(true);
-  function changeChk (){
-    setChecked(!checked)
+export default function CheckRadio ({checked, changeChk, onZoomToggle,onToggle}){
+
+  function onZoomToggle(){
+
   }
   return <CheckRadioBlick>
     <input onChange={changeChk} checked={!checked} id="new" type="radio" name="list"/>
     <label htmlFor="new">NEW</label>
     <input onChange={changeChk} checked={checked} id="top" type="radio" name="list" />
     <label htmlFor="top" >TOP</label>
-    
+    <button onToggle={onZoomToggle}>{onToggle ? '변해랏' : '변했다!! '}</button>
       </CheckRadioBlick>
 }
