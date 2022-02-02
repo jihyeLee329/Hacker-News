@@ -68,7 +68,6 @@ export const TopItem = ({ topStoryId, index, onDimmed }) => {
   useEffect(() => {
     getData(topStoryId).then((data) => data && data.url && setTop(data));
   }, []);
-  console.log(top);
   //userId 클릭했을 때 
   // function ClickedUserID (){
   //  console.log(top.id)
