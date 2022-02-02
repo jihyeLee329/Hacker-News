@@ -44,7 +44,7 @@ function App() {
           <Article checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
         <Route path="/ask">
-          <Ask checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle}/>
+          <Ask checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
         <Route path="/show">
           <Show />

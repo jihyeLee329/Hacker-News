@@ -36,14 +36,11 @@ function LookZoom({id, listName}) {
     useEffect(() => {
       if(listName === 'ask'){
         getAsk(id).then((data) => data && setListId(data));
+        setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
       }
     }, []);
     const [idUrl ,setIdUrl] = useState("");
-   useEffect(()=>{
-     if(listName ==='ask'){
-      setIdUrl(`https://news.ycombinator.com/item?id=${id}`)
-     }
-   },[]) 
+
 
   return (
     <List>

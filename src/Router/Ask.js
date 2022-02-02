@@ -17,8 +17,9 @@ function Ask({checked, changeChk, onZoomToggle, onToggle}){
     <>
     <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
     {askIds.slice(0,10).map((id,index)=>(
-      // <LookZoom id={id} key={id} index={id} listName={listName} />
-      <LookSmallView  id={id} key={id} index={index} listName={listName}  />
+      onToggle ? 
+        <LookZoom id={id} key={id} index={id} listName={listName} /> :
+        <LookSmallView  id={id} key={id} index={index} listName={listName}/>
     ))}
     </>
   )
