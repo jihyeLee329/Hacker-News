@@ -12,9 +12,10 @@ padding:16px 16px 12px; background:#fff;
   .list_title{
     font-size:18px; line-height:24px;
     padding-bottom:12px; 
-    border-bottom: 1px solid #F0F0F6;
   }
-  >div {padding-top:8px;display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
+  >div:not(.list_title) {
+    border-top: 1px solid #F0F0F6;
+    padding-top:8px;display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
   .userId{color:#767676; line-height:inherit; font-size:inherit; width:35%;
     &:after{content:url(/img/ic_arrow.svg); display:inline-block; vertical-align:top;}
   }
@@ -48,22 +49,24 @@ function LookZoom({id, listName}) {
           break;
         default :return  setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
       } 
-    }, []);
+    }, [listName]);
     const [idUrl ,setIdUrl] = useState("");
 
 
   return (
     <List>
       <div className='list_title'><a href={idUrl} target="_blank">{listId.title}</a></div>
+      {listName === 'jobs' ? null :
       <div>
         <p className='userId'>{listId.by}</p>
-        <div className='listInfo'>
+         <div className='listInfo'>
           <a href={idUrl} target="_blank">
             <span className='listPoint'>{listId.score}</span>
             <span className='listComments'>{listId.descendants? listId.descendants : 0}</span>
           </a>
         </div>
       </div>
+       }
     </List>
   ) 
 }

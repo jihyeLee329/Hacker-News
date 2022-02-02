@@ -22,7 +22,7 @@ padding:16px 16px 12px; background:#fff;
   .list_title{
     font-size:14px; line-height:20px;
     padding-bottom:12px; 
-    border-bottom: 1px solid #F0F0F6;
+    & + div{border-top: 1px solid F0F0F6;}
   }
   >div:not(.list_top) {display:flex;justify-content:space-between; padding-top:8px;}
   .userId{color:#767676; width:35%;
@@ -95,15 +95,17 @@ function LookSmallView({id, index, listName}) {
         </div>
       </a>
       <div className='list_title'><a href={idUrl}>{listId.title}</a></div>
-      <div>
-        <p className='userId'>{listId.by}</p>
-        <a href={idUrl}>
-          <div className='listInfo'>
-            <span className='listPoint'>{listId.score}</span>
-            <span className='listComments'>{listId.descendants? listId.descendants : 0}</span>
-          </div>
-        </a>
-      </div>
+      {listName === 'jobs' ? null :
+        <div>
+          <p className='userId'>{listId.by}</p>
+          <a href={idUrl}>
+            <div className='listInfo'>
+              <span className='listPoint'>{listId.score}</span>
+              <span className='listComments'>{listId.descendants? listId.descendants : 0}</span>
+            </div>
+          </a>
+        </div>
+      }
     </List>
   ) 
 }
