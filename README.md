@@ -1,6 +1,8 @@
 # Hacker News 사이트를 리뉴얼 한 프로젝트
 
-[CodeSandBox 주소](https://codesandbox.io/s/github/jihyeLee329/Hacker-News/tree/main)
+- width:1050px 이하로 제작되었습니다. 모바일용으로 확인 부탁드립니다.
+  [CodeSandBox 주소](https://codesandbox.io/s/github/jihyeLee329/Hacker-News/tree/main)
+
 [CodeSandBox Window](https://bw6fg.csb.app/)
 
 ### 해야 할 기능 목록
@@ -13,3 +15,4 @@ detail 의 comments
 다크모드 코딩
 about 페이지 코딩
 프로필 페이지 코딩
+최종 : 리팩토링 & 최적화
