@@ -84,7 +84,7 @@ function LookSmallView({id, index, listName}) {
     <List>
       <a href={idUrl}>
         <div className="list_top">
-          <span className="list_rank">0{index + 1}</span>
+          <span className="list_rank">{index < 9 ? `0${index + 1}` : index +1}</span>
           <span className='time'>{time}</span>
           <span className='list_link'>github.com<img src="/img/ic_link_s.png" alt="link"/></span>
         </div>
