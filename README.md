@@ -1,9 +1,11 @@
 # Hacker News 사이트를 리뉴얼 한 프로젝트
 
-** width:1050px 이하로 제작되었습니다. 모바일용으로 확인 부탁드립니다. **
+**width:1050px 이하로 제작되었습니다. 모바일용으로 확인 부탁드립니다.**
 
 [CodeSandBox 주소](https://codesandbox.io/s/github/jihyeLee329/Hacker-News/tree/main) <br>
 [CodeSandBox Window](https://bw6fg.csb.app/) <br>
+
+---
 
 ### 해야 할 기능 목록
 
