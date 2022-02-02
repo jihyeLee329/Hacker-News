@@ -5,10 +5,11 @@ import LookZoom from '../components/LookZoom';
 import { getTopStoryIds } from '../API/HNApi'
 
 //---------- 메인 컴포넌트  ------------- //
-export default function Home({onDimmed}) {
+export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onToggle, listName, setListName}) {
 
   const [topStoryIds, setTopStoryIds] = useState([]);
   useEffect(() => {
+    setListName('top');
     getTopStoryIds().then((data) => setTopStoryIds(data));
   }, []);
 
@@ -16,8 +17,8 @@ export default function Home({onDimmed}) {
   return (
     <>
       <TopList onDimmed={onDimmed} topStoryIds={topStoryIds} />
-      <CheckRadio/>
-      <LookZoom id={topStoryIds}/>
+      <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+      <LookZoom id={topStoryIds} listName={listName}/>
     </>
   );
 }

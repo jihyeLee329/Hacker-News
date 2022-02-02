@@ -5,10 +5,10 @@ import LookSmallView from '../components/LookSmallView';
 import CheckRadio from '../components/CheckRadio'
 // import {Link, Route} from 'react-router-dom'
 
-function Ask({checked, changeChk, onZoomToggle, onToggle}){
-  const [listName, setListName] = useState('ask');
+function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}){
   const [askIds, setAskIds] = useState([]);
   useEffect(()=>{
+    setListName("ask");
     getAskIds().then((data) => setAskIds(data));
   },[]);
 

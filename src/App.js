@@ -1,7 +1,7 @@
 //css
 import "./css/common.css";
 import Header from "./components/Header";
-import { HashRouter as Router, Route} from "react-router-dom";
+import { HashRouter as Router, Route ,withRouter} from "react-router-dom";
 import Home from "./Router/Home";
 import Article from "./Router/Article";
 import Ask from "./Router/Ask";
@@ -33,7 +33,9 @@ function App() {
   function onZoomToggle(){
     setOnToggle(!onToggle);
   }
-
+  //listName 내가 어떤 페이지인지
+  const [listName, setListName] = useState('');
+  
   return (
     <>
       <div className="wrapper">
@@ -41,19 +43,19 @@ function App() {
         <Header />
 
         <Route path="/article">
-          <Article checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+          <Article listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
         <Route path="/ask">
-          <Ask checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+          <Ask  listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
         <Route path="/show">
-          <Show />
+          <Show listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} />
         </Route>
         <Route path="/jobs">
-          <Jobs />
+          <Jobs listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
         <Route path="/" exact>
-          <Home onDimmed={onDimmed} />
+          <Home listName={listName} setListName={setListName} onDimmed={onDimmed} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
         </Route>
       </div>
       {/* <전체>
