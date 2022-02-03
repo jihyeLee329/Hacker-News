@@ -1,7 +1,7 @@
 //css
 import "./css/common.css";
 import Header from "./components/Header";
-import { HashRouter as Router, Route ,withRouter} from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import Home from "./Router/Home";
 import Article from "./Router/Article";
 import Ask from "./Router/Ask";
@@ -19,23 +19,23 @@ function App() {
     console.log(dimmed);
   }
 
-  //사용자 정보 
+  //사용자 정보
   const [user, setUser] = useState({});
 
   //체크여부
-  const [checked ,setChecked] = useState(true);
-  function changeChk (){
-    setChecked(!checked)
+  const [checked, setChecked] = useState(true);
+  function changeChk() {
+    setChecked(!checked);
   }
 
-  //look 버튼 
+  //look 버튼
   const [onToggle, setOnToggle] = useState(true);
-  function onZoomToggle(){
+  function onZoomToggle() {
     setOnToggle(!onToggle);
   }
   //listName 내가 어떤 페이지인지
-  const [listName, setListName] = useState('');
-  
+  const [listName, setListName] = useState("");
+
   return (
     <>
       <div className="wrapper">
@@ -43,19 +43,55 @@ function App() {
         <Header />
 
         <Route path="/article">
-          <Article listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+          <Article
+            listName={listName}
+            setListName={setListName}
+            checked={checked}
+            changeChk={changeChk}
+            onZoomToggle={onZoomToggle}
+            onToggle={onToggle}
+          />
         </Route>
         <Route path="/ask">
-          <Ask  listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+          <Ask
+            listName={listName}
+            setListName={setListName}
+            checked={checked}
+            changeChk={changeChk}
+            onZoomToggle={onZoomToggle}
+            onToggle={onToggle}
+          />
         </Route>
         <Route path="/show">
-          <Show listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} />
+          <Show
+            listName={listName}
+            setListName={setListName}
+            checked={checked}
+            changeChk={changeChk}
+            onZoomToggle={onZoomToggle}
+            onToggle={onToggle}
+          />
         </Route>
         <Route path="/jobs">
-          <Jobs listName={listName} setListName={setListName} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+          <Jobs
+            listName={listName}
+            setListName={setListName}
+            checked={checked}
+            changeChk={changeChk}
+            onZoomToggle={onZoomToggle}
+            onToggle={onToggle}
+          />
         </Route>
         <Route path="/" exact>
-          <Home listName={listName} setListName={setListName} onDimmed={onDimmed} checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+          <Home
+            listName={listName}
+            setListName={setListName}
+            onDimmed={onDimmed}
+            checked={checked}
+            changeChk={changeChk}
+            onZoomToggle={onZoomToggle}
+            onToggle={onToggle}
+          />
         </Route>
       </div>
       {/* <전체>
