@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react'
-import {getData} from '../API/HNApi'
-import styled from 'styled-components';
+import { useState, useEffect } from "react";
+import { getData } from "../API/HNApi";
+import styled from "styled-components";
 import useIsMount from "./useIsMount";
 
 const List = styled.div`
@@ -32,36 +32,61 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookZoom({id, listName}) {
-    const [listId, setListId] = useState({});
-    const [idUrl ,setIdUrl] = useState("");
-    const isMount = useIsMount();
+function LookZoom({ id, listName }) {
+  const [listId, setListId] = useState({});
+  const [time, setTime] = useState(0);
+  const [idUrl, setIdUrl] = useState("");
 
-    useEffect(() => {
-      if (isMount.current) {
-        getData(id).then((data) => data && setListId(data));
-        setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
-      }
-    }, [isMount]);
-
-
+  useEffect(() => {
+    getData(id).then((data) => data && setListId(data));
+    setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+    setTime(timeForToday);
+    return () => {
+      setListId({});
+      setIdUrl("");
+    };
+  }, []);
+  //시간 구하는 함수
+  function timeForToday() {
+    const pstTime = listId.time * 1000;
+    const todayTime = new Date().getTime();
+    const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
+    if (betweenTime < 1) return "방금전";
+    if (betweenTime < 60) {
+      return `${betweenTime} minutes ago`;
+    }
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+      return `${betweenTimeHour} hours ago`;
+    }
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+      return `${betweenTimeDay} days ago`;
+    }
+  }
 
   return (
     <List>
-      <div className='list_title'><a href={idUrl} target="_blank">{listId.title}</a></div>
-      {listName === 'jobs' ? null :
-      <div>
-        <p className='userId'>{listId.by}</p>
-         <div className='listInfo'>
-          <a href={idUrl} target="_blank">
-            <span className='listPoint'>{listId.score}</span>
-            <span className='listComments'>{listId.descendants? listId.descendants : 0}</span>
-          </a>
-        </div>
+      <div className="list_title">
+        <a href={idUrl} target="_blank" rel="noreferrer">
+          {listId.title}
+        </a>
       </div>
-       }
+      {listName === "jobs" ? null : (
+        <div>
+          <p className="userId">{listId.by}</p>
+          <div className="listInfo">
+            <a href={idUrl} target="_blank" rel="noreferrer">
+              <span className="listPoint">{listId.score}</span>
+              <span className="listComments">
+                {listId.descendants ? listId.descendants : 0}
+              </span>
+            </a>
+          </div>
+        </div>
+      )}
     </List>
-  ) 
+  );
 }
 
 export default LookZoom;
