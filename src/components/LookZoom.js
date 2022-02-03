@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getData } from "../API/HNApi";
 import styled from "styled-components";
-import useIsMount from "./useIsMount";
 
 const List = styled.div`
 & +& {margin-top:12px;}
@@ -40,30 +39,33 @@ function LookZoom({ id, listName }) {
   useEffect(() => {
     getData(id).then((data) => data && setListId(data));
     setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
-    setTime(timeForToday);
     return () => {
       setListId({});
       setIdUrl("");
     };
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    const timeForToday = () => {
+      const pstTime = listId.time * 1000;
+      const todayTime = new Date().getTime();
+      const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
+      if (betweenTime < 1) return "방금전";
+      if (betweenTime < 60) {
+        return `${betweenTime} minutes ago`;
+      }
+      const betweenTimeHour = Math.floor(betweenTime / 60);
+      if (betweenTimeHour < 24) {
+        return `${betweenTimeHour} hours ago`;
+      }
+      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+      if (betweenTimeDay < 365) {
+        return `${betweenTimeDay} days ago`;
+      }
+    };
+    setTime(timeForToday);
+  }, [listId]);
   //시간 구하는 함수
-  function timeForToday() {
-    const pstTime = listId.time * 1000;
-    const todayTime = new Date().getTime();
-    const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
-    if (betweenTime < 1) return "방금전";
-    if (betweenTime < 60) {
-      return `${betweenTime} minutes ago`;
-    }
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-      return `${betweenTimeHour} hours ago`;
-    }
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-      return `${betweenTimeDay} days ago`;
-    }
-  }
 
   return (
     <List>

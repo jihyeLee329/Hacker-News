@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getData } from "../API/HNApi";
 import styled from "styled-components";
-import useIsMount from "./useIsMount";
 
 const List = styled.div`
 & +& {margin-top:12px;}
@@ -47,37 +46,39 @@ function LookSmallView({ id, index, listName }) {
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
 
+  //시간 구하는 함수
+
   useEffect(() => {
     getData(id).then((data) => data && setListId(data));
     setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
-    setTime(timeForToday);
-
     return () => {
       setListId({});
       setIdUrl("");
     };
-  }, []);
-  //시간 구하는 함수
-  function timeForToday() {
-    const pstTime = listId.time * 1000;
-    const todayTime = new Date().getTime();
-    const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
-    if (betweenTime < 1) return "방금전";
-    if (betweenTime < 60) {
-      return `${betweenTime} minutes ago`;
-    }
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-      return `${betweenTimeHour} hours ago`;
-    }
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-      return `${betweenTimeDay} days ago`;
-    }
-  }
+  }, [id]);
 
+  useEffect(() => {
+    const timeForToday = () => {
+      const pstTime = listId.time * 1000;
+      const todayTime = new Date().getTime();
+      const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
+      if (betweenTime < 1) return "방금전";
+      if (betweenTime < 60) {
+        return `${betweenTime} minutes ago`;
+      }
+      const betweenTimeHour = Math.floor(betweenTime / 60);
+      if (betweenTimeHour < 24) {
+        return `${betweenTimeHour} hours ago`;
+      }
+      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+      if (betweenTimeDay < 365) {
+        return `${betweenTimeDay} days ago`;
+      }
+    };
+    setTime(timeForToday);
+  }, [listId]);
   return (
-    <List>
+    <List >
       <a href={idUrl}>
         <div className="list_top">
           <span className="list_rank">
