@@ -35,10 +35,15 @@ function LookZoom({ id, listName }) {
   const [listId, setListId] = useState({});
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
+  const [detailUrl, setDetailUrl] = useState("");
 
   useEffect(() => {
     getData(id).then((data) => data && setListId(data));
-    setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+    if (listName === "jobs") {
+      setDetailUrl(`https://news.ycombinator.com/item?id=${id}`);
+    } else {
+      setDetailUrl(`/${listName}/detail/${id}`);
+    }
     return () => {
       setListId({});
       setIdUrl("");
@@ -70,7 +75,7 @@ function LookZoom({ id, listName }) {
   return (
     <List>
       <div className="list_title">
-        <a href={idUrl} target="_blank" rel="noreferrer">
+        <a href={detailUrl} rel="noreferrer">
           {listId.title}
         </a>
       </div>
@@ -78,7 +83,7 @@ function LookZoom({ id, listName }) {
         <div>
           <p className="userId">{listId.by}</p>
           <div className="listInfo">
-            <a href={idUrl} target="_blank" rel="noreferrer">
+            <a href={detailUrl} rel="noreferrer">
               <span className="listPoint">{listId.score}</span>
               <span className="listComments">
                 {listId.descendants ? listId.descendants : 0}

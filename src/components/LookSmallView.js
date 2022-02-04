@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link,Route } from 'react-router-dom';
+import { Link, Route } from "react-router-dom";
 import { getData } from "../API/HNApi";
-import Detail from '../Router/Detail'
+import Detail from "../Router/Detail";
 import styled from "styled-components";
 
 const List = styled.div`
@@ -48,24 +48,23 @@ function LookSmallView({ id, index, listName, props }) {
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
   const [detailUrl, setDetailUrl] = useState("");
-  console.log(props);
 
   //시간 구하는 함수
 
   useEffect(() => {
     getData(id).then((data) => data && setListId(data));
-    if(listName === 'jobs'){
-       setDetailUrl(`https://news.ycombinator.com/item?id=${id}`);
-    }else{
+    if (listName === "jobs") {
+      setDetailUrl(`https://news.ycombinator.com/item?id=${id}`);
+    } else {
       setDetailUrl(`/${listName}/detail/${id}`);
     }
-   
+
     return () => {
       setListId({});
       setDetailUrl("");
     };
   }, [id]);
-  console.log(detailUrl)
+
   useEffect(() => {
     const timeForToday = () => {
       const pstTime = listId.time * 1000;
@@ -87,7 +86,7 @@ function LookSmallView({ id, index, listName, props }) {
     setTime(timeForToday);
   }, [listId]);
   return (
-    <List >
+    <List>
       <a href={detailUrl}>
         <div className="list_top">
           <span className="list_rank">
@@ -117,7 +116,6 @@ function LookSmallView({ id, index, listName, props }) {
         </div>
       )}
     </List>
-    
   );
 }
 
