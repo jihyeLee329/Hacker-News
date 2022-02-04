@@ -52,11 +52,11 @@ function Header() {
         <IconWrap>
           <span
             className="mode"
-            style={{ backgroundImage: "url(img/ic_mode.svg)" }}
+            style={{ backgroundImage: "url(/img/ic_mode.svg)" }}
           ></span>
           <span
             className="info"
-            style={{ backgroundImage: "url(img/ic_info.svg)" }}
+            style={{ backgroundImage: "url(/img/ic_info.svg)" }}
           ></span>
         </IconWrap>
       </div>

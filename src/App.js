@@ -7,6 +7,7 @@ import Article from "./Router/Article";
 import Ask from "./Router/Ask";
 import Show from "./Router/Show";
 import Jobs from "./Router/Jobs";
+import Detail from './Router/Detail'
 
 import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
@@ -41,49 +42,41 @@ function App() {
       <div className="wrapper">
         <Dimmed dimmed={dimmed} />
         <Header />
-
-        <Route path="/article">
-          <Article
+        <Route path="/article/detail/:id" render={(props)=> <Detail {...props}/>}/>
+        <Route path="/article" exact render={()=> <Article
             listName={listName}
             setListName={setListName}
             checked={checked}
             changeChk={changeChk}
             onZoomToggle={onZoomToggle}
             onToggle={onToggle}
-          />
-        </Route>
-        <Route path="/ask">
-          <Ask
+          />} />
+        <Route path="/ask/detail/:id" render={(props)=> <Detail {...props}/>}/>
+        <Route path="/ask" exact render={()=><Ask listName={listName} 
+            setListName={setListName}
+            checked={checked}
+            changeChk={changeChk}
+            onZoomToggle={onZoomToggle}
+            onToggle={onToggle} />}/>
+        
+        <Route path="/show/detail/:id" render={(props)=> <Detail {...props}/>}/>
+        <Route path="/show" exact render={()=> <Show
             listName={listName}
             setListName={setListName}
             checked={checked}
             changeChk={changeChk}
             onZoomToggle={onZoomToggle}
             onToggle={onToggle}
-          />
-        </Route>
-        <Route path="/show">
-          <Show
+          />} />
+        <Route path="/jobs" exact render={()=> <Jobs
             listName={listName}
             setListName={setListName}
             checked={checked}
             changeChk={changeChk}
             onZoomToggle={onZoomToggle}
             onToggle={onToggle}
-          />
-        </Route>
-        <Route path="/jobs">
-          <Jobs
-            listName={listName}
-            setListName={setListName}
-            checked={checked}
-            changeChk={changeChk}
-            onZoomToggle={onZoomToggle}
-            onToggle={onToggle}
-          />
-        </Route>
-        <Route path="/" exact>
-          <Home
+          />} />
+        <Route path="/" exact render={()=> <Home
             listName={listName}
             setListName={setListName}
             onDimmed={onDimmed}
@@ -91,8 +84,7 @@ function App() {
             changeChk={changeChk}
             onZoomToggle={onZoomToggle}
             onToggle={onToggle}
-          />
-        </Route>
+          />} />
       </div>
       {/* <전체>
         <헤더></헤더>
