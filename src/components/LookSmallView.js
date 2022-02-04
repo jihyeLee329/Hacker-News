@@ -3,6 +3,7 @@ import { Link, Route } from "react-router-dom";
 import { getData } from "../API/HNApi";
 import Detail from "../Router/Detail";
 import styled from "styled-components";
+import { TimeForToday } from "./TimeForToday";
 
 const List = styled.div`
 & +& {margin-top:12px;}
@@ -58,33 +59,16 @@ function LookSmallView({ id, index, listName, props }) {
     } else {
       setDetailUrl(`/${listName}/detail/${id}`);
     }
-
     return () => {
       setListId({});
       setDetailUrl("");
     };
-  }, [id]);
+  }, [id, listName]);
 
   useEffect(() => {
-    const timeForToday = () => {
-      const pstTime = listId.time * 1000;
-      const todayTime = new Date().getTime();
-      const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
-      if (betweenTime < 1) return "방금전";
-      if (betweenTime < 60) {
-        return `${betweenTime} minutes ago`;
-      }
-      const betweenTimeHour = Math.floor(betweenTime / 60);
-      if (betweenTimeHour < 24) {
-        return `${betweenTimeHour} hours ago`;
-      }
-      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-      if (betweenTimeDay < 365) {
-        return `${betweenTimeDay} days ago`;
-      }
-    };
-    setTime(timeForToday);
-  }, [listId]);
+    setTime(listId.time);
+  }, [listId.time]);
+
   return (
     <List>
       <a href={detailUrl}>
@@ -92,7 +76,7 @@ function LookSmallView({ id, index, listName, props }) {
           <span className="list_rank">
             {index < 9 ? `0${index + 1}` : index + 1}
           </span>
-          <span className="time">{time}</span>
+          <span className="time">{TimeForToday(time)}</span>
           <span className="list_link">
             github.com
             <img src="/img/ic_link_s.png" alt="link" />

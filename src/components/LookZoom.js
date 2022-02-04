@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getData } from "../API/HNApi";
 import styled from "styled-components";
+import { TimeForToday } from "./TimeForToday";
 
 const List = styled.div`
 & +& {margin-top:12px;}
@@ -13,7 +14,7 @@ padding:16px 16px 0; background:#fff;
     font-size:18px; line-height:24px;
     padding-bottom:12px; 
   }
-  >div:not(.list_title) {
+  .user_wrap {
     border-top: 1px solid #F0F0F6;
     padding-top:8px; padding-bottom:12px; display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
   .userId{color:#767676; line-height:inherit; font-size:inherit; width:35%;
@@ -48,29 +49,11 @@ function LookZoom({ id, listName }) {
       setListId({});
       setIdUrl("");
     };
-  }, [id]);
+  }, [id, listName]);
 
   useEffect(() => {
-    const timeForToday = () => {
-      const pstTime = listId.time * 1000;
-      const todayTime = new Date().getTime();
-      const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
-      if (betweenTime < 1) return "방금전";
-      if (betweenTime < 60) {
-        return `${betweenTime} minutes ago`;
-      }
-      const betweenTimeHour = Math.floor(betweenTime / 60);
-      if (betweenTimeHour < 24) {
-        return `${betweenTimeHour} hours ago`;
-      }
-      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-      if (betweenTimeDay < 365) {
-        return `${betweenTimeDay} days ago`;
-      }
-    };
-    setTime(timeForToday);
-  }, [listId]);
-  //시간 구하는 함수
+    setTime(listId.time);
+  }, [listId.time]);
 
   return (
     <List>
@@ -80,7 +63,7 @@ function LookZoom({ id, listName }) {
         </a>
       </div>
       {listName === "jobs" ? null : (
-        <div>
+        <div className="user_wrap">
           <p className="userId">{listId.by}</p>
           <div className="listInfo">
             <a href={detailUrl} rel="noreferrer">
@@ -92,6 +75,7 @@ function LookZoom({ id, listName }) {
           </div>
         </div>
       )}
+      <div>{TimeForToday(time)}</div>
     </List>
   );
 }
