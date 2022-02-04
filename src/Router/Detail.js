@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Comments from "../components/Comments";
-
+import { TimeForToday } from "../components/TimeForToday";
 const DetailContent = styled.div`
   a,
   span {
@@ -14,6 +14,7 @@ const DetailContent = styled.div`
   align-items: flex-start;
   padding: 24px 20px 40px;
   background: #ffffff;
+  filter: drop-shadow(0px 3px 16px rgba(0, 0, 0, 0.08));
   border-radius: 0px 0px 24px 24px;
   .time {
     color: #ff6600;
@@ -61,6 +62,8 @@ const DetailContent = styled.div`
     color: #767676;
   }
   .content {
+    max-width: 100%;
+    word-break: break-word;
     padding: 29px 16px 0;
     line-height: 24px;
     border-top: 1px solid #f0f0f6;
@@ -68,6 +71,7 @@ const DetailContent = styled.div`
 `;
 const CommentsWrap = styled.div`
   padding: 0 20px;
+  box-shadow: 0px -2px 16px rgba(0, 0, 0, 0.08);
   border-radius: 24px 24px 0px 0px;
   margin-top: 8px;
   .commentsTop {
@@ -81,6 +85,9 @@ const CommentsWrap = styled.div`
       line-height: 16px;
     }
   }
+`;
+const CommentsList = styled.div`
+  border-radius: 24px 24px 0px 0px;
 `;
 
 const Detail = (props) => {
@@ -105,29 +112,12 @@ const Detail = (props) => {
 
   // console.log(kids);
   useEffect(() => {
-    const timeForToday = () => {
-      const pstTime = detail.time * 1000;
-      const todayTime = new Date().getTime();
-      const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
-      if (betweenTime < 1) return "방금전";
-      if (betweenTime < 60) {
-        return `${betweenTime} minutes ago`;
-      }
-      const betweenTimeHour = Math.floor(betweenTime / 60);
-      if (betweenTimeHour < 24) {
-        return `${betweenTimeHour} hours ago`;
-      }
-      const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-      if (betweenTimeDay < 365) {
-        return `${betweenTimeDay} days ago`;
-      }
-    };
-    setDetailTime(timeForToday);
+    setDetailTime(detail.time);
   }, [detail]);
   return (
     <>
       <DetailContent>
-        <p className="time">{detailTime}</p>
+        <p className="time">{TimeForToday(detailTime)}</p>
         <div className="title">{detail.title}</div>
         <div className="user_info">
           <div>
@@ -147,7 +137,9 @@ const Detail = (props) => {
           <label htmlFor="top">TOP</label>
           <span className="comments_length">{detail.descendants}</span>
         </div>
-        {kids && kids.map((kid, index) => <Comments kid={kid} key={index} />)}
+        <CommentsList>
+          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} />)}
+        </CommentsList>
       </CommentsWrap>
     </>
   );
