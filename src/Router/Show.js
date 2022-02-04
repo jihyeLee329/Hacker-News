@@ -3,26 +3,29 @@ import {getShowIds} from '../API/HNApi';
 import LookZoom from '../components/LookZoom';
 import LookSmallView from '../components/LookSmallView';
 import CheckRadio from '../components/CheckRadio'
+import {Route} from 'react-router-dom'
+import Detail from './Detail'
 // import {Link, Route} from 'react-router-dom'
 
-function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}){
+function Show({checked, changeChk, onZoomToggle, onToggle ,listName, setListName, ...props}){
   const [showIds, setShowIds] = useState([]);
+  const getProps = props;
   useEffect(()=>{
     setListName("show");
     getShowIds().then((data) => setShowIds(data));
   },[]);
-
   
   return(
     <>
     <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
     {showIds.slice(0,10).map((id,index)=>(
       onToggle ? 
-        <LookZoom id={id} key={id} index={id} listName={listName} /> :
-        <LookSmallView  id={id} key={id} index={index} listName={listName}/>
+        <LookZoom id={id} key={id} index={id} listName={listName} props={getProps}/> :
+        <LookSmallView  id={id} key={id} index={index} listName={listName} props={getProps}/>
     ))}
+     
     </>
   )
 
 }
-export default Ask;
+export default Show;

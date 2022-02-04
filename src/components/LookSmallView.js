@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link,Route } from 'react-router-dom';
 import { getData } from "../API/HNApi";
+import Detail from '../Router/Detail'
 import styled from "styled-components";
 
 const List = styled.div`
@@ -41,22 +43,29 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookSmallView({ id, index, listName }) {
+function LookSmallView({ id, index, listName, props }) {
   const [listId, setListId] = useState({});
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
+  const [detailUrl, setDetailUrl] = useState("");
+  console.log(props);
 
   //시간 구하는 함수
 
   useEffect(() => {
     getData(id).then((data) => data && setListId(data));
-    setIdUrl(`https://news.ycombinator.com/item?id=${id}`);
+    if(listName === 'jobs'){
+       setDetailUrl(`https://news.ycombinator.com/item?id=${id}`);
+    }else{
+      setDetailUrl(`/${listName}/detail/${id}`);
+    }
+   
     return () => {
       setListId({});
-      setIdUrl("");
+      setDetailUrl("");
     };
   }, [id]);
-
+  console.log(detailUrl)
   useEffect(() => {
     const timeForToday = () => {
       const pstTime = listId.time * 1000;
@@ -79,7 +88,7 @@ function LookSmallView({ id, index, listName }) {
   }, [listId]);
   return (
     <List >
-      <a href={idUrl}>
+      <a href={detailUrl}>
         <div className="list_top">
           <span className="list_rank">
             {index < 9 ? `0${index + 1}` : index + 1}
@@ -92,12 +101,12 @@ function LookSmallView({ id, index, listName }) {
         </div>
       </a>
       <div className="list_title">
-        <a href={idUrl}>{listId.title}</a>
+        <a href={detailUrl}>{listId.title}</a>
       </div>
       {listName === "jobs" ? null : (
         <div>
           <p className="userId">{listId.by}</p>
-          <a href={idUrl}>
+          <a href={detailUrl}>
             <div className="listInfo">
               <span className="listPoint">{listId.score}</span>
               <span className="listComments">
@@ -108,6 +117,7 @@ function LookSmallView({ id, index, listName }) {
         </div>
       )}
     </List>
+    
   );
 }
 
