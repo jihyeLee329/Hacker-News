@@ -39,7 +39,7 @@ const DetailContent = styled.div`
     margin-left: 10px;
   }
   .user:after {
-    content: url(/img/ic_arrow.svg);
+    content: url(${process.env.PUBLIC_URL +'/img/ic_arrow.svg'});
     display: inline-block;
     vertical-align: top;
     width: 16px;
@@ -61,6 +61,10 @@ const DetailContent = styled.div`
     line-height: 16px;
     color: #767676;
   }
+  .news_url{position:relative;
+    & > img{width:16px; vertical-align:top;}
+  }
+  
   .content {
     max-width: 100%;
     word-break: break-word;
@@ -68,6 +72,7 @@ const DetailContent = styled.div`
     line-height: 24px;
     border-top: 1px solid #f0f0f6;
   }
+  
 `;
 const CommentsWrap = styled.div`
   padding: 0 20px;
@@ -90,29 +95,35 @@ const CommentsList = styled.div`
   border-radius: 24px 24px 0px 0px;
 `;
 
-const Detail = (props) => {
+export function Detail(props){
   const match = props.match;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
   const [kids, setKids] = useState([]);
-  console.log(kids);
+  console.log(kids)
+
+  // console.log(detail);
   const getDetailData = async () => {
     const result = await axios
       .get(`https://hacker-news.firebaseio.com/v0/item/${match.params.id}.json`)
       .then(({ data }) => data);
     return result;
   };
+  
   useEffect(() => {
     getDetailData().then((data) => setDetail(data));
+    return ()=>{setDetail({})};
   }, []);
 
   useEffect(() => {
     setKids(detail.kids);
+    return ()=>{ setKids([])};
   }, [detail.kids]);
 
   // console.log(kids);
   useEffect(() => {
     setDetailTime(detail.time);
+    return ()=>{setDetailTime(0)}
   }, [detail]);
   return (
     <>
@@ -124,7 +135,9 @@ const Detail = (props) => {
             <span className="point">{detail.score} points</span>
             <span className="user">{detail.by}</span>
           </div>
-          <a href={detail.url}>{detail.url}</a>
+          {detail.url ? <a href={detail.url} className="news_url" target="_blank" rel="noreferrer">{detail.url} <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a> : 
+          <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a>}
+          
         </div>
         {detail.text && <div className="content">{detail.text}</div>}
       </DetailContent>
@@ -145,4 +158,3 @@ const Detail = (props) => {
   );
 };
 
-export default Detail;
