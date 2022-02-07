@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link, Route } from "react-router-dom";
-import { getData } from "../API/HNApi";
 import Detail from "../Router/Detail";
 import styled from "styled-components";
 import { TimeForToday } from "./TimeForToday";
@@ -44,7 +42,7 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookSmallView({ id, index, listName, props }) {
+function LookSmallView({ data, listName,index }) {
   const [listId, setListId] = useState({});
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
@@ -53,17 +51,17 @@ function LookSmallView({ id, index, listName, props }) {
   //시간 구하는 함수
 
   useEffect(() => {
-    getData(id).then((data) => data && setListId(data));
+    setListId(data);
     if (listName === "jobs") {
-      setDetailUrl(`https://news.ycombinator.com/item?id=${id}`);
+      setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
     } else {
-      setDetailUrl(`/${listName}/detail/${id}`);
+      setDetailUrl(`/${listName}/detail/${data.id}`);
     }
     return () => {
       setListId({});
       setDetailUrl("");
     };
-  }, [id, listName]);
+  }, [data, listName]);
 
   useEffect(() => {
     setTime(listId.time);

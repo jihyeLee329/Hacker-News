@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getData } from "../API/HNApi";
 import styled from "styled-components";
 import { TimeForToday } from "./TimeForToday";
 
@@ -32,24 +31,25 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookZoom({ id, listName }) {
-  const [listId, setListId] = useState({});
-  const [time, setTime] = useState(0);
-  const [idUrl, setIdUrl] = useState("");
-  const [detailUrl, setDetailUrl] = useState("");
-console.log(listId)
+function LookZoom({ data, listName, index }) {
+  const [listId, setListId] = useState({}); //각각 list data 
+  const [time, setTime] = useState(0); // 시간 계산
+  const [idUrl, setIdUrl] = useState(""); //각각 회원 정보 
+  const [detailUrl, setDetailUrl] = useState(""); //각각 list 의 url 
+
   useEffect(() => {
-    getData(id).then((data) => data && setListId(data));
+    console.log(listName);
+   setListId(data);
     if (listName === "jobs") {
-      setDetailUrl(`https://news.ycombinator.com/item?id=${id}`);
+      setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
     } else {
-      setDetailUrl(`/${listName}/detail/${id}`);
+      setDetailUrl(`/${listName}/detail/${data.id}`);
     }
     return () => {
       setListId({});
       setIdUrl("");
     };
-  }, [id, listName]);
+  }, [data, listName]);
 
   useEffect(() => {
     setTime(listId.time);
@@ -58,9 +58,13 @@ console.log(listId)
   return (
     <List>
       <div className="list_title">
-        <a href={detailUrl} rel="noreferrer">
+        {listName === 'jobs' ? 
+        <a href={detailUrl} rel="noreferrer" target="_blank">
           {listId.title}
-        </a>
+        </a>: <a href={detailUrl} rel="noreferrer">
+          {listId.title}
+        </a>}
+        
       </div>
       {listName === "jobs" ? null : (
         <div className="user_wrap">

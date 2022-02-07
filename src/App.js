@@ -37,6 +37,8 @@ function App() {
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
 
+  const [eachData, setEachData] = useState([]);
+
   return (
     <>
       <div className="wrapper">
@@ -85,6 +87,7 @@ function App() {
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
+       
             />
           )}
         />
