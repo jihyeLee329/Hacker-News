@@ -27,6 +27,7 @@ const Comment = styled.div`
   button {
     position: absolute;
     right: 20px;
+    outline:none; border:none; margin:0; padding:0;background:none;
   }
   .text {
     margin-top: 8px;
@@ -44,6 +45,7 @@ export default function Comments({ kid }) {
   }
   useEffect(() => {
     getData(kid).then((data) => data && setkidData(data));
+    return ()=>{setkidData([])}
   }, [kid]);
 
   return (
@@ -55,9 +57,9 @@ export default function Comments({ kid }) {
             <span className="time">{TimeForToday(kidData.time)}</span>
             <button value={toggleBtn} onClick={allView}>
               {toggleBtn ? (
-                <img src="img/comment_toggle_view.svg" alt="펼쳐보기" />
+                <img src= {process.env.PUBLIC_URL + "/img/comment_toggle_view.svg"} alt="펼쳐보기" />
               ) : (
-                <img src="img/comment_toggle_sm.svg" alt="줄여보기" />
+                <img src= {process.env.PUBLIC_URL + "/img/comment_toggle_sm.svg"} alt="줄여보기" />
               )}
             </button>
           </div>

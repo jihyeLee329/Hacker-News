@@ -24,11 +24,11 @@ padding:16px 16px 0; background:#fff;
     span{display:inline-block; vertical-align:top;}
     span:before {display:inline-block; vertical-align:top; margin-right:3px;}
     .listComments{color:#FF6600; margin-left:8px;
-      &:before {content:url(/img/ic_comment.svg);}
+      &:before {content:url(${process.env.PUBLIC_URL +'/img/ic_comment.svg'});}
       }
   }
   .listPoint{color:#505050;
-    &:before{content:url(/img/ic_point.svg);
+    &:before{content:url(${process.env.PUBLIC_URL +'/img/ic_point.svg'});
   }
   `;
 
@@ -37,7 +37,7 @@ function LookZoom({ id, listName }) {
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
   const [detailUrl, setDetailUrl] = useState("");
-
+console.log(listId)
   useEffect(() => {
     getData(id).then((data) => data && setListId(data));
     if (listName === "jobs") {

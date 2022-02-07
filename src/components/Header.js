@@ -46,17 +46,17 @@ function Header() {
       <div>
         <LogoWrap>
           <Link to="/">
-            <LogoImg src="img/ic_logo.svg" alt="logo" />
+            <LogoImg src={process.env.PUBLIC_URL + '/img/ic_logo.svg'} alt="logo" />
           </Link>
         </LogoWrap>
         <IconWrap>
           <span
             className="mode"
-            style={{ backgroundImage: "url(/img/ic_mode.svg)" }}
+            style={{ backgroundImage: "url("+ process.env.PUBLIC_URL + "/img/ic_mode.svg)" }}
           ></span>
           <span
             className="info"
-            style={{ backgroundImage: "url(/img/ic_info.svg)" }}
+            style={{ backgroundImage: "url("+ process.env.PUBLIC_URL + "/img/ic_info.svg)" }}
           ></span>
         </IconWrap>
       </div>

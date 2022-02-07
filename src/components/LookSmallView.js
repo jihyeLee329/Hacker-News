@@ -18,7 +18,7 @@ padding:16px 16px 0; background:#fff;
     font-size:20px; line-height:22px; color:#FF6600; margin-right:4px; 
   }
   .list_link{
-    position:absolute; right:0; color:#999;
+    position:absolute; right:0; bottom:0; color:#999;
     img{width:16px; vertical-align:top;}
   }
   .time{ color:#FF660080; margin: 0 10px;}
@@ -36,11 +36,11 @@ padding:16px 16px 0; background:#fff;
     >span{display:inline-block; vertical-align:top;}
     >span:before {display:inline-block; vertical-align:top; margin-right:3px;}
     .listComments{color:#FF6600; margin-left:8px;
-      &:before {content:url(/img/ic_comment.svg);}
+      &:before {content:url(${process.env.PUBLIC_URL +'/img/ic_comment.svg'});}
       }
   }
   .listPoint{color:#505050;
-    &:before{content:url(/img/ic_point.svg);
+    &:before{content:url(${process.env.PUBLIC_URL +'/img/ic_point.svg'});
   }
   `;
 
@@ -71,7 +71,7 @@ function LookSmallView({ id, index, listName, props }) {
 
   return (
     <List>
-      <a href={detailUrl}>
+      <a href={detailUrl} target="__blank">
         <div className="list_top">
           <span className="list_rank">
             {index < 9 ? `0${index + 1}` : index + 1}
@@ -79,17 +79,17 @@ function LookSmallView({ id, index, listName, props }) {
           <span className="time">{TimeForToday(time)}</span>
           <span className="list_link">
             github.com
-            <img src="/img/ic_link_s.png" alt="link" />
+            <img src={process.env.PUBLIC_URL + '/img/ic_link_s.png'} alt="link" />
           </span>
         </div>
       </a>
       <div className="list_title">
-        <a href={detailUrl}>{listId.title}</a>
+        <a href={detailUrl} target="__blank">{listId.title}</a>
       </div>
       {listName === "jobs" ? null : (
         <div>
           <p className="userId">{listId.by}</p>
-          <a href={detailUrl}>
+          <a href={detailUrl} target="__blank">
             <div className="listInfo">
               <span className="listPoint">{listId.score}</span>
               <span className="listComments">

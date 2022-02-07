@@ -5,10 +5,10 @@ const CheckRadioBlick = styled.div`
   padding:20px 20px 12px; 
   position:relative;
   input{width:0; height:0; visibility:hidden;}
-  input:checked + label {color:#FF6600; background-image:url(/img/ic_check.png);}
+  input:checked + label {color:#FF6600; background-image:url(${process.env.PUBLIC_URL + '/img/ic_check.png'});}
   label {font-size:14px; line-height:20px; color:#999; 
     padding-left:20px; background-repeat:no-repeat; background-position:left center; background-size:20px auto;
-    background-image:url(/img/ic_check.svg);  
+    background-image:url(${process.env.PUBLIC_URL +'/img/ic_check.svg'});  
   }
 `
 const ModeChgBtn = styled.button`
@@ -30,7 +30,8 @@ export default function CheckRadio ({checked, changeChk, onZoomToggle, onToggle,
     </>}
     
     <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
-      {onToggle ? <img src="/img/ic_small_mode.svg" alt="작게보기"/> : <img src="/img/ic_zoom_mode.svg" alt="크게보기"/>}
+      {onToggle ? <img src={process.env.PUBLIC_URL +'/img/ic_small_mode.svg'} alt="작게보기"/> :
+       <img src={process.env.PUBLIC_URL +"/img/ic_zoom_mode.svg"} alt="크게보기"/>}
     </ModeChgBtn>
     </CheckRadioBlick>
 }
