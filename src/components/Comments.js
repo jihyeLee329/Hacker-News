@@ -63,7 +63,7 @@ export default function Comments({ kid }) {
               )}
             </button>
           </div>
-          {toggleBtn ? null : <div className="text">{kidData.text}</div>}
+          {toggleBtn ? null : <div className="text" dangerouslySetInnerHTML={{ __html: kidData.text }}></div>}
         </>
       )}
     </Comment>

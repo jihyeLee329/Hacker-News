@@ -93,6 +93,7 @@ const CommentsWrap = styled.div`
 `;
 const CommentsList = styled.div`
   border-radius: 24px 24px 0px 0px;
+  padding-bottom:40px;
 `;
 
 export function Detail(props){
@@ -100,7 +101,6 @@ export function Detail(props){
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
   const [kids, setKids] = useState([]);
-  console.log(kids)
 
   // console.log(detail);
   const getDetailData = async () => {
@@ -125,6 +125,8 @@ export function Detail(props){
     setDetailTime(detail.time);
     return ()=>{setDetailTime(0)}
   }, [detail]);
+
+  const detailText = <div>detail.text</div>;
   return (
     <>
       <DetailContent>
@@ -139,7 +141,7 @@ export function Detail(props){
           <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a>}
           
         </div>
-        {detail.text && <div className="content">{detail.text}</div>}
+        {detail.text && <div className="content"  dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
       </DetailContent>
 
       <CommentsWrap>
