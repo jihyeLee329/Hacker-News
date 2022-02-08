@@ -9,6 +9,7 @@ import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const TopListWrap = styled.div`
+margin-bottom:16px;
   h1 {
     padding: 32px 22px 24px;
     font-size: 28px;
