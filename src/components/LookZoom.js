@@ -31,15 +31,16 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookZoom({ data, listName, index }) {
+function LookZoom({ data, listName, index, setUserId ,setUserChk}) {
   const [listId, setListId] = useState({}); //각각 list data 
   const [time, setTime] = useState(0); // 시간 계산
   const [idUrl, setIdUrl] = useState(""); //각각 회원 정보 
   const [detailUrl, setDetailUrl] = useState(""); //각각 list 의 url 
-
+ 
+  useEffect(()=>{
+    setListId(data);
+  },[data]);
   useEffect(() => {
-    console.log(listName);
-   setListId(data);
     if (listName === "jobs") {
       setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
     } else {
@@ -55,6 +56,13 @@ function LookZoom({ data, listName, index }) {
     setTime(listId.time);
   }, [listId.time]);
 
+  //회원 id 누르면 id 값 가져오기
+  function viewUserId(){
+    setUserId(listId.by);
+    setUserChk(true);
+  }
+
+
   return (
     <List>
       <div className="list_title">
@@ -68,7 +76,7 @@ function LookZoom({ data, listName, index }) {
       </div>
       {listName === "jobs" ? null : (
         <div className="user_wrap">
-          <p className="userId">{listId.by}</p>
+          <p className="userId" onClick={viewUserId}>{listId.by}</p>
           <div className="listInfo">
             <a href={detailUrl} rel="noreferrer">
               <span className="listPoint">{listId.score}</span>

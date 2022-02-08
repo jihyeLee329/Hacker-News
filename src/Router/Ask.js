@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-
 import {getAskIds, getData} from '../API/HNApi';
 import LookZoom from '../components/LookZoom';
 import LookSmallView from '../components/LookSmallView';
 import CheckRadio from '../components/CheckRadio'
-// import {Link, Route} from 'react-router-dom'
+import styled from 'styled-components'
 
-function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}){
+const Wrapper = styled.div`
+  padding-bottom:67px;
+`;
+function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName, setUserId, setUserChk}){
   const [askIds, setAskIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);
@@ -25,6 +27,7 @@ function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}
 
   useEffect(() => {
     setEachData(eachData.concat(listId));
+    return () => setEachData([]);
   }, [listId]);
 
   if(checked === false){
@@ -37,23 +40,24 @@ function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName}
     });
   }
   return (
-    <>
+    <Wrapper>
       <CheckRadio
         checked={checked}
         changeChk={changeChk}
         onZoomToggle={onZoomToggle}
         onToggle={onToggle}
+        listName={listName}
       />
       {eachData
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} />
+            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName}  />
+            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
           )
         )}
-    </>
+    </Wrapper>
   );
 
 }

@@ -1,5 +1,5 @@
 //css
-import "./css/common.css";
+import {GlobalStyle}  from './css/Common'
 import Header from "./components/Header";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Home from "./Router/Home";
@@ -8,9 +8,11 @@ import Ask from "./Router/Ask";
 import Show from "./Router/Show";
 import Jobs from "./Router/Jobs";
 import { Detail } from "./Router/Detail";
+import UserInfo from './components/UserInfo'
 
 import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
+
 
 function App() {
   //dimmed 효과
@@ -21,7 +23,10 @@ function App() {
   }
 
   //사용자 정보
-  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState('');
+  const [userChk, setUserChk] = useState(false);
+  console.log(userId);
+
 
   //체크여부
   const [checked, setChecked] = useState(true);
@@ -37,14 +42,13 @@ function App() {
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
 
-  const [eachData, setEachData] = useState([]);
-
   return (
     <>
+    <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
-        <Dimmed dimmed={dimmed} />
+        <Dimmed dimmed={dimmed} onClick={onDimmed}/>
         <Header />
-        <Route path="/article/detail/:id" component={Detail} />
+        <Route path="/article/detail/:id" render={() =>(<Detail setUserId={setUserId} setUserChk={setUserChk}/>)} />
         <Route
           path="/article"
           exact
@@ -56,10 +60,12 @@ function App() {
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
             />
           )}
         />
-        <Route path="/ask/detail/:id" component={Detail} />
+        <Route path="/ask/detail/:id" render={() =>(<Detail setUserId={setUserId} setUserChk={setUserChk}/>)} />
         <Route
           path="/ask"
           exact
@@ -71,11 +77,13 @@ function App() {
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
             />
           )}
         />
 
-        <Route path="/show/detail/:id" component={Detail} />
+        <Route path="/show/detail/:id" render={() =>(<Detail setUserId={setUserId} setUserChk={setUserChk}/>)} />
         <Route
           path="/show"
           exact
@@ -87,7 +95,8 @@ function App() {
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
-       
+              setUserId={setUserId}
+              setUserChk={setUserChk}
             />
           )}
         />
@@ -102,6 +111,8 @@ function App() {
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
             />
           )}
         />
@@ -117,25 +128,14 @@ function App() {
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
             />
           )}
         />
       </div>
-      {/* <전체>
-        <헤더></헤더>
-        <헤더제외 컨텐츠>
-          <랭킹5 나우 >
-            <컴포넌트랭킹></컴포넌트랭킹>  
-          </랭킹5>
-          <인조이헤커뉴스>
-            <뉴or탑></뉴or탑>
-            <뉴></뉴>
-            <탑>
-            <탑컴포넌트></탑컴포넌트>
-            </탑>
-          </인조이헤커뉴스>
-        </헤더제외>
-      </전체> */}
+
+      <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
     </>
   );
 }

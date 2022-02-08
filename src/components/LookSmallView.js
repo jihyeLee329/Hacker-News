@@ -42,7 +42,7 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookSmallView({ data, listName,index }) {
+function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
   const [listId, setListId] = useState({});
   const [time, setTime] = useState(0);
   const [idUrl, setIdUrl] = useState("");
@@ -67,6 +67,13 @@ function LookSmallView({ data, listName,index }) {
     setTime(listId.time);
   }, [listId.time]);
 
+
+   //회원 id 누르면 id 값 가져오기
+  function viewUserId(){
+    setUserId(listId.by);
+    setUserChk(true);
+  }
+
   return (
     <List>
       <a href={detailUrl} target="__blank">
@@ -86,7 +93,7 @@ function LookSmallView({ data, listName,index }) {
       </div>
       {listName === "jobs" ? null : (
         <div>
-          <p className="userId">{listId.by}</p>
+          <p className="userId" onClick={viewUserId}>{listId.by}</p>
           <a href={detailUrl} target="__blank">
             <div className="listInfo">
               <span className="listPoint">{listId.score}</span>

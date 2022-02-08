@@ -4,9 +4,13 @@ import CheckRadio from '../components/CheckRadio'
 import LookZoom from '../components/LookZoom';
 import LookSmallView from '../components/LookSmallView';
 import { getTopStoryIds, getData } from '../API/HNApi'
+import styled from 'styled-components'
 
+const Wrapper = styled.div`
+  padding-bottom:67px;
+`;
 //---------- 메인 컴포넌트  ------------- //
-export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onToggle, listName, setListName}) {
+export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onToggle, listName, setListName, setUserId, setUserChk}) {
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);
@@ -39,18 +43,18 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
   
 
   return (
-    <>
+    <Wrapper>
       <TopList onDimmed={onDimmed} topStoryIds={topStoryIds} />
-      <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle}/>
+      <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
       {eachData
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} />
+            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName}  />
+            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
           )
         )}
-    </>
+    </Wrapper>
   );
 }

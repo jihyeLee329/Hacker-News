@@ -96,7 +96,7 @@ const CommentsList = styled.div`
   padding-bottom:40px;
 `;
 
-export function Detail(props){
+export function Detail(props ,{setUserId}){
   const match = props.match;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
