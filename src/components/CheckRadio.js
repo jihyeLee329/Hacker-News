@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
 const CheckRadioBlick = styled.div`
@@ -18,17 +18,20 @@ const ModeChgBtn = styled.button`
 `;
 
 export default function CheckRadio ({checked, changeChk, onZoomToggle, onToggle, listName}){
-
+  
   return <CheckRadioBlick>
-    <input onChange={changeChk} checked={!checked} id="new" type="radio" name="list"/>
-    <label htmlFor="new">NEW</label>
-    
-    {listName === 'jobs' ? null :
+    {listName === 'jobs' ?
     <>
-    <input onChange={changeChk} checked={checked} id="top" type="radio" name="list" />
+      <input onChange={changeChk} checked={checked} id="new" type="radio" name="list"/>
+      <label htmlFor="new">NEW</label>
+    </> :
+    <>
+      <input onChange={changeChk} checked={!checked} id="new" type="radio" name="list"/>
+      <label htmlFor="new">NEW</label>
+      <input onChange={changeChk} checked={checked} id="top" type="radio" name="list" />
     <label htmlFor="top" >TOP</label>
-    </>}
-    
+    </>
+  }
     <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
       {onToggle ? <img src={process.env.PUBLIC_URL +'/img/ic_small_mode.svg'} alt="작게보기"/> :
        <img src={process.env.PUBLIC_URL +"/img/ic_zoom_mode.svg"} alt="크게보기"/>}
