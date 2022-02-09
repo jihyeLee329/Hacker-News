@@ -61,25 +61,25 @@ const TopItemCard = styled.div`
 `;
 export const TopItem = ({ topStoryId, index ,setUserId,setUserChk }) => {
   const [top, setTop] = useState({});
-  useEffect(() => {
-    getData(topStoryId).then((data) => data && data.url && setTop(data));
-  }, []);
+  // useEffect(() => {
+  //   getData(topStoryId).then((data) => data && data.url && setTop(data));
+  // }, []);
   //회원 id 누르면 id 값 가져오기
   function viewUserId(){
-    setUserId(top.by);
+    setUserId(topStoryId.by);
     setUserChk(true);
   }
-  return top && top.url ? (
+  return topStoryId && topStoryId.url ? (
     <>
       <TopItemWrap>
         <TopItemCard>
           <div>
-            <a href={top.url}>
+            <a href={topStoryId.url}>
               <span className="ranking">0{index + 1}</span>
-              <div className="title">{top.title}</div>
+              <div className="title">{topStoryId.title}</div>
             </a>
-            <div className="user" onClick={viewUserId} userid={top.id}>
-              {top.by}
+            <div className="user" onClick={viewUserId} userid={topStoryId.id}>
+              {topStoryId.by}
             </div>
           </div>
         </TopItemCard>

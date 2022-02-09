@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TopItem } from "./TopItem";
 import styled from "styled-components";
+import {getTopStoryIds, getData} from '../../API/HNApi'
 
 // Import Swiper
 import "swiper/css";
@@ -42,7 +43,33 @@ margin-bottom:16px;
   }
 `;
 
-export const TopList = ({ topStoryIds,setUserId, setUserChk }) => {
+export const TopList = ({ topStoryIds, setUserId, setUserChk }) => {
+  const [currentTops, setCurrentTops]=useState([]);
+  const [currentTop, setCurrentTop] =useState([]);
+  const [topFive, setTopFive] = useState([]);
+
+  useEffect(() => {
+    getTopStoryIds().then((data) => setCurrentTops(data));
+    return () => setCurrentTops([]);
+  }, []);
+
+  useEffect(() => {
+    currentTops
+      .slice(0, 10)
+      .map((ct) => getData(ct).then((data) => data && setCurrentTop(data)));
+    return () => setCurrentTop([]);
+  }, [currentTops]);
+
+  useEffect(() => {
+    setTopFive(topFive.concat(currentTop));
+  }, [currentTop]);
+
+  useEffect(()=>{
+    topFive.sort(function(a,b){
+      return b.score - a.score; 
+    });
+  },[topFive]);
+
 
   return (
     <>
@@ -53,11 +80,11 @@ export const TopList = ({ topStoryIds,setUserId, setUserChk }) => {
           Total Top 5
         </h1>
         <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
-          {topStoryIds.slice(0, 5).map((topStoryId, index) => (
+          {topFive.slice(0, 5).map((topfive, index) => (
             <SwiperSlide key={index}>
               <TopItem
-                topStoryId={topStoryId}
-                key={topStoryId}
+                topStoryId={topfive}
+                key={topfive}
                 index={index}
                  setUserId={setUserId}
                  setUserChk={setUserChk}
