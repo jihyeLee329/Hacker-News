@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import styled from "styled-components";
 import {TimeForToday} from "./TimeForToday";
 //list마다 swiper 하는 모듈
@@ -11,6 +11,8 @@ import {
     Type as ListType
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
+// import { SwipeableList, SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
+// import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 
 const List = styled.div `
 a{ display:block;}
@@ -124,10 +126,13 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
       }
     }
    
-    function goUrl(detailUrl){
-       window.location.href={detailUrl}
+    // function goUrl(url){
+    //  window.location.href={url}
+    // }
+    const goUrl = () =>{
+      myLink.current.click();
     }
-
+    const myLink = useRef(null);
     const leadingActions = () => (
       <LeadingActions>
         <SwipeAction
@@ -143,13 +148,13 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
       </LeadingActions>
     );
 
-    const trailingActions = (detailUrl) => (
+    const trailingActions = () => (
       <TrailingActions>
         <SwipeAction
             destructive={false}
-            onClick={(detailUrl)=> `window.location.href=${detailUrl}`}
+            onClick={goUrl}
           >
-            <RightBox href="detailUrl">
+            <RightBox href={detailUrl} ref={myLink}>
                 <span></span>
             </RightBox>
         </SwipeAction>
@@ -163,7 +168,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
       <SwipeableListItem
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
-        onSwipeEnd={()=> goUrl({detailUrl})} >
+        onSwipeEnd={goUrl} >
         <List>
           <div className="list_title">
             {
@@ -196,6 +201,55 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
         </List>
       </SwipeableListItem>
     </SwipeableList>
+    {/* <SwipeableList>
+      {({ className, ...rest }) => (
+        <div className={className}>
+          <SwipeableListItem
+            swipeLeft={{
+              content: <div>왼쪽 {detailUrl}</div>,
+              action: () => console.info('swipe action triggered')
+            }}
+            swipeRight={{
+              content: <a href={detailUrl}>Revealed content during swipe</a>,
+              action: () => console.log('스와이프...')
+            }}
+            {...rest}
+           
+          >
+             <List>
+          <div className="list_title">
+            {
+              listName === 'jobs'
+                ? <a href={detailUrl} rel="noreferrer" target="_blank">
+                      {listId.title}
+                  </a>
+                : <a href={detailUrl} rel="noreferrer">
+                    {listId.title}
+                  </a>
+            }
+          </div>
+            {
+              listName === "jobs"
+                ? null
+                : (
+                <div className="user_wrap">
+                  <p className="userId" onClick={viewUserId}>{listId.by}</p>
+                  <div className="listInfo">
+                    <a href={detailUrl} rel="noreferrer">
+                      <span className="listPoint">{listId.score}</span>
+                      <span className="listComments">
+                          {listId.descendants ? listId.descendants : 0 }
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              )
+            }
+        </List>
+          </SwipeableListItem>
+        </div>
+      )}
+    </SwipeableList> */}
     </SwiperBox>
   </>
   );
