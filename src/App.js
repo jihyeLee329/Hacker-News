@@ -19,14 +19,12 @@ function App() {
   const [dimmed, setDimmed] = useState(false);
   function onDimmed() {
     setDimmed(!dimmed);
-    console.log(dimmed);
   }
 
   //사용자 정보
   const [userId, setUserId] = useState('');
   const [userChk, setUserChk] = useState(false);
-  console.log(userId);
-
+  
 
   //체크여부
   const [checked, setChecked] = useState(true);
@@ -46,9 +44,9 @@ function App() {
     <>
     <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
-        <Dimmed dimmed={dimmed} onClick={onDimmed}/>
+        <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} dimmed={dimmed} />
         <Header />
-        <Route path="/article/detail/:id" render={() =>(<Detail setUserId={setUserId} setUserChk={setUserChk}/>)} />
+        <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
         <Route
           path="/article"
           exact
@@ -65,7 +63,7 @@ function App() {
             />
           )}
         />
-        <Route path="/ask/detail/:id" render={() =>(<Detail setUserId={setUserId} setUserChk={setUserChk}/>)} />
+        <Route path="/ask/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
         <Route
           path="/ask"
           exact
@@ -83,7 +81,7 @@ function App() {
           )}
         />
 
-        <Route path="/show/detail/:id" render={() =>(<Detail setUserId={setUserId} setUserChk={setUserChk}/>)} />
+        <Route path="/show/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
         <Route
           path="/show"
           exact
