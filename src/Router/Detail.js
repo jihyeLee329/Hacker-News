@@ -3,6 +3,8 @@ import axios from "axios";
 import styled from "styled-components";
 import Comments from "../components/Comments";
 import { TimeForToday } from "../components/TimeForToday";
+import {getDetailData} from '../API/HNApi'
+
 const DetailContent = styled.div`
   a,
   span {
@@ -71,6 +73,7 @@ const DetailContent = styled.div`
     padding: 29px 16px 0;
     line-height: 24px;
     border-top: 1px solid #f0f0f6;
+    pre{white-space:pre-line;}
   }
   
 `;
@@ -96,24 +99,33 @@ const CommentsList = styled.div`
   padding-bottom:40px;
 `;
 
-export function Detail(props ,{setUserId}){
-  const match = props.match;
+export function Detail({match, setUserId, setUserChk}){
+  const matchFn = match.params;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
   const [kids, setKids] = useState([]);
-
-  // console.log(detail);
-  const getDetailData = async () => {
-    const result = await axios
-      .get(`https://hacker-news.firebaseio.com/v0/item/${match.params.id}.json`)
-      .then(({ data }) => data);
-    return result;
-  };
+  const [detailUrl, setDetailUrl] = useState("");
   
+ 
   useEffect(() => {
-    getDetailData().then((data) => setDetail(data));
+    getDetailData(matchFn.id).then((data) => setDetail(data));
     return ()=>{setDetail({})};
-  }, []);
+  }, [matchFn.id]);
+
+  useEffect(()=>{
+    setDetailUrl(detail.url);
+  },[detail]);
+
+  function urlSplit(url){
+    return url.split('/')[2];
+  }
+    
+   //회원 id 누르면 id 값 가져오기
+   function viewUserId(){
+    setUserId(detail.by);
+    setUserChk(true);
+  }
+
 
   useEffect(() => {
     setKids(detail.kids);
@@ -126,7 +138,7 @@ export function Detail(props ,{setUserId}){
     return ()=>{setDetailTime(0)}
   }, [detail]);
 
-  const detailText = <div>detail.text</div>;
+
   return (
     <>
       <DetailContent>
@@ -135,9 +147,10 @@ export function Detail(props ,{setUserId}){
         <div className="user_info">
           <div>
             <span className="point">{detail.score} points</span>
-            <span className="user">{detail.by}</span>
+            <span className="user" onClick={viewUserId}>{detail.by}</span>
           </div>
-          {detail.url ? <a href={detail.url} className="news_url" target="_blank" rel="noreferrer">{detail.url} <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a> : 
+          {detailUrl ? 
+          <a href={detailUrl} className="news_url" target="_blank" rel="noreferrer">{urlSplit(detailUrl)} <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a> : 
           <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a>}
           
         </div>
@@ -153,7 +166,7 @@ export function Detail(props ,{setUserId}){
           <span className="comments_length">{detail.descendants}</span>
         </div>
         <CommentsList>
-          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} />)}
+          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>
