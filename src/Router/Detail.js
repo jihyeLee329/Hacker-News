@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import Comments from "../components/Comments";
 import { TimeForToday } from "../components/TimeForToday";
@@ -99,24 +98,7 @@ const CommentsList = styled.div`
   padding-bottom:40px;
 `;
 
-<<<<<<< HEAD
-export function Detail(props, setUserId, setUserChk){
-  const match = props.match;
-  const [detail, setDetail] = useState({});
-  const [detailTime, setDetailTime] = useState(0);
-  const [kids, setKids] = useState([]);
 
-  console.log(props.setUserId)
-  //현재 페이지의 data 가져오기
-  const getDetailData = async () => {
-    const result = await axios
-      .get(`https://hacker-news.firebaseio.com/v0/item/${match.params.id}.json`)
-      .then(({ data }) => data);
-    return result;
-  };
-  
-  //data 가공
-=======
 export function Detail({match, setUserId, setUserChk}){
   const matchFn = match.params;
   const [detail, setDetail] = useState({});
@@ -124,8 +106,6 @@ export function Detail({match, setUserId, setUserChk}){
   const [kids, setKids] = useState([]);
   const [detailUrl, setDetailUrl] = useState("");
   
- 
->>>>>>> 2cc9160922fa2c5b851194f1d82e32d1d2fa6b45
   useEffect(() => {
     getDetailData(matchFn.id).then((data) => setDetail(data));
     return ()=>{setDetail({})};
@@ -158,15 +138,6 @@ export function Detail({match, setUserId, setUserChk}){
     return ()=>{setDetailTime(0)}
   }, [detail]);
 
-<<<<<<< HEAD
-  //회원 id 누르면 id 값 가져오기
-  function viewUserId(){
-    props.setUserId(detail.by);
-    // setUserChk(true);
-    
-  }
-=======
->>>>>>> 2cc9160922fa2c5b851194f1d82e32d1d2fa6b45
 
   return (
     <>
