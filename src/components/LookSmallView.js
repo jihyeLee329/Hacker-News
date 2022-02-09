@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { TimeForToday } from "./TimeForToday";
 
 const List = styled.div`
+a{display:block;}
 & +& {margin-top:12px;}
 width:calc(100vw - 40px); 
 margin:0 auto;
@@ -25,7 +26,9 @@ padding:16px 16px 0; background:#fff;
     padding-bottom:12px; 
     & + div{border-top: 1px solid F0F0F6;}
   }
-  >div:not(.list_top) {display:flex;justify-content:space-between; padding-top:8px;padding-bottom:12px; }
+  >div:not(.list_top) {display:flex;justify-content:space-between; padding-top:8px;padding-bottom:12px; 
+ }
+ .userWrap{  border-top:1px solid #F0F0F6;}
   .userId{color:#767676; width:45%;
     &:after{content:url(/img/ic_arrow.svg); display:inline-block; vertical-align:top;}
   }
@@ -43,19 +46,19 @@ padding:16px 16px 0; background:#fff;
   `;
 
 function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
-  const [listId, setListId] = useState({});
-  const [time, setTime] = useState(0);
-  const [idUrl, setIdUrl] = useState("");
-  const [detailUrl, setDetailUrl] = useState("");
-
-  //시간 구하는 함수
-
+  const [listId, setListId] = useState({}); //각각 data
+  const [time, setTime] = useState(0); //시간 함수에 넣을 time 
+  const [detailUrl, setDetailUrl] = useState(""); //디테일 page link
+  const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
+  const [indexNum , setIndexNum] =useState(0);
+  //url 값 세팅
   useEffect(() => {
     setListId(data);
     if (listName === "jobs") {
       setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
     } else {
       setDetailUrl(`/${listName}/detail/${data.id}`);
+      setOriginUrl(`https://news.ycombinator.com/item?id=${data.id}`)
     }
     return () => {
       setListId({});
@@ -63,38 +66,68 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
     };
   }, [data, listName]);
 
+  //시간 구하기 
   useEffect(() => {
     setTime(listId.time);
   }, [listId.time]);
 
-
+  // index 값에 따라 0 or 00 붙여주기
+ useEffect(() => {
+  setIndexNum(index);
+  }, [index]);
+  
    //회원 id 누르면 id 값 가져오기
   function viewUserId(){
     setUserId(listId.by);
     setUserChk(true);
   }
 
+  //url split 
+  function urlSplit(url){
+    return url.split('/')[2];
+  }
+
+  const IndexNum= (indexNum)=>{
+    if(indexNum < 9){
+      return `00${indexNum + 1}`
+    }else if(9 < indexNum < 99){
+      return `0${indexNum + 1}`
+    }
+  }
+  // {index < 9 ? `0${index + 1}` : index + 1}
+
   return (
     <List>
-      <a href={detailUrl} target="__blank">
-        <div className="list_top">
-          <span className="list_rank">
-            {index < 9 ? `0${index + 1}` : index + 1}
-          </span>
-          <span className="time">{TimeForToday(time)}</span>
+      <div className="list_top">
+        {listName === 'jobs' ?
+          <a href={detailUrl} target="__blank"> 
+            <span className="list_rank">{IndexNum(indexNum)}</span>
+            <span className="time">{TimeForToday(time)}</span>
+          </a> : 
+          <a href={detailUrl}> 
+            <span className="list_rank">{IndexNum(indexNum)}</span>
+            <span className="time">{TimeForToday(time)}</span>
+          </a> 
+        }
           <span className="list_link">
-            github.com
+            <a href={originUrl} >
+            {urlSplit(originUrl)}
             <img src={process.env.PUBLIC_URL + '/img/ic_link_s.png'} alt="link" />
+            </a>
           </span>
-        </div>
-      </a>
+        
+      </div>
       <div className="list_title">
-        <a href={detailUrl} target="__blank">{listId.title}</a>
+        {listName === 'jobs' ?   
+        <a href={detailUrl} target="__blank">{listId.title}</a>: 
+        <a href={detailUrl}>{listId.title}</a>
+        }
+        
       </div>
       {listName === "jobs" ? null : (
-        <div>
+        <div className="userWrap">
           <p className="userId" onClick={viewUserId}>{listId.by}</p>
-          <a href={detailUrl} target="__blank">
+          <a href={detailUrl}>
             <div className="listInfo">
               <span className="listPoint">{listId.score}</span>
               <span className="listComments">

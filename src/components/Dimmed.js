@@ -13,6 +13,10 @@ const DimmedBlock = styled.div`
   opacity: 0.5;
 `;
 
-export default function Dimmed({ dimmed }) {
-  return dimmed && <DimmedBlock />;
+export default function Dimmed({ setUserChk, userChk, setDimmed, dimmed }) {
+  function closeUserBox(){
+    setUserChk(!userChk);
+    setDimmed(!dimmed);
+  }
+  return dimmed && <DimmedBlock onClick={closeUserBox} />;
 }
