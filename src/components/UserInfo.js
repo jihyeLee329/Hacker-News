@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
+import {getUserData} from '../API/HNApi'
+
 
 const UserInforBox = styled.div`
     position:fixed; 
+    transiton:all .5s;
     ${({ userChk }) => {
-      return userChk ? `bottom: 0vh; display:block;` : ` display:none;`
+      return userChk ? `bottom: 0vh; opacity:1;` : `bottom:-100vh; opacity:0; transiton:all .8s;`
     }};
     z-index:100;
     width:100vw; height:calc(100vh - 212px); background:#fff;
@@ -27,7 +29,9 @@ const UserInforBox = styled.div`
        h3{color:#767676; font-size:14px; line-height:20px; text-align:center;padding-bottom:4px;}
        p{color:#FF6600; font-size:20px; line-height:22px; font-weight:500; text-align:center;}
     }
-    .content{min-height:168px; max-height:168px; overflow-y:scroll; margin:16px 0; font-size:14px;line-height:20px; color:#767676;}
+    .content{min-height:168px; max-height:168px; overflow-y:scroll; margin:16px 0; font-size:14px;line-height:20px; color:#767676;
+      *{word-break: break-word; max-width:100%;}
+    }
     .profileWrap{
       > .profile{display:block;
         background: #F9FAFB; border-radius: 8px;padding:12px 12px 12px 20px; font-size:16px; line-height:24px; color:#111;
@@ -45,18 +49,9 @@ export default function UserInfo({userChk, setUserChk, userId, setUserId, setDim
  
   //user API조회하여 setUser에 세팅
   useEffect(()=>{
-    setLoading(true);
-    if(loading){
-      const getUserData = async (getUserId) => {
-      const result = await axios
-      .get(`https://hacker-news.firebaseio.com/v0/user/${getUserId}.json`)
-      .then(({ data }) => data);
-      return result;
-      };
       getUserData(userId).then((data)=> data && setUser(data) )
-      return ()=>setUser({})
-    }
-  },[userId, loading]);
+      return ()=>setUser({});
+  },[userChk]);
 
   //userChk = true 이면 dimmed 깔아주기
     useEffect(()=>{
@@ -65,13 +60,12 @@ export default function UserInfo({userChk, setUserChk, userId, setUserId, setDim
       }else{
           setDimmed(false);
       }
-    },[userChk]);
+    },[setDimmed, userChk]);
 
     //close button 누르면 data 초기화 & userChk = false, dimmed = false
     function closeUserBox(){
       setUserChk(!userChk);
       setDimmed(!dimmed);
-      setLoading(false);
     }
 
    const TimeForToday = (timestamp) => {
@@ -111,7 +105,7 @@ return(
             <p>{user.karma}</p>
           </div>
         </div>
-        <div className='content'><div>{user.about}</div></div>
+        <div className='content' dangerouslySetInnerHTML={{ __html: user.about }}></div>
         <div className='profileWrap'>
           <a className='profile'><img src={process.env.PUBLIC_URL + '/img/ic_user_link.svg'} alt="link" />Submissions</a>
           <a className='profile'><img src={process.env.PUBLIC_URL + '/img/ic_user_link.svg'} alt="link" />Favorites</a>
