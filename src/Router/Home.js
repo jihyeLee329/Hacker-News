@@ -44,7 +44,7 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
 
   return (
     <Wrapper>
-      <TopList onDimmed={onDimmed} topStoryIds={topStoryIds} />
+      <TopList onDimmed={onDimmed} topStoryIds={topStoryIds} setUserId={setUserId} setUserChk={setUserChk}/>
       <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
       {eachData
         .slice(0, 10)

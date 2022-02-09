@@ -21,12 +21,6 @@ export const getTopStoryIds = async () => {
   return result;
 };
 
-//--------------- new data--------------- //
-export const getNewIds = async () => {
-  const result = await axios.get(newStoriesUrl).then(({ data }) => data);
-  return result;
-};
-
 //--------------- Ask data--------------- //
 export const getAskIds = async ()=>{
   const result = await axios.get(askStoriesUrl).then(({ data }) => data);
@@ -43,6 +37,19 @@ export const getJobsIds = async ()=>{
   const result = await axios.get(jobsStoriesUrl).then(({ data }) => data);
   return result;
 }
+//--------------- item data--------------- //
+export const getDetailData = async (itemId)=>{
+  const result = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`).then(({ data }) => data);
+  return result;
+}
+//--------------- user data--------------- //
+export const getUserData = async (getUserId) => {
+  const result = await axios
+  .get(`https://hacker-news.firebaseio.com/v0/user/${getUserId}.json`)
+  .then(({ data }) => data);
+  return result;
+};
+
 // export const [api,setApi] = useReducer(reducer, []);
 // const reducer = (state, action ) =>{
 //   switch (action.type) {

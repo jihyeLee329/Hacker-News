@@ -35,9 +35,10 @@ const Comment = styled.div`
     line-height: 24px;
     color: #505050;
     word-break: break-word;
+    pre{white-space:pre-line;}
   }
 `;
-export default function Comments({ kid }) {
+export default function Comments({ kid ,setUserId, setUserChk }) {
   const [kidData, setkidData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
   function allView() {
@@ -48,12 +49,18 @@ export default function Comments({ kid }) {
     return ()=>{setkidData([])}
   }, [kid]);
 
+   //회원 id 누르면 id 값 가져오기
+   function viewUserId(){
+    setUserId(kidData.by);
+    setUserChk(true);
+  }
+
   return (
     <Comment>
       {kidData && (
         <>
           <div>
-            <span className="user">{kidData.by}</span>
+            <span className="user" onClick={viewUserId}>{kidData.by}</span>
             <span className="time">{TimeForToday(kidData.time)}</span>
             <button value={toggleBtn} onClick={allView}>
               {toggleBtn ? (

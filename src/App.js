@@ -24,7 +24,11 @@ function App() {
   //사용자 정보
   const [userId, setUserId] = useState('');
   const [userChk, setUserChk] = useState(false);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 2cc9160922fa2c5b851194f1d82e32d1d2fa6b45
 
   //체크여부
   const [checked, setChecked] = useState(true);
@@ -44,7 +48,7 @@ function App() {
     <>
     <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
-        <Dimmed dimmed={dimmed} onClick={onDimmed}/>
+        <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} dimmed={dimmed} />
         <Header />
         <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
         <Route

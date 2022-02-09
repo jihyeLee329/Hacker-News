@@ -59,25 +59,16 @@ const TopItemCard = styled.div`
     overflow: hidden;
   }
 `;
-const UserInfo = styled.div`
-
-
-`;
-export const TopItem = ({ topStoryId, index, onDimmed }) => {
+export const TopItem = ({ topStoryId, index ,setUserId,setUserChk }) => {
   const [top, setTop] = useState({});
   useEffect(() => {
     getData(topStoryId).then((data) => data && data.url && setTop(data));
   }, []);
-  //userId 클릭했을 때 
-  // function ClickedUserID (){
-  //  console.log(top.id)
-  // }
-  // const getUserInfo  = async()=>{
-  //  const userID = String(top.id)
-  //   const result = await axios.get(`https://hacker-news.firebaseio.com/v0/user/${userID}.json`);
-  //       console.log(result);
-  //   return result;
-  // }
+  //회원 id 누르면 id 값 가져오기
+  function viewUserId(){
+    setUserId(top.by);
+    setUserChk(true);
+  }
   return top && top.url ? (
     <>
       <TopItemWrap>
@@ -87,7 +78,7 @@ export const TopItem = ({ topStoryId, index, onDimmed }) => {
               <span className="ranking">0{index + 1}</span>
               <div className="title">{top.title}</div>
             </a>
-            <div className="user" onClick={onDimmed} userid={top.id}>
+            <div className="user" onClick={viewUserId} userid={top.id}>
               {top.by}
             </div>
           </div>
