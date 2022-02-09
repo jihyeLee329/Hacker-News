@@ -23,9 +23,7 @@ function App() {
 
   //about 사이트 
   const [aboutBtn, setAboutBtn] = useState(false);
-  function viewAbout(){
-    setAboutBtn(true);
-  }
+  
 
   //사용자 정보
   const [userId, setUserId] = useState('');
@@ -50,7 +48,7 @@ function App() {
     <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
         <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} />
-        <Header viewAbout={viewAbout}/>
+        <Header setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
         <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
               changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
         <Route
@@ -141,7 +139,7 @@ function App() {
           )}
         />
       </div>
-      <AboutSite aboutBtn={aboutBtn} viewAbout={viewAbout}/>
+      <AboutSite aboutBtn={aboutBtn} setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
       <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
     </>
   );

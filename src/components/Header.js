@@ -40,7 +40,10 @@ const IconWrap = styled.div`
 `;
 
 //---------- 헤더 컴포넌트  ------------- //
-function Header({viewAbout}) {
+function Header({setAboutBtn, aboutBtn}) {
+  function viewAbout(){
+    setAboutBtn(!aboutBtn);
+  }
   return (
     <HeaderWrap>
       <div>
