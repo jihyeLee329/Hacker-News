@@ -42,8 +42,8 @@ margin-bottom:16px;
   }
 `;
 
-export const TopList = ({ onDimmed, topStoryIds }) => {
-  
+export const TopList = ({ topStoryIds,setUserId, setUserChk }) => {
+
   return (
     <>
       <TopListWrap>
@@ -59,7 +59,8 @@ export const TopList = ({ onDimmed, topStoryIds }) => {
                 topStoryId={topStoryId}
                 key={topStoryId}
                 index={index}
-                onDimmed={onDimmed}
+                 setUserId={setUserId}
+                 setUserChk={setUserChk}
               ></TopItem>
             </SwiperSlide>
           ))}
