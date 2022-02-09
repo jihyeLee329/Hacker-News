@@ -13,7 +13,8 @@ const Wrapper = styled.div`
 export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onToggle, listName, setListName, setUserId, setUserChk}) {
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]);
+  const [eachData, setEachData] = useState([]); //home 에서 사용하는 리스트 
+
   useEffect(() => {
     setListName('article');
     getTopStoryIds().then((data) => setTopStoryIds(data));
@@ -41,10 +42,9 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
     });
   }
   
-
   return (
     <Wrapper>
-      <TopList onDimmed={onDimmed} topStoryIds={topStoryIds} setUserId={setUserId} setUserChk={setUserChk}/>
+      <TopList topStoryIds={eachData} setUserId={setUserId} setUserChk={setUserChk}/>
       <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
       {eachData
         .slice(0, 10)

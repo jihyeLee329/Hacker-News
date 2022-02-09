@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Comments from "../components/Comments";
 import { TimeForToday } from "../components/TimeForToday";
 import {getDetailData} from '../API/HNApi'
+import CheckRadio from '../components/CheckRadio'
 
 const DetailContent = styled.div`
   a,
@@ -77,7 +79,6 @@ const DetailContent = styled.div`
   
 `;
 const CommentsWrap = styled.div`
-  padding: 0 20px;
   box-shadow: 0px -2px 16px rgba(0, 0, 0, 0.08);
   border-radius: 24px 24px 0px 0px;
   margin-top: 8px;
@@ -85,54 +86,51 @@ const CommentsWrap = styled.div`
     display: inline-block;
     vertical-align: top;
     .comments_length {
-      position: absolute;
-      right: 20px;
-      color: #ff6600;
-      font-size: 12px;
-      line-height: 16px;
+     
     }
   }
 `;
 const CommentsList = styled.div`
   border-radius: 24px 24px 0px 0px;
-  padding-bottom:40px;
+  padding: 0 20px 40px;
 `;
 
+const CheckBox = styled.div`
 
-export function Detail({match, setUserId, setUserChk}){
+`;
+
+export function Detail({match, setUserId, setUserChk, checked, changeChk , listName, setListName}){
   const matchFn = match.params;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
   const [kids, setKids] = useState([]);
   const [detailUrl, setDetailUrl] = useState("");
-  
+ 
+
   useEffect(() => {
     getDetailData(matchFn.id).then((data) => setDetail(data));
     return ()=>{setDetail({})};
   }, [matchFn.id]);
 
   useEffect(()=>{
+    setListName('detail');
     setDetailUrl(detail.url);
   },[detail]);
 
   function urlSplit(url){
     return url.split('/')[2];
   }
-    
    //회원 id 누르면 id 값 가져오기
    function viewUserId(){
     setUserId(detail.by);
     setUserChk(true);
   }
 
-
-  //현재 페이지의 kids api 가져오기
   useEffect(() => {
     setKids(detail.kids);
     return ()=>{ setKids([])};
   }, [detail.kids]);
 
-  //시간 계산해주기
   useEffect(() => {
     setDetailTime(detail.time);
     return ()=>{setDetailTime(0)}
@@ -154,19 +152,12 @@ export function Detail({match, setUserId, setUserChk}){
           <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a>}
           
         </div>
-        {detail.text && <div className="content"  dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
+        {detail.text && <div className="content" dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
       </DetailContent>
-
       <CommentsWrap>
-        <div className="commentsTop">
-          <input id="new" type="radio" name="list" />
-          <label htmlFor="new">NEW</label>
-          <input id="top" type="radio" name="list" />
-          <label htmlFor="top">TOP</label>
-          <span className="comments_length">{detail.descendants}</span>
-        </div>
+      <CheckRadio checked={checked} changeChk={changeChk} listName={listName} comments={detail.descendants}/>
         <CommentsList>
-          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} setUserId={setUserId} setUserChk={setUserChk}/>)}
+          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} checked={checked} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>

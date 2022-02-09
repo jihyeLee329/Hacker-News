@@ -38,17 +38,18 @@ const Comment = styled.div`
     pre{white-space:pre-line;}
   }
 `;
-export default function Comments({ kid ,setUserId, setUserChk }) {
+export default function Comments({ kid ,setUserId, setUserChk,checked }) {
   const [kidData, setkidData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
+
   function allView() {
     setToggleBtn(!toggleBtn);
   }
   useEffect(() => {
     getData(kid).then((data) => data && setkidData(data));
-    return ()=>{setkidData([])}
+    return ()=>setkidData([]);
   }, [kid]);
-
+  
    //회원 id 누르면 id 값 가져오기
    function viewUserId(){
     setUserId(kidData.by);
