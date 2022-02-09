@@ -40,7 +40,7 @@ const IconWrap = styled.div`
 `;
 
 //---------- 헤더 컴포넌트  ------------- //
-function Header() {
+function Header({viewAbout}) {
   return (
     <HeaderWrap>
       <div>
@@ -54,7 +54,7 @@ function Header() {
             className="mode"
             style={{ backgroundImage: "url("+ process.env.PUBLIC_URL + "/img/ic_mode.svg)" }}
           ></span>
-          <span
+          <span onClick={viewAbout}
             className="info"
             style={{ backgroundImage: "url("+ process.env.PUBLIC_URL + "/img/ic_info.svg)" }}
           ></span>
