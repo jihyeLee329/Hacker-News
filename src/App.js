@@ -12,7 +12,7 @@ import UserInfo from './components/UserInfo'
 
 import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
-
+import AboutSite from './components/AboutSite'
 
 function App() {
   //dimmed 효과
@@ -43,9 +43,10 @@ function App() {
     <>
     <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
-        <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} dimmed={dimmed} />
+        <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} />
         <Header />
-        <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
+        <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
+              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
         <Route
           path="/article"
           exact
@@ -62,7 +63,8 @@ function App() {
             />
           )}
         />
-        <Route path="/ask/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
+        <Route path="/ask/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
+              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
         <Route
           path="/ask"
           exact
@@ -80,7 +82,8 @@ function App() {
           )}
         />
 
-        <Route path="/show/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} {...props}/>)} />
+        <Route path="/show/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
+              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
         <Route
           path="/show"
           exact
@@ -132,7 +135,7 @@ function App() {
           )}
         />
       </div>
-
+      <AboutSite onDimmed={onDimmed}/>
       <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
     </>
   );
