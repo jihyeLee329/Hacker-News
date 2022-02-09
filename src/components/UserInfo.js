@@ -5,9 +5,9 @@ import {getUserData} from '../API/HNApi'
 
 const UserInforBox = styled.div`
     position:fixed; 
-    transiton:all .5s;
+    transition:all .5s;
     ${({ userChk }) => {
-      return userChk ? `bottom: 0vh; opacity:1;` : `bottom:-100vh; opacity:0; transiton:all .8s;`
+      return userChk ? `bottom: 0vh; opacity:1;` : `bottom:-100vh; opacity:0; transition:all .8s;`
     }};
     z-index:100;
     width:100vw; height:calc(100vh - 212px); background:#fff;
