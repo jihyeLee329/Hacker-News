@@ -96,13 +96,14 @@ const CommentsList = styled.div`
   padding-bottom:40px;
 `;
 
-export function Detail(props ,{setUserId}){
+export function Detail(props, setUserId, setUserChk){
   const match = props.match;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
   const [kids, setKids] = useState([]);
 
-  // console.log(detail);
+  console.log(props.setUserId)
+  //현재 페이지의 data 가져오기
   const getDetailData = async () => {
     const result = await axios
       .get(`https://hacker-news.firebaseio.com/v0/item/${match.params.id}.json`)
@@ -110,23 +111,31 @@ export function Detail(props ,{setUserId}){
     return result;
   };
   
+  //data 가공
   useEffect(() => {
     getDetailData().then((data) => setDetail(data));
     return ()=>{setDetail({})};
   }, []);
 
+  //현재 페이지의 kids api 가져오기
   useEffect(() => {
     setKids(detail.kids);
     return ()=>{ setKids([])};
   }, [detail.kids]);
 
-  // console.log(kids);
+  //시간 계산해주기
   useEffect(() => {
     setDetailTime(detail.time);
     return ()=>{setDetailTime(0)}
   }, [detail]);
 
-  const detailText = <div>detail.text</div>;
+  //회원 id 누르면 id 값 가져오기
+  function viewUserId(){
+    props.setUserId(detail.by);
+    // setUserChk(true);
+    
+  }
+
   return (
     <>
       <DetailContent>
@@ -135,7 +144,7 @@ export function Detail(props ,{setUserId}){
         <div className="user_info">
           <div>
             <span className="point">{detail.score} points</span>
-            <span className="user">{detail.by}</span>
+            <span className="user" onClick={viewUserId}>{detail.by}</span>
           </div>
           {detail.url ? <a href={detail.url} className="news_url" target="_blank" rel="noreferrer">{detail.url} <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a> : 
           <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a>}
@@ -153,7 +162,7 @@ export function Detail(props ,{setUserId}){
           <span className="comments_length">{detail.descendants}</span>
         </div>
         <CommentsList>
-          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} />)}
+          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>
