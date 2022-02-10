@@ -1,4 +1,6 @@
 export const TimeForToday = (timestamp) => {
+  // 글 올린 시간부터 현재까지의 시간 계산해주는 함수 
+  // timestamp = 각 data.time  가져옴
   const pstTime = timestamp * 1000;
   const todayTime = new Date().getTime();
   const betweenTime = Math.floor((todayTime - pstTime) / 1000 / 60);
