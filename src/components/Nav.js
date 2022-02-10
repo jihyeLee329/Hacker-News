@@ -13,7 +13,7 @@ const NavUl = styled.div`
     left: 0;
     width: 100%;
     padding:0 20px;
-    z-index: 999;
+    z-index: 10;
     background-color: #fff !important;
     animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
     > a{ padding:8px 0; 
