@@ -16,7 +16,7 @@ const UserInforBox = styled.div`
     box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.2);
     border-radius: 20px 20px 0px 0px;
     padding:0 20px 41px;
-
+    overflow-y:auto;
     .closeBtn{position:relative; height:40px;
       >span {width:36px; height:4px; background:#BBBBC0; border-radius: 2px;
         position:absolute; transform:translate(-50%, 0); left:50%; top:8px;}

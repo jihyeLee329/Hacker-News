@@ -22,7 +22,12 @@ const List = styled.div `
 a{ display:block;}
 padding:16px 16px 0; 
 background:#fff;
-width:100%;
+& +& {margin-top:12px;}
+  width:calc(100vw - 40px); 
+  overflow:hidden;
+  margin:0 auto;
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
   .list_title{
     font-size:18px; line-height:24px;
     padding-bottom:12px; 
@@ -163,7 +168,37 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
 
   return (
     <> 
-    <SwiperBox>
+        <List>
+          <div className="list_title">
+            {
+              listName === 'jobs'
+                ? <a href={detailUrl} rel="noreferrer" target="_blank">
+                      {listId.title}
+                  </a>
+                : <a href={detailUrl} rel="noreferrer">
+                    {listId.title}
+                  </a>
+            }
+          </div>
+            {
+              listName === "jobs"
+                ? null
+                : (
+                <div className="user_wrap">
+                  <p className="userId" onClick={viewUserId}>{listId.by}</p>
+                  <div className="listInfo">
+                    <a href={detailUrl} rel="noreferrer">
+                      <span className="listPoint">{listId.score}</span>
+                      <span className="listComments">
+                          {listId.descendants ? listId.descendants : 0 }
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              )
+            }
+        </List>
+    {/* <SwiperBox>
     <SwipeableList> 
       <SwipeableListItem
         leadingActions={leadingActions()}
@@ -201,7 +236,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
         </List>
       </SwipeableListItem>
     </SwipeableList>
-    </SwiperBox>
+    </SwiperBox> */}
   </>
   );
 }
