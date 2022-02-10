@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Logo from '../img/ic_logo.svg'
+import IconMode from '../img/ic_mode.svg'
+import IconInfo from '../img/ic_Info.svg'
 import Nav from "./Nav";
 
 const HeaderWrap = styled.header`
@@ -41,25 +44,28 @@ const IconWrap = styled.div`
 
 //---------- 헤더 컴포넌트  ------------- //
 function Header({setAboutBtn, aboutBtn}) {
+
+  //헤더에서 about info 버튼 클릭여부 알려주는 함수 
   function viewAbout(){
     setAboutBtn(!aboutBtn);
   }
+
   return (
-    <HeaderWrap>
+    <HeaderWrap >
       <div>
         <LogoWrap>
           <Link to="/">
-            <LogoImg src={process.env.PUBLIC_URL + '/img/ic_logo.svg'} alt="logo" />
+            <LogoImg src={Logo} alt="logo" />
           </Link>
         </LogoWrap>
         <IconWrap>
           <span
             className="mode"
-            style={{ backgroundImage: "url("+ process.env.PUBLIC_URL + "/img/ic_mode.svg)" }}
+            style={{ backgroundImage: `url(${IconMode})` }}
           ></span>
           <span onClick={viewAbout}
             className="info"
-            style={{ backgroundImage: "url("+ process.env.PUBLIC_URL + "/img/ic_info.svg)" }}
+            style={{ backgroundImage: `url(${IconInfo})`  }}
           ></span>
         </IconWrap>
       </div>
