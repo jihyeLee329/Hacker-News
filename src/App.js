@@ -9,6 +9,7 @@ import Show from "./Router/Show";
 import Jobs from "./Router/Jobs";
 import { Detail } from "./Router/Detail";
 import UserInfo from './components/UserInfo'
+import { Button } from './components/Button';
 
 import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
@@ -24,7 +25,6 @@ function App() {
   //about 사이트 
   const [aboutBtn, setAboutBtn] = useState(false);
   
-
   //사용자 정보
   const [userId, setUserId] = useState('');
   const [userChk, setUserChk] = useState(false);
@@ -35,11 +35,12 @@ function App() {
     setChecked(!checked);
   }
 
-  //look 버튼
+  //List에서 보기모드 변경 버튼
   const [onToggle, setOnToggle] = useState(true);
   function onZoomToggle() {
     setOnToggle(!onToggle);
   }
+
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
 
@@ -141,6 +142,7 @@ function App() {
       </div>
       <AboutSite aboutBtn={aboutBtn} setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
       <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
+      <Button />
     </>
   );
 }
