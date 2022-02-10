@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import {getUserData} from '../API/HNApi'
-
+import IconUserLink from '../img/ic_user_link.svg'
 
 const UserInforBox = styled.div`
     position:fixed; 
@@ -45,9 +46,8 @@ const UserInforBox = styled.div`
 `;
 
 export default function UserInfo({userChk, setUserChk, userId, setDimmed, dimmed}){
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
- 
+  const [user, setUser] = useState({}); //클릭해서 받아온 유저아이디 저장용
+
   //user API조회하여 setUser에 세팅
   useEffect(()=>{
       getUserData(userId).then((data)=> data && setUser(data) )
@@ -69,6 +69,7 @@ export default function UserInfo({userChk, setUserChk, userId, setDimmed, dimmed
       setDimmed(!dimmed);
     }
 
+    // 가입한 날짜로부터 시간 계산해주는 함수 
    const TimeForToday = (timestamp) => {
     const pstTime = timestamp * 1000;
     const todayTime = new Date().getTime();
@@ -109,9 +110,9 @@ return(
 
         <div className='content'><div dangerouslySetInnerHTML={{ __html: user.about }}></div></div>
         <div className='profileWrap'>
-          <a className='profile'><img src={process.env.PUBLIC_URL + '/img/ic_user_link.svg'} alt="link" />Submissions</a>
-          <a className='profile'><img src={process.env.PUBLIC_URL + '/img/ic_user_link.svg'} alt="link" />Favorites</a>
-          <a className='profile'><img src={process.env.PUBLIC_URL + '/img/ic_user_link.svg'} alt="link" />Comments</a>
+          <Link to="/" className='profile'><img src={IconUserLink} alt="link" />Submissions</Link>
+          <Link to="/" className='profile'><img src={IconUserLink} alt="link" />Favorites</Link>
+          <Link to="/" className='profile'><img src={IconUserLink} alt="link" />Comments</Link>
         </div>
     </UserInforBox>
 )

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
-import Detail from "../Router/Detail";
 import styled from "styled-components";
 import { TimeForToday } from "./TimeForToday";
+import IconComment from '../img/ic_comment.svg'
+import IconPoint from '../img/ic_point.svg'
+import IconLinkSmall from '../img/ic_link_s.png'
+import IconArrow from '../img/ic_arrow.svg'
+
 
 const List = styled.div`
 a{display:block;}
@@ -30,18 +34,18 @@ padding:16px 16px 0; background:#fff;
  }
  .userWrap{  border-top:1px solid #F0F0F6;}
   .userId{color:#767676; width:45%;
-    &:after{content:url(/img/ic_arrow.svg); display:inline-block; vertical-align:top;}
+    &:after{content:url(${IconArrow}); display:inline-block; vertical-align:top;}
   }
   .userId + a {width:74.5%;text-align:right;}
   .listInfo{line-height:inherit; font-size:inherit;
     >span{display:inline-block; vertical-align:top;}
     >span:before {display:inline-block; vertical-align:top; margin-right:3px;}
     .listComments{color:#FF6600; margin-left:8px;
-      &:before {content:url(${process.env.PUBLIC_URL +'/img/ic_comment.svg'});}
+      &:before {content:url(${IconComment});}
       }
   }
   .listPoint{color:#505050;
-    &:before{content:url(${process.env.PUBLIC_URL +'/img/ic_point.svg'});
+    &:before{content:url(${IconPoint});
   }
   `;
 
@@ -112,7 +116,7 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
           <span className="list_link">
             <a href={originUrl} >
             {urlSplit(originUrl)}
-            <img src={process.env.PUBLIC_URL + '/img/ic_link_s.png'} alt="link" />
+            <img src={IconLinkSmall} alt="link" />
             </a>
           </span>
         

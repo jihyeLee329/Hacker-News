@@ -5,6 +5,8 @@ import Comments from "../components/Comments";
 import { TimeForToday } from "../components/TimeForToday";
 import {getDetailData} from '../API/HNApi'
 import CheckRadio from '../components/CheckRadio'
+import IconArrow from '../img/ic_arrow.svg'
+import IconLinkSmall from '../img/ic_link_s.png'
 
 const DetailContent = styled.div`
   a,
@@ -18,7 +20,6 @@ const DetailContent = styled.div`
   padding: 24px 20px 40px;
   background: #ffffff;
   filter: drop-shadow(0px 3px 16px rgba(0, 0, 0, 0.08));
-  border-radius: 0px 0px 24px 24px;
   .time {
     color: #ff6600;
     opacity: 0.5;
@@ -42,7 +43,7 @@ const DetailContent = styled.div`
     margin-left: 10px;
   }
   .user:after {
-    content: url(${process.env.PUBLIC_URL +'/img/ic_arrow.svg'});
+    content: url(${IconArrow});
     display: inline-block;
     vertical-align: top;
     width: 16px;
@@ -95,10 +96,6 @@ const CommentsList = styled.div`
   padding: 0 20px 40px;
 `;
 
-const CheckBox = styled.div`
-
-`;
-
 export function Detail({match, setUserId, setUserChk, checked, changeChk , listName, setListName}){
   const matchFn = match.params;
   const [detail, setDetail] = useState({});
@@ -148,8 +145,8 @@ export function Detail({match, setUserId, setUserChk, checked, changeChk , listN
             <span className="user" onClick={viewUserId}>{detail.by}</span>
           </div>
           {detailUrl ? 
-          <a href={detailUrl} className="news_url" target="_blank" rel="noreferrer">{urlSplit(detailUrl)} <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a> : 
-          <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={process.env.PUBLIC_URL +'/img/ic_link_s.png'} alt="뉴스링크" /></a>}
+          <a href={detailUrl} className="news_url" target="_blank" rel="noreferrer">{urlSplit(detailUrl)} <img src={IconLinkSmall} alt="뉴스링크" /></a> : 
+          <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={IconLinkSmall} alt="뉴스링크" /></a>}
           
         </div>
         {detail.text && <div className="content" dangerouslySetInnerHTML={{ __html: detail.text }}></div>}

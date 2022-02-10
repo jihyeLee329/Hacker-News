@@ -1,6 +1,12 @@
 import {useState, useEffect, useRef} from "react";
 import styled from "styled-components";
 import {TimeForToday} from "./TimeForToday";
+import IconComment from '../img/ic_comment.svg'
+import IconPoint from '../img/ic_point.svg'
+import IconLinkBig from '../img/ic_link_big.png'
+import IconArrow from '../img/ic_arrow.svg'
+
+
 //list마다 swiper 하는 모듈
 import {
     LeadingActions,
@@ -11,8 +17,6 @@ import {
     Type as ListType
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
-// import { SwipeableList, SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
-// import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 
 const List = styled.div `
 a{ display:block;}
@@ -27,19 +31,17 @@ width:100%;
     border-top: 1px solid #F0F0F6;
     padding-top:8px; padding-bottom:12px; display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
   .userId{color:#767676; line-height:inherit; font-size:inherit; width:45%;
-    &:after{content:url(/img/ic_arrow.svg); display:inline-block; vertical-align:top;}
+    &:after{content:url(${IconArrow}); display:inline-block; vertical-align:top;}
   }
   .listInfo{line-height:inherit; font-size:inherit; width:55%; text-align:right;
     span{display:inline-block; vertical-align:top;}
     span:before {display:inline-block; vertical-align:top; margin-right:3px;}
     .listComments{color:#FF6600; margin-left:8px;
-      &:before {content:url(${process.env.PUBLIC_URL +
-        '/img/ic_comment.svg'});}
+      &:before {content:url(${IconComment});}
       }
   }
   .listPoint{color:#505050;
-    &:before{content:url(${process.env.PUBLIC_URL +
-        '/img/ic_point.svg'});
+    &:before{content:url(${IconPoint});
   }
   `;
 
@@ -61,8 +63,7 @@ const RightBox = styled.a `
   display:flex;align-items:center; 
   padding-right:16px;
   span{
-    width:48px;height:48px; background-image:url(${process.env.PUBLIC_URL +
-        '/img/ic_link_big.png'});
+    width:48px;height:48px; background-image:url(${IconLinkBig});
   background-size:40px auto; background-position: center;
   background-repeat:no-repeat;}
   `;
@@ -84,6 +85,8 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [idUrl, setIdUrl] = useState(""); //각각 회원 정보
   const [indexNum, setIndexNum] = useState(0);
+ 
+ 
 
     useEffect(() => {
       setListId(data);
@@ -125,10 +128,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
         return `0${indexNum + 1}`
       }
     }
-   
-    // function goUrl(url){
-    //  window.location.href={url}
-    // }
+  
     const goUrl = () =>{
       myLink.current.click();
     }
@@ -201,55 +201,6 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
         </List>
       </SwipeableListItem>
     </SwipeableList>
-    {/* <SwipeableList>
-      {({ className, ...rest }) => (
-        <div className={className}>
-          <SwipeableListItem
-            swipeLeft={{
-              content: <div>왼쪽 {detailUrl}</div>,
-              action: () => console.info('swipe action triggered')
-            }}
-            swipeRight={{
-              content: <a href={detailUrl}>Revealed content during swipe</a>,
-              action: () => console.log('스와이프...')
-            }}
-            {...rest}
-           
-          >
-             <List>
-          <div className="list_title">
-            {
-              listName === 'jobs'
-                ? <a href={detailUrl} rel="noreferrer" target="_blank">
-                      {listId.title}
-                  </a>
-                : <a href={detailUrl} rel="noreferrer">
-                    {listId.title}
-                  </a>
-            }
-          </div>
-            {
-              listName === "jobs"
-                ? null
-                : (
-                <div className="user_wrap">
-                  <p className="userId" onClick={viewUserId}>{listId.by}</p>
-                  <div className="listInfo">
-                    <a href={detailUrl} rel="noreferrer">
-                      <span className="listPoint">{listId.score}</span>
-                      <span className="listComments">
-                          {listId.descendants ? listId.descendants : 0 }
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              )
-            }
-        </List>
-          </SwipeableListItem>
-        </div>
-      )}
-    </SwipeableList> */}
     </SwiperBox>
   </>
   );

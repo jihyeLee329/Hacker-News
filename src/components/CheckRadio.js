@@ -1,16 +1,20 @@
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
-
+import IconComment from '../img/ic_comment.svg'
+import IconSmallMode from '../img/ic_small_mode.svg'
+import IconZoomMode from '../img/ic_zoom_mode.svg'
+import IconCheck from '../img/ic_check.png'
+import IconCheckDefault from '../img/ic_check.svg'
 const CheckRadioBlick = styled.div`
 ${({ listName }) => {
   return listName==='detail' ? `padding:24px 20px 20px`:`padding: 20px 20px 12px`;
 }};
   position:relative;
   input{width:0; height:0; visibility:hidden; margin:0; font-size:0;}
-  input:checked + label {color:#FF6600; background-image:url(${process.env.PUBLIC_URL + '/img/ic_check.png'});}
+  input:checked + label {color:#FF6600; background-image:url(${IconCheck});}
   label {font-size:14px; line-height:20px; color:#999; 
     padding-left:20px; background-repeat:no-repeat; background-position:left center; background-size:20px auto;
-    background-image:url(${process.env.PUBLIC_URL +'/img/ic_check.svg'});  
+    background-image:url(${IconCheckDefault});  
   &:nth-of-type(1) {margin-right:4px;}
   }
   .comment_length{
@@ -43,10 +47,10 @@ export default function CheckRadio ({checked, changeChk, onZoomToggle, onToggle,
     </>
   }
     {listName === 'detail' ?
-   <div className='comment_length'><img src={process.env.PUBLIC_URL +"/img/ic_comment.svg"} alt="코멘트갯수"/>{comments}</div>
+   <div className='comment_length'><img src={IconComment} alt="코멘트갯수"/>{comments}</div>
   : <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
-      {onToggle ? <img src={process.env.PUBLIC_URL +'/img/ic_small_mode.svg'} alt="작게보기"/> :
-       <img src={process.env.PUBLIC_URL +"/img/ic_zoom_mode.svg"} alt="크게보기"/>}
+      {onToggle ? <img src={IconSmallMode} alt="작게보기"/> :
+       <img src={IconZoomMode} alt="크게보기"/>}
     </ModeChgBtn>
     }
     

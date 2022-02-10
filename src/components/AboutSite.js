@@ -1,7 +1,16 @@
 import { tab } from "@testing-library/user-event/dist/tab";
 import { useState, useRef } from "react";
 import styled from 'styled-components'
-
+import IconGrayArrow from '../img/gray_arrow.svg'
+import titleModeSlideR from '../img/title_mode_slide_r.png'
+import titleModeSlideL from '../img/title_mode_slide_l.png'
+import titleModeZoom from "../img/title_mode_zoom.png"
+import titleModeSmall from "../img/title_mode_small.png"
+import sortOptionTop from '../img/sort_option_top.png'
+import sortOptionNew from '../img/sort_option_new.png'
+import whiteMode from '../img/whitemode.png'
+import blackMode from '../img/blackmode.png'
+import IconGrayInfo from '../img/gray_info.svg'
 
 const DimmedAbout = styled.div`
   width:100vw; height:100vh; background:rgba(17,17,17,0.5);
@@ -34,7 +43,7 @@ const AboutWrap = styled.div`
 const Tab = styled.div`
 background: #F9FAFB;position:relative;
 border-radius: 8px; padding: 12px 12px 12px 52px;
-background-image:url(${process.env.PUBLIC_URL+ '/img/gray_info.svg'}); background-size:24px auto; background-position: 20px center; background-repeat:no-repeat;
+background-image:url(${IconGrayInfo}); background-size:24px auto; background-position: 20px center; background-repeat:no-repeat;
   > span{position:absolute; right:20px; top:50%; transform:translate(0, -50%); }
   > p{font-size:16px; line-height:24px; }
   & + &{margin-top:8px;}
@@ -100,7 +109,7 @@ export default function AboutSite({aboutBtn, setAboutBtn }){
      
       <div className="tabWrap">
         <Tab onClick={clikTab} ref={TabBar} >
-          <p>Menu</p><span><img src={process.env.PUBLIC_URL +"/img/gray_arrow.svg"} alt="arrow"/></span>
+          <p>Menu</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
         { tabClick && tabName === 'Menu' ? 
           <TabContent>
@@ -126,7 +135,7 @@ export default function AboutSite({aboutBtn, setAboutBtn }){
             </div>
           </TabContent> :null}
         <Tab onClick={clikTab} ref={TabBar} >
-          <p>Appearance</p><span><img src={process.env.PUBLIC_URL +"/img/gray_arrow.svg"} alt="arrow"/></span>
+          <p>Appearance</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
         { tabClick && tabName === 'Appearance' ?
           <TabContent>
@@ -136,15 +145,15 @@ export default function AboutSite({aboutBtn, setAboutBtn }){
             </div>
             <div className="ImgWrap">
               <span>
-               <img src={process.env.PUBLIC_URL +"/img/whitemode.png"} alt="Appearance1"/>
+               <img src={whiteMode} alt="Appearance1"/>
               </span>
               <span>
-                <img src={process.env.PUBLIC_URL +"/img/blackmode.png"} alt="Appearance2"/>
+                <img src={blackMode} alt="Appearance2"/>
               </span>
             </div>
           </TabContent> :null}
         <Tab onClick={clikTab}>
-          <p>Sort option</p><span><img src={process.env.PUBLIC_URL +"/img/gray_arrow.svg"} alt="arrow"/></span>
+          <p>Sort option</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
         { tabClick && tabName === 'Sort option' ?
           <TabContent>
@@ -154,15 +163,15 @@ export default function AboutSite({aboutBtn, setAboutBtn }){
             </div>
             <div className="ImgWrap">
               <span>
-               <img src={process.env.PUBLIC_URL +"/img/sort_option_top.png"} alt="sort top"/>
+               <img src={sortOptionTop} alt="sort top"/>
               </span>
               <span>
-                <img src={process.env.PUBLIC_URL +"/img/sort_option_new.png"} alt="sort new"/>
+                <img src={sortOptionNew} alt="sort new"/>
               </span>
             </div>
           </TabContent> :null}
         <Tab onClick={clikTab}>
-          <p>Title mode</p><span><img src={process.env.PUBLIC_URL +"/img/gray_arrow.svg"} alt="arrow"/></span>
+          <p>Title mode</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
         { tabClick && tabName === 'Title mode' ?
           <TabContent>
@@ -172,10 +181,10 @@ export default function AboutSite({aboutBtn, setAboutBtn }){
             </div>
             <div className="ImgWrap">
               <span>
-               <img src={process.env.PUBLIC_URL +"/img/title_mode_zoom.png"} alt="zoom mode"/>
+               <img src={titleModeZoom} alt="zoom mode"/>
               </span>
               <span>
-                <img src={process.env.PUBLIC_URL +"/img/title_mode_small.png"} alt="small mode"/>
+                <img src={titleModeSmall} alt="small mode"/>
               </span>
             </div>
             <div>
@@ -184,15 +193,15 @@ export default function AboutSite({aboutBtn, setAboutBtn }){
             </div>
             <div className="ImgWrap">
               <span>
-               <img src={process.env.PUBLIC_URL +"/img/title_mode_slide_r.png"} alt="slide right"/>
+               <img src={titleModeSlideR} alt="slide right"/>
               </span>
               <span>
-                <img src={process.env.PUBLIC_URL +"/img/title_mode_slide_l.png"} alt="slide left"/>
+                <img src={titleModeSlideL} alt="slide left"/>
               </span>
             </div>
           </TabContent> :null}
         <Tab onClick={clikTab}>
-          <p>Credit for</p><span><img src={process.env.PUBLIC_URL +"/img/gray_arrow.svg"} alt="arrow"/></span>
+          <p>Credit for</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
         { tabClick && tabName === 'Credit for' ?
           <TabContent>

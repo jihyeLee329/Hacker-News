@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getData } from "../API/HNApi";
 import styled from "styled-components";
 import { TimeForToday } from "./TimeForToday";
+import CommentView from '../img/comment_toggle_view.svg'
+import CommentHidden from '../img/comment_toggle_sm.svg'
 const Comment = styled.div`
   span {
     font-size: 12px;
@@ -65,9 +67,9 @@ export default function Comments({ kid ,setUserId, setUserChk,checked }) {
             <span className="time">{TimeForToday(kidData.time)}</span>
             <button value={toggleBtn} onClick={allView}>
               {toggleBtn ? (
-                <img src= {process.env.PUBLIC_URL + "/img/comment_toggle_view.svg"} alt="펼쳐보기" />
+                <img src= {CommentView} alt="펼쳐보기" />
               ) : (
-                <img src= {process.env.PUBLIC_URL + "/img/comment_toggle_sm.svg"} alt="줄여보기" />
+                <img src= {CommentHidden} alt="줄여보기" />
               )}
             </button>
           </div>

@@ -12,6 +12,7 @@ function Article({checked, changeChk, onZoomToggle, onToggle ,listName, setListN
   const [articleIds, setArticleIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);
+  
   useEffect(()=>{
     setListName("article");
     getTopStoryIds().then((data) => setArticleIds(data));
