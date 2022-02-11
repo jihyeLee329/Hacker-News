@@ -54,7 +54,7 @@ function Header({setAboutBtn, aboutBtn}) {
     <HeaderWrap >
       <div>
         <LogoWrap>
-          <Link to="/">
+          <Link to="/Hacker-News">
             <LogoImg src={Logo} alt="logo" />
           </Link>
         </LogoWrap>

@@ -122,7 +122,7 @@ function App() {
           )}
         />
         <Route
-          path="/"
+          path="/Hacker-News"
           exact
           render={(props) => (
             <Home
