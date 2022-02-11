@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { getData } from "../../API/HNApi";
 import styled from "styled-components";
 import "swiper/css";
 
