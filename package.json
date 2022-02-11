@@ -47,11 +47,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.17.2",
     "gh-pages": "^3.2.3"
-<<<<<<< HEAD
+
   },
   "homepage": "https://jihyeLee329.github.io/"
-=======
-  }
-  
->>>>>>> parent of bfc97d9 (add homepage)
 }
