@@ -1,19 +1,13 @@
 //css
-import {GlobalStyle}  from './css/Common'
+import { GlobalStyle } from "./css/Common";
 import Header from "./components/Header";
-import { HashRouter as Router, Route } from "react-router-dom";
-import Home from "./Router/Home";
-import Article from "./Router/Article";
-import Ask from "./Router/Ask";
-import Show from "./Router/Show";
-import Jobs from "./Router/Jobs";
-import { Detail } from "./Router/Detail";
-import UserInfo from './components/UserInfo'
-import { Button } from './components/Button';
-
-import React, { useEffect, useState } from "react";
+import UserInfo from "./components/UserInfo";
+import { Button } from "./components/Button";
+import React, { useState } from "react";
+import { Switch } from "react-router-dom";
 import Dimmed from "./components/Dimmed";
-import AboutSite from './components/AboutSite'
+import AboutSite from "./components/AboutSite";
+import AppRouter from "./Router/AppRoute";
 
 function App() {
   //dimmed 효과
@@ -22,17 +16,17 @@ function App() {
     setDimmed(!dimmed);
   }
 
-  //about 사이트 
-  const [aboutBtn, setAboutBtn] = useState(false);
-  
+  //about 사이트
+  const [showAboutSite , setShowAboutSite ] = useState(false);
+
   //사용자 정보
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
   const [userChk, setUserChk] = useState(false);
 
   //체크여부
-  const [checked, setChecked] = useState(true);
+  const [sortChecked, setSorChecked] = useState(true);
   function changeChk() {
-    setChecked(!checked);
+    setSorChecked(!sortChecked);
   }
 
   //List에서 보기모드 변경 버튼
@@ -41,107 +35,43 @@ function App() {
     setOnToggle(!onToggle);
   }
 
-  //listName 내가 어떤 페이지인지
-  const [listName, setListName] = useState("");
+  // //listName 내가 어떤 페이지인지
+  // const [listName, setListName] = useState("");
 
   return (
     <>
-    <GlobalStyle  userChk={userChk} />
+      <GlobalStyle userChk={userChk} />
       <div className="wrapper">
-        <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} />
-        <Header setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
-        <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
-              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
-        <Route
-          path="/article"
-          exact
-          render={() => (
-            <Article
-              listName={listName}
-              setListName={setListName}
-              checked={checked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-            />
-          )}
+        <Dimmed
+          dimmed={dimmed}
+          setUserChk={setUserChk}
+          userChk={userChk}
+          setDimmed={setDimmed}
         />
-        <Route path="/ask/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
-              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
-        <Route
-          path="/ask"
-          exact
-          render={() => (
-            <Ask
-              listName={listName}
-              setListName={setListName}
-              checked={checked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-            />
-          )}
+        <Header setShowAboutSite={setShowAboutSite} showAboutSite={showAboutSite} />
+        <Switch>
+          <>
+        <AppRouter
+          setUserId={setUserId}
+          setUserChk={setUserChk}
+          sortChecked={sortChecked}
+          changeChk={changeChk}
+          onToggle={onToggle}
+          onZoomToggle={onZoomToggle}
+          onDimmed={onDimmed}
         />
-
-        <Route path="/show/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} checked={checked}
-              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
-        <Route
-          path="/show"
-          exact
-          render={() => (
-            <Show
-              listName={listName}
-              setListName={setListName}
-              checked={checked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-            />
-          )}
-        />
-        <Route
-          path="/jobs"
-          exact
-          render={() => (
-            <Jobs
-              listName={listName}
-              setListName={setListName}
-              checked={checked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-            />
-          )}
-        />
-        <Route
-          path="/"
-          exact
-          render={(props) => (
-            <Home
-              listName={listName}
-              setListName={setListName}
-              onDimmed={onDimmed}
-              checked={checked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-              {...props}
-            />
-          )}
-        />
+        </>
+        </Switch>
       </div>
-      <AboutSite aboutBtn={aboutBtn} setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
-      <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
+      <AboutSite showAboutSite={showAboutSite} setShowAboutSite={setShowAboutSite} />
+      <UserInfo
+        userId={userId}
+        userChk={userChk}
+        setUserId={setUserId}
+        setUserChk={setUserChk}
+        dimmed={dimmed}
+        setDimmed={setDimmed}
+      />
       <Button />
     </>
   );

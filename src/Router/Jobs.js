@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import {getJobsIds, getData} from '../API/HNApi';
-import LookZoom from '../components/LookZoom';
-import LookSmallView from '../components/LookSmallView';
-import CheckRadio from '../components/CheckRadio'
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import { getJobsIds, getData } from "../API/HNApi";
+import LookZoom from "../components/LookZoom";
+import LookSmallView from "../components/LookSmallView";
+import CheckRadio from "../components/CheckRadio";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-  padding-bottom:67px;
+  padding-bottom: 67px;
 `;
-function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName, setUserId, setUserChk}){
+function Ask({
+  sortChecked,
+  changeChk,
+  onZoomToggle,
+  onToggle,
+  setUserId,
+  setUserChk,
+}) {
+  const [listName, setListName] = useState("");
   const [jobsIds, setJobsIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     setListName("jobs");
     getJobsIds().then((data) => setJobsIds(data));
     return () => setJobsIds([]);
-  },[]);
+  }, []);
 
-  
   useEffect(() => {
     jobsIds
       .slice(0, 10)
@@ -28,22 +35,22 @@ function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName,
 
   useEffect(() => {
     setEachData(eachData.concat(listId));
-    return ()=>setEachData([]);
+    return () => setEachData([]);
   }, [listId]);
 
-  if(checked === false){
-    eachData.sort(function(a,b){
-      return b.time - a.time; 
+  if (sortChecked === false) {
+    eachData.sort(function (a, b) {
+      return b.time - a.time;
     });
-  }else{
-    eachData.sort(function(a,b){
-      return b.score - a.score; 
+  } else {
+    eachData.sort(function (a, b) {
+      return b.score - a.score;
     });
   }
   return (
     <Wrapper>
       <CheckRadio
-        checked={checked}
+        sortChecked={sortChecked}
         changeChk={changeChk}
         onZoomToggle={onZoomToggle}
         onToggle={onToggle}
@@ -53,13 +60,26 @@ function Ask({checked, changeChk, onZoomToggle, onToggle ,listName, setListName,
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            <LookZoom
+              data={data}
+              key={data.id}
+              index={index}
+              listName={listName}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
+            />
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            <LookSmallView
+              data={data}
+              key={data.id}
+              index={index}
+              listName={listName}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
+            />
           )
         )}
     </Wrapper>
   );
-
 }
 export default Ask;

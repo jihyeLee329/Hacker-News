@@ -1,22 +1,31 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { TopList } from "../components/Top/TopList";
-import CheckRadio from '../components/CheckRadio'
-import LookZoom from '../components/LookZoom';
-import LookSmallView from '../components/LookSmallView';
-import { getTopStoryIds, getData } from '../API/HNApi'
-import styled from 'styled-components'
+import CheckRadio from "../components/CheckRadio";
+import LookZoom from "../components/LookZoom";
+import LookSmallView from "../components/LookSmallView";
+import { getTopStoryIds, getData } from "../API/HNApi";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-  padding-bottom:67px;
+  padding-bottom: 67px;
 `;
 //---------- 메인 컴포넌트  ------------- //
-export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onToggle, listName, setListName, setUserId, setUserChk}) {
+export default function Home({
+  onDimmed,
+  sortChecked,
+  changeChk,
+  onZoomToggle,
+  onToggle,
+  setUserId,
+  setUserChk,
+}) {
+  const [listName, setListName] = useState("");
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]); //home 에서 사용하는 리스트 
+  const [eachData, setEachData] = useState([]); //home 에서 사용하는 리스트
 
   useEffect(() => {
-    setListName('article');
+    setListName("article");
     getTopStoryIds().then((data) => setTopStoryIds(data));
     return () => setTopStoryIds([]);
   }, []);
@@ -24,7 +33,9 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
   useEffect(() => {
     topStoryIds
       .slice(0, 10)
-      .map((topStoryId) => getData(topStoryId).then((data) => data && setListId(data)));
+      .map((topStoryId) =>
+        getData(topStoryId).then((data) => data && setListId(data))
+      );
     return () => setListId([]);
   }, [topStoryIds]);
 
@@ -32,27 +43,51 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
     setEachData(eachData.concat(listId));
   }, [listId]);
 
-  if(checked === false){
-    eachData.sort(function(a,b){
-      return b.time - a.time; 
+  if (sortChecked === false) {
+    eachData.sort(function (a, b) {
+      return b.time - a.time;
     });
-  }else{
-    eachData.sort(function(a,b){
-      return b.score - a.score; 
+  } else {
+    eachData.sort(function (a, b) {
+      return b.score - a.score;
     });
   }
-  
+
   return (
     <Wrapper>
-      <TopList topStoryIds={eachData} setUserId={setUserId} setUserChk={setUserChk}/>
-      <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
+      <TopList
+        topStoryIds={eachData}
+        setUserId={setUserId}
+        setUserChk={setUserChk}
+      />
+      <CheckRadio
+        sortChecked={sortChecked}
+        changeChk={changeChk}
+        onZoomToggle={onZoomToggle}
+        onToggle={onToggle}
+        listName={listName}
+      />
       {eachData
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            <LookZoom
+              data={data}
+              key={data.id}
+              index={index}
+              listName={listName}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
+            />
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
+            <LookSmallView
+              data={data}
+              key={data.id}
+              index={index}
+              listName={listName}
+              setUserId={setUserId}
+              setUserChk={setUserChk}
+            />
           )
         )}
     </Wrapper>
