@@ -1,4 +1,4 @@
-import { tab } from "@testing-library/user-event/dist/tab";
+
 import { useState, useRef } from "react";
 import styled from 'styled-components'
 import IconGrayArrow from '../img/gray_arrow.svg'
