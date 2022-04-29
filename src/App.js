@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import UserInfo from "./components/UserInfo";
 import { ScrollTopButton } from "./components/ScrollTopButton";
 import React, { useState } from "react";
-import { Switch } from "react-router-dom";
 import Dimmed from "./components/Dimmed";
 import AboutSite from "./components/AboutSite";
 import AppRouter from "./Router/AppRoute";
