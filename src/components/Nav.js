@@ -29,7 +29,7 @@ display:table-cell; font-size:18px; line-height:24px;
 color:#767676; border-bottom: 1px solid #f0f0f6;
   &.active{position:relative;color:#FF6600;font-weight:bold;}
   &.active:after{content:""; width:100%; height:2px; background:#FF6600; position:absolute; left:0; bottom:0; border-radius: 2px 2px 0px 0px;}
-
+};
 `;
 
 function Nav() {
@@ -43,7 +43,7 @@ function Nav() {
   
  //스크롤했을 때, .header-section 을 가져와서 
  // 윈도우 스크롤이 10 이상일 경우 addClass i-sticky 
-  const isSticky = () => {
+  const isSticky = (e) => {
       const header = document.querySelector('.header-section');
       const scrollTop = window.scrollY;
       scrollTop >= 10 ? header.classList.add('is-sticky') : header.classList.remove('is-sticky');
