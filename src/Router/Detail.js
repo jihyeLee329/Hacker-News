@@ -195,7 +195,6 @@ export function Detail({ match, setUserId, setUserChk, sortChecked , changeChk }
               <Comments
                 kid={kid}
                 key={index}
-                sortChecked ={sortChecked}
                 setUserId={setUserId}
                 setUserChk={setUserChk}
               />

@@ -32,14 +32,14 @@ const ModeChgBtn = styled.button`
 `;
 
 export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onToggle, listName, comments}){
-  return <CheckRadioBlick listName={listName}>
+  return (<CheckRadioBlick listName={listName}>
     {listName === 'jobs' ?
     <>
       <input onChange={changeChk} sortChecked={sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
     </> :
     <>
-      <input onChange={changeChk} sortChecked={sortChecked} id="new" type="radio" name="list"/>
+      <input onChange={changeChk} sortChecked={!sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
       <input onChange={changeChk} sortChecked={sortChecked} id="top" type="radio" name="list" />
       <label htmlFor="top" >TOP</label>
@@ -54,4 +54,5 @@ export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onTog
     }
     
     </CheckRadioBlick>
+  )
 }

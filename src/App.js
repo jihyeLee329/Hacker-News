@@ -23,9 +23,9 @@ function App() {
   const [userChk, setUserChk] = useState(false);
 
   //체크여부
-  const [sortChecked, setSorChecked] = useState(true);
+  const [sortChecked, setSortChecked] = useState(true);
   function changeChk() {
-    setSorChecked(!sortChecked);
+    setSortChecked(!sortChecked);
   }
 
   //List에서 보기모드 변경 버튼

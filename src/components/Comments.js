@@ -40,7 +40,7 @@ const Comment = styled.div`
     pre{white-space:pre-line;}
   }
 `;
-export default function Comments({ kid ,setUserId, setUserChk,checked }) {
+export default function Comments({ kid ,setUserId, setUserChk }) {
   const [kidData, setkidData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
 
