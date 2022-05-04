@@ -16,7 +16,7 @@ export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, on
   const [listName, setListName] = useState("");
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]); //home 에서 사용하는 리스트 
+  const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
     setListName('article');
@@ -32,24 +32,25 @@ export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, on
   }, [topStoryIds]);
 
   useEffect(() => {
-    setEachData(eachData.concat(listId));
+    setDataList(dataList.concat(listId));
+    return ()=>setDataList([]);
   }, [listId]);
 
   if(sortChecked === false){
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.time - a.time; 
     });
   }else{
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.score - a.score; 
     });
   }
   
   return (
     <Wrapper>
-      <TopList topStoryIds={eachData} setUserId={setUserId} setUserChk={setUserChk}/>
+      <TopList topStoryIds={dataList} setUserId={setUserId} setUserChk={setUserChk}/>
       <CheckRadio sortChecked={sortChecked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
-      {eachData
+      {dataList
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
