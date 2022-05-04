@@ -54,7 +54,7 @@ function Header({setShowAboutSite, showAboutSite}) {
     <HeaderWrap >
       <div>
         <LogoWrap>
-          <Link to="/Hacker-News">
+          <Link to="/">
             <LogoImg src={Logo} alt="logo" />
           </Link>
         </LogoWrap>
