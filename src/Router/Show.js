@@ -21,7 +21,7 @@ function Show({
   const [listName, setListName] = useState("");
   const [showIds, setShowIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]);
+  const [dataList, setDataList] = useState([]);
 
   //ListName 정의, show API 받아오기
   useEffect(() => {
@@ -33,22 +33,22 @@ function Show({
   //받아온 API (id) 값을 이용하여 item 조회 & 하나의 배열로 합쳐주기
   useEffect(() => {
     showIds
-      .slice(0, 10)
+      .slice(0, 15)
       .map((showId) => getData(showId).then((data) => data && setListId(data)));
     return () => setListId([]);
   }, [showIds]);
 
   useEffect(() => {
-    setEachData(eachData.concat(listId));
-    return ()=>setEachData([]);
+    setDataList(dataList.concat(listId));
+    return ()=>setDataList([]);
   }, [listId]);
 
   if(sortChecked === false){
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.time - a.time; 
     });
   }else{
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.score - a.score; 
     });
   }
@@ -62,8 +62,8 @@ function Show({
         onToggle={onToggle}
         listName={listName}
       />
-      {eachData
-        .slice(0, 10)
+      {dataList
+        .slice(0, 15)
         .map((data, index) =>
           onToggle ? (
             <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>

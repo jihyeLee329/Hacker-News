@@ -14,7 +14,8 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUse
   const [listName, setListName] = useState("");
   const [jobsIds, setJobsIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]);
+  const [dataList, setDataList] = useState([]);
+
   useEffect(()=>{
     setListName("jobs");
     getJobsIds().then((data) => setJobsIds(data));
@@ -30,16 +31,16 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUse
   }, [jobsIds]);
 
   useEffect(() => {
-    setEachData(eachData.concat(listId));
-    return ()=>setEachData([]);
+    setDataList(dataList.concat(listId));
+    return ()=>setDataList([]);
   }, [listId]);
 
   if(sortChecked === false){
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.time - a.time; 
     });
   }else{
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.score - a.score; 
     });
   }
@@ -52,7 +53,7 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUse
         onToggle={onToggle}
         listName={listName}
       />
-      {eachData
+      {dataList
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (

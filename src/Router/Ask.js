@@ -12,8 +12,8 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUser
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
   const [askIds, setAskIds] = useState([]);
-  const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]);
+  const [listId, setListId] = useState([]);  
+  const [dataList, setDataList] = useState([]);
   useEffect(()=>{
     setListName("ask");
     getAskIds().then((data) => setAskIds(data));
@@ -28,16 +28,16 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUser
   }, [askIds]);
 
   useEffect(() => {
-    setEachData(eachData.concat(listId));
-    return () => setEachData([]);
+    setDataList(dataList.concat(listId));
+    return () => setDataList([]);
   }, [listId]);
 
   if(sortChecked === false){
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.time - a.time; 
     });
   }else{
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.score - a.score; 
     });
   }
@@ -50,7 +50,7 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUser
         onToggle={onToggle}
         listName={listName}
       />
-      {eachData
+      {dataList
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (

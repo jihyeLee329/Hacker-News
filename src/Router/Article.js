@@ -13,7 +13,7 @@ function Article({sortChecked, changeChk, onZoomToggle, onToggle, setUserId,setU
   const [listName, setListName] = useState("");
   const [articleIds, setArticleIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [eachData, setEachData] = useState([]);
+  const [dataList, setDataList] = useState([]);
   
   useEffect(()=>{
     setListName("article");
@@ -24,21 +24,21 @@ function Article({sortChecked, changeChk, onZoomToggle, onToggle, setUserId,setU
   useEffect(() => {
     articleIds
       .slice(0, 10)
-      .map((articleId) => getData(articleId).then((data) => data && setListId(data)));
+      .forEach((articleId) => getData(articleId).then((data) => data && setListId(data)));
     return () => setListId([]);
   }, [articleIds]);
 
   useEffect(() => {
-    setEachData(eachData.concat(listId));
-     return () => setEachData([]);
+    setDataList(dataList.concat(listId));
+     return () => setDataList([]);
   }, [listId]);
 
   if(sortChecked === false){
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.time - a.time; 
     });
   }else{
-    eachData.sort(function(a,b){
+    dataList.sort(function(a,b){
       return b.score - a.score; 
     });
   }
@@ -52,7 +52,7 @@ function Article({sortChecked, changeChk, onZoomToggle, onToggle, setUserId,setU
         onToggle={onToggle}
         listName={listName}
       />
-      {eachData
+      {dataList
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
