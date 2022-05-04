@@ -2,7 +2,7 @@
 import {GlobalStyle}  from './css/Common'
 import Header from "./components/Header";
 import UserInfo from './components/UserInfo'
-import { Button } from './components/Button';
+import { TopButton } from './components/TopButton';
 import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
 import AboutSite from './components/AboutSite'
@@ -16,7 +16,7 @@ function App() {
   }
 
   //about 사이트 
-  const [aboutBtn, setAboutBtn] = useState(false);
+  const [showAboutSite , setShowAboutSite ] = useState(false);
   
   //사용자 정보
   const [userId, setUserId] = useState('');
@@ -39,7 +39,7 @@ function App() {
     <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
         <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} />
-        <Header setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
+        <Header setShowAboutSite={setShowAboutSite} showAboutSite={showAboutSite}/>
         <AppRouter 
               sortChecked={sortChecked}
               changeChk={changeChk}
@@ -49,9 +49,9 @@ function App() {
               setUserChk={setUserChk} 
               onDimmed={onDimmed}/>
       </div>
-      <AboutSite aboutBtn={aboutBtn} setAboutBtn={setAboutBtn}/>
+      <AboutSite showAboutSite={showAboutSite} setShowAboutSite={setShowAboutSite}/>
       <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
-      <Button />
+      <TopButton />
     </>
   );
 }
