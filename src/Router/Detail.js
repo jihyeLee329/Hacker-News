@@ -96,7 +96,7 @@ const CommentsList = styled.div`
   padding: 0 20px 40px;
 `;
 
-export function Detail({match, setUserId, setUserChk, checked, changeChk , listName, setListName}){
+export function Detail({match, setUserId, setUserChk, sortChecked, changeChk , listName, setListName}){
   const matchFn = match.params;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);
@@ -152,9 +152,9 @@ export function Detail({match, setUserId, setUserChk, checked, changeChk , listN
         {detail.text && <div className="content" dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
       </DetailContent>
       <CommentsWrap>
-      <CheckRadio checked={checked} changeChk={changeChk} listName={listName} comments={detail.descendants}/>
+      <CheckRadio sortChecked={sortChecked} changeChk={changeChk} listName={listName} comments={detail.descendants}/>
         <CommentsList>
-          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} checked={checked} setUserId={setUserId} setUserChk={setUserChk}/>)}
+          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} sortChecked={sortChecked} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>

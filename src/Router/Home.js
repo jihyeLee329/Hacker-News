@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   padding-bottom:67px;
 `;
 //---------- 메인 컴포넌트  ------------- //
-export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onToggle, listName, setListName, setUserId, setUserChk}) {
+export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, onToggle, listName, setListName, setUserId, setUserChk}) {
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]); //home 에서 사용하는 리스트 
@@ -32,7 +32,7 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
     setEachData(eachData.concat(listId));
   }, [listId]);
 
-  if(checked === false){
+  if(sortChecked === false){
     eachData.sort(function(a,b){
       return b.time - a.time; 
     });
@@ -45,7 +45,7 @@ export default function Home({onDimmed, checked, changeChk ,onZoomToggle, onTogg
   return (
     <Wrapper>
       <TopList topStoryIds={eachData} setUserId={setUserId} setUserChk={setUserChk}/>
-      <CheckRadio checked={checked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
+      <CheckRadio sortChecked={sortChecked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
       {eachData
         .slice(0, 10)
         .map((data, index) =>

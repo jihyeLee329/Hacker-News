@@ -8,7 +8,7 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   padding-bottom:67px;
 `;
-function Article({checked, changeChk, onZoomToggle, onToggle ,listName, setListName, setUserId,setUserChk }){
+function Article({sortChecked, changeChk, onZoomToggle, onToggle ,listName, setListName, setUserId,setUserChk }){
   const [articleIds, setArticleIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);
@@ -31,7 +31,7 @@ function Article({checked, changeChk, onZoomToggle, onToggle ,listName, setListN
      return () => setEachData([]);
   }, [listId]);
 
-  if(checked === false){
+  if(sortChecked === false){
     eachData.sort(function(a,b){
       return b.time - a.time; 
     });
@@ -44,7 +44,7 @@ function Article({checked, changeChk, onZoomToggle, onToggle ,listName, setListN
   return (
     <Wrapper>
       <CheckRadio
-        checked={checked}
+        sortChecked={sortChecked}
         changeChk={changeChk}
         onZoomToggle={onZoomToggle}
         onToggle={onToggle}
