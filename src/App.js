@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import UserInfo from "./components/UserInfo";
 import { ScrollTopButton } from "./components/ScrollTopButton";
 import React, { useState } from "react";
+import { Switch } from "react-router-dom";
 import Dimmed from "./components/Dimmed";
 import AboutSite from "./components/AboutSite";
 import AppRouter from "./Router/AppRoute";
@@ -23,9 +24,9 @@ function App() {
   const [userChk, setUserChk] = useState(false);
 
   //체크여부
-  const [sortChecked, setSortChecked] = useState(true);
+  const [sortChecked, setSorChecked] = useState(true);
   function changeChk() {
-    setSortChecked(!sortChecked);
+    setSorChecked(!sortChecked);
   }
 
   //List에서 보기모드 변경 버튼
@@ -48,6 +49,7 @@ function App() {
           setDimmed={setDimmed}
         />
         <Header setShowAboutSite={setShowAboutSite} showAboutSite={showAboutSite} />
+        <Switch>
         <AppRouter
           setUserId={setUserId}
           setUserChk={setUserChk}
@@ -57,6 +59,7 @@ function App() {
           onZoomToggle={onZoomToggle}
           onDimmed={onDimmed}
         />
+        </Switch>
       </div>
       <AboutSite showAboutSite={showAboutSite} setShowAboutSite={setShowAboutSite} />
       <UserInfo

@@ -5,8 +5,9 @@ import IconZoomMode from '../img/ic_zoom_mode.svg'
 import IconCheck from '../img/ic_check.png'
 import IconCheckDefault from '../img/ic_check.svg'
 const CheckRadioBlick = styled.div`
-${({ listName }) => {
-  return listName==='detail' ? `padding:24px 20px 20px`:`padding: 20px 20px 12px`;
+${(props) => {
+  // console.log(props)
+  return props.$listName ==='detail' ? `padding:24px 20px 20px`:`padding: 20px 20px 12px`;
 }};
   position:relative;
   input{width:0; height:0; visibility:hidden; margin:0; font-size:0;}
@@ -32,7 +33,8 @@ const ModeChgBtn = styled.button`
 `;
 
 export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onToggle, listName, comments}){
-  return (<CheckRadioBlick listName={listName}>
+  return (
+  <CheckRadioBlick $listName={listName}>
     {listName === 'jobs' ?
     <>
       <input onChange={changeChk} sortChecked={sortChecked} id="new" type="radio" name="list"/>
@@ -45,14 +47,13 @@ export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onTog
       <label htmlFor="top" >TOP</label>
     </>
   }
-    {listName === 'detail' ?
+  {listName === 'detail' ?
    <div className='comment_length'><img src={IconComment} alt="코멘트갯수"/>{comments}</div>
   : <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
       {onToggle ? <img src={IconSmallMode} alt="작게보기"/> :
        <img src={IconZoomMode} alt="크게보기"/>}
     </ModeChgBtn>
     }
-    
     </CheckRadioBlick>
   )
 }

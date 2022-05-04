@@ -17,7 +17,7 @@ const AppRouter = ({setUserId, setUserChk, sortChecked ,changeChk, onToggle ,onZ
           exact
           render={() => (
             <Article
-              sortChecked={sortChecked}
+            sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
