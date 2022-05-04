@@ -9,14 +9,15 @@ const Wrapper = styled.div`
   padding-bottom:67px;
 `;
 function Show({
-  sortChecked,
+  checked,
   changeChk,
   onZoomToggle,
   onToggle,
+  listName,
+  setListName,
   setUserId,
   setUserChk
 }) {
-  const [listName,setListName] = useState("");
   const [showIds, setShowIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);
@@ -41,7 +42,7 @@ function Show({
     return ()=>setEachData([]);
   }, [listId]);
 
-  if(sortChecked === false){
+  if(checked === false){
     eachData.sort(function(a,b){
       return b.time - a.time; 
     });
@@ -54,7 +55,7 @@ function Show({
   return (
     <Wrapper>
       <CheckRadio
-        sortChecked={sortChecked}
+        checked={checked}
         changeChk={changeChk}
         onZoomToggle={onZoomToggle}
         onToggle={onToggle}

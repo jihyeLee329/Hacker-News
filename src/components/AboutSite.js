@@ -77,7 +77,7 @@ const TabContent = styled.div`
   .copyRight{font-size:10px; color:#999;margin-top:40px;};
 `;
 
-export default function AboutSite({showAboutSite, setShowAboutSite }){
+export default function AboutSite({aboutBtn, setAboutBtn }){
   const [tabClick, setTabClick] = useState(false);
   const [tabName, setTabName] = useState("");
   const TabBar = useRef();
@@ -88,11 +88,11 @@ export default function AboutSite({showAboutSite, setShowAboutSite }){
   };
 
   function viewAbout(){
-    setShowAboutSite(!showAboutSite);
+    setAboutBtn(!aboutBtn);
   }
   return(
   <>
-  {showAboutSite ?
+  {aboutBtn ?
   <>
     <DimmedAbout />
     <AboutWrap>

@@ -1,86 +1,62 @@
-import React, { useEffect, useState } from "react";
-import { getTopStoryIds, getData } from "../API/HNApi";
-import LookZoom from "../components/LookZoom";
-import LookSmallView from "../components/LookSmallView";
-import CheckRadio from "../components/CheckRadio";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react'
+import {getTopStoryIds, getData} from '../API/HNApi';
+import LookZoom from '../components/LookZoom';
+import LookSmallView from '../components/LookSmallView';
+import CheckRadio from '../components/CheckRadio'
+import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  padding-bottom: 67px;
+  padding-bottom:67px;
 `;
-function Article({
-  sortChecked ,
-  changeChk,
-  onZoomToggle,
-  onToggle,
-  setUserId,
-  setUserChk,
-}) {
-  const [listName, setListName] = useState("");
+function Article({checked, changeChk, onZoomToggle, onToggle ,listName, setListName, setUserId,setUserChk }){
   const [articleIds, setArticleIds] = useState([]);
   const [listId, setListId] = useState([]);
-  const [dataList , setDataList ] = useState([]);
-
-  useEffect(() => {
+  const [eachData, setEachData] = useState([]);
+  
+  useEffect(()=>{
     setListName("article");
     getTopStoryIds().then((data) => setArticleIds(data));
     return () => setArticleIds([]);
-  }, []);
-
+  },[]);
+  
   useEffect(() => {
     articleIds
       .slice(0, 10)
-      .forEach((articleId) =>
-        getData(articleId).then((data) => data && setListId(data))
-      );
+      .map((articleId) => getData(articleId).then((data) => data && setListId(data)));
     return () => setListId([]);
   }, [articleIds]);
 
   useEffect(() => {
-    setDataList(dataList.concat(listId));
-    return () => setDataList([]);
+    setEachData(eachData.concat(listId));
+     return () => setEachData([]);
   }, [listId]);
 
-  if (sortChecked  === false) {
-    dataList.sort(function (a, b) {
-      return b.time - a.time;
+  if(checked === false){
+    eachData.sort(function(a,b){
+      return b.time - a.time; 
     });
-  } else {
-    dataList.sort(function (a, b) {
-      return b.score - a.score;
+  }else{
+    eachData.sort(function(a,b){
+      return b.score - a.score; 
     });
   }
-
+  
   return (
     <Wrapper>
       <CheckRadio
-        sortChecked={sortChecked }
+        checked={checked}
         changeChk={changeChk}
         onZoomToggle={onZoomToggle}
         onToggle={onToggle}
         listName={listName}
       />
-      {dataList
+      {eachData
         .slice(0, 10)
         .map((data, index) =>
           onToggle ? (
-            <LookZoom
-              data={data}
-              key={data.id}
-              index={index}
-              listName={listName}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-            />
+            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
           ) : (
-            <LookSmallView
-              data={data}
-              key={data.id}
-              index={index}
-              listName={listName}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
-            />
+            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
           )
         )}
     </Wrapper>

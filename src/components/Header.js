@@ -43,11 +43,11 @@ const IconWrap = styled.div`
 `;
 
 //---------- 헤더 컴포넌트  ------------- //
-function Header({setShowAboutSite, showAboutSite}) {
+function Header({setAboutBtn, aboutBtn}) {
 
   //헤더에서 about info 버튼 클릭여부 알려주는 함수 
   function viewAbout(){
-    setShowAboutSite(!showAboutSite);
+    setAboutBtn(!aboutBtn);
   }
 
   return (
