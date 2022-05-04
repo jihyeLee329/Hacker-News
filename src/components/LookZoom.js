@@ -84,17 +84,16 @@ const SwiperBox = styled.div`
   .swipe-action{min-width:80px;}
 `;
 function LookZoom({data, listName, index, setUserId, setUserChk}) {
-  const [listId, setListId] = useState({}); //각각 list data
+  const [eachListData, setEachListData] = useState({}); //각각 data
   const [time, setTime] = useState(0); // 시간 계산
   const [detailUrl, setDetailUrl] = useState(""); //각각 list 의 url
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [idUrl, setIdUrl] = useState(""); //각각 회원 정보
   const [indexNum, setIndexNum] = useState(0);
- 
- 
+
 
     useEffect(() => {
-      setListId(data);
+      setEachListData(data);
     }, [data]);
 
     useEffect(() => {
@@ -105,15 +104,15 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
         setOriginUrl(`https://news.ycombinator.com/item?id=${data.id}`)
       }
       return() => {
-        setListId({});
+        setEachListData({});
         setDetailUrl("");
         setIdUrl("");
       };
     }, [data, listName]);
 
     useEffect(() => {
-      setTime(listId.time);
-    }, [listId.time]);
+      setTime(eachListData.time);
+    }, [eachListData.time]);
 
     // index 값에 따라 0 or 00 붙여주기
     useEffect(() => {
@@ -122,7 +121,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
 
     //회원 id 누르면 id 값 가져오기
     function viewUserId() {
-      setUserId(listId.by);
+      setUserId(eachListData.by);
       setUserChk(true);
     }
 
@@ -173,10 +172,10 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
             {
               listName === 'jobs'
                 ? <a href={detailUrl} rel="noreferrer" target="_blank">
-                      {listId.title}
+                      {eachListData.title}
                   </a>
                 : <a href={detailUrl} rel="noreferrer">
-                    {listId.title}
+                    {eachListData.title}
                   </a>
             }
           </div>
@@ -185,12 +184,12 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
                 ? null
                 : (
                 <div className="user_wrap">
-                  <p className="userId" onClick={viewUserId}>{listId.by}</p>
+                  <p className="userId" onClick={viewUserId}>{eachListData.by}</p>
                   <div className="listInfo">
                     <a href={detailUrl} rel="noreferrer">
-                      <span className="listPoint">{listId.score}</span>
+                      <span className="listPoint">{eachListData.score}</span>
                       <span className="listComments">
-                          {listId.descendants ? listId.descendants : 0 }
+                          {eachListData.descendants ? eachListData.descendants : 0 }
                       </span>
                     </a>
                   </div>
