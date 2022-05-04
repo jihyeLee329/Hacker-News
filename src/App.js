@@ -34,17 +34,13 @@ function App() {
     setOnToggle(!onToggle);
   }
 
-  //listName 내가 어떤 페이지인지
-  const [listName, setListName] = useState("");
-
   return (
     <>
     <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
         <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} />
         <Header setAboutBtn={setAboutBtn} aboutBtn={aboutBtn}/>
-        <AppRouter listName={listName}
-              setListName={setListName}
+        <AppRouter 
               sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}

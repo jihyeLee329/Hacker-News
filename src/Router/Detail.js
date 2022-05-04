@@ -96,7 +96,10 @@ const CommentsList = styled.div`
   padding: 0 20px 40px;
 `;
 
-export function Detail({match, setUserId, setUserChk, sortChecked, changeChk , listName, setListName}){
+export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
+  
+  //listName 내가 어떤 페이지인지
+  const [listName, setListName] = useState("");
   const matchFn = match.params;
   const [detail, setDetail] = useState({});
   const [detailTime, setDetailTime] = useState(0);

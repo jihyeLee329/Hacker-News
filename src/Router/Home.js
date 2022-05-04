@@ -10,7 +10,10 @@ const Wrapper = styled.div`
   padding-bottom:67px;
 `;
 //---------- 메인 컴포넌트  ------------- //
-export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, onToggle, listName, setListName, setUserId, setUserChk}) {
+export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, onToggle, setUserId, setUserChk}) {
+  
+  //listName 내가 어떤 페이지인지
+  const [listName, setListName] = useState("");
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]); //home 에서 사용하는 리스트 

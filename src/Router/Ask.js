@@ -8,7 +8,9 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   padding-bottom:67px;
 `;
-function Ask({sortChecked, changeChk, onZoomToggle, onToggle ,listName, setListName, setUserId, setUserChk}){
+function Ask({sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUserChk}){
+  //listName 내가 어떤 페이지인지
+  const [listName, setListName] = useState("");
   const [askIds, setAskIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);

@@ -10,44 +10,43 @@ export const baseItem = `${baseUrl}item/`;
 
 // ------------ 공통으로 data 가져오는 함수 ---------- //
 export const getData = async (getdataId) => {
-  const result = await axios
+  const data = await axios
     .get(`${baseItem + getdataId}.json`)
     .then(({ data }) => data);
-  return result;
+  return data;
 };
 //--------------- top data--------------- //
 export const getTopStoryIds = async () => {
-  const result = await axios.get(topStoriesUrl).then(({ data }) => data);
-  return result;
+  const { data } = await axios.get(topStoriesUrl);
+  return data;
 };
 
 //--------------- Ask data--------------- //
 export const getAskIds = async ()=>{
-  const result = await axios.get(askStoriesUrl).then(({ data }) => data);
-  return result;
+  const { data } = await axios.get(askStoriesUrl);
+  return data;
 }
 
 //--------------- show data--------------- //
 export const getShowIds = async ()=>{
-  const result = await axios.get(showStoriesUrl).then(({ data }) => data);
-  return result;
+  const { data } = await axios.get(showStoriesUrl);
+  return data;
 }
 //--------------- jobs data--------------- //
 export const getJobsIds = async ()=>{
-  const result = await axios.get(jobsStoriesUrl).then(({ data }) => data);
-  return result;
+  const { data } = await axios.get(jobsStoriesUrl);
+  return data;
 }
 //--------------- item data--------------- //
 export const getDetailData = async (itemId)=>{
-  const result = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`).then(({ data }) => data);
-  return result;
+  const { data } = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`);
+  return data;
 }
 //--------------- user data--------------- //
 export const getUserData = async (getUserId) => {
-  const result = await axios
-  .get(`https://hacker-news.firebaseio.com/v0/user/${getUserId}.json`)
-  .then(({ data }) => data);
-  return result;
+  const { data } = await axios
+  .get(`https://hacker-news.firebaseio.com/v0/user/${getUserId}.json`);
+  return data;
 };
 
 // export const [api,setApi] = useReducer(reducer, []);

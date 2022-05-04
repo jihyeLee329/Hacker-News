@@ -13,11 +13,12 @@ function Show({
   changeChk,
   onZoomToggle,
   onToggle,
-  listName,
-  setListName,
   setUserId,
   setUserChk
 }) {
+  
+  //listName 내가 어떤 페이지인지
+  const [listName, setListName] = useState("");
   const [showIds, setShowIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [eachData, setEachData] = useState([]);

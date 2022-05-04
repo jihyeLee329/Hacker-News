@@ -42,7 +42,7 @@ export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onTog
     <>
       <input onChange={changeChk} checked={!sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
-      <input onChange={changeChk} sortChecked={sortChecked} id="top" type="radio" name="list" />
+      <input onChange={changeChk} checked={sortChecked} id="top" type="radio" name="list" />
       <label htmlFor="top" >TOP</label>
     </>
   }

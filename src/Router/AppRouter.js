@@ -6,18 +6,16 @@ import Ask from "./Ask";
 import Show from "./Show";
 import Jobs from "./Jobs";
 import { Detail } from "./Detail";
-export default function AppRouter({listName, setListName, sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUserChk ,onDimmed}){
+export default function AppRouter({ sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUserChk ,onDimmed}){
     return (
         <>
         <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
-              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
+              changeChk={changeChk} {...props}/>)} />
         <Route
           path="/article"
           exact
           render={() => (
             <Article
-              listName={listName}
-              setListName={setListName}
               sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
@@ -28,14 +26,12 @@ export default function AppRouter({listName, setListName, sortChecked, changeChk
           )}
         />
         <Route path="/ask/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
-              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
+              changeChk={changeChk} {...props}/>)} />
         <Route
           path="/ask"
           exact
           render={() => (
             <Ask
-              listName={listName}
-              setListName={setListName}
               sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
@@ -47,14 +43,12 @@ export default function AppRouter({listName, setListName, sortChecked, changeChk
         />
 
         <Route path="/show/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
-              changeChk={changeChk} listName={listName} setListName={setListName} {...props}/>)} />
+              changeChk={changeChk} {...props}/>)} />
         <Route
           path="/show"
           exact
           render={() => (
             <Show
-              listName={listName}
-              setListName={setListName}
               sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
@@ -69,8 +63,6 @@ export default function AppRouter({listName, setListName, sortChecked, changeChk
           exact
           render={() => (
             <Jobs
-              listName={listName}
-              setListName={setListName}
               sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
@@ -85,8 +77,6 @@ export default function AppRouter({listName, setListName, sortChecked, changeChk
           exact
           render={(props) => (
             <Home
-              listName={listName}
-              setListName={setListName}
               onDimmed={onDimmed}
               sortChecked={sortChecked}
               changeChk={changeChk}
