@@ -3,10 +3,10 @@ import axios from "axios";
 import styled from "styled-components";
 import Comments from "../components/Comments";
 import { TimeForToday } from "../components/TimeForToday";
-import { getDetailData } from "../API/HNApi";
-import CheckRadio from "../components/CheckRadio";
-import IconArrow from "../img/ic_arrow.svg";
-import IconLinkSmall from "../img/ic_link_s.png";
+import {getDetailData} from '../API/HNApi'
+import CheckRadio from '../components/CheckRadio'
+import IconArrow from '../img/ic_arrow.svg'
+import IconLinkSmall from '../img/ic_link_s.png'
 
 const DetailContent = styled.div`
   a,
@@ -65,24 +65,19 @@ const DetailContent = styled.div`
     line-height: 16px;
     color: #767676;
   }
-  .news_url {
-    position: relative;
-    & > img {
-      width: 16px;
-      vertical-align: top;
-    }
+  .news_url{position:relative;
+    & > img{width:16px; vertical-align:top;}
   }
-
+  
   .content {
     max-width: 100%;
     word-break: break-word;
     padding: 29px 16px 0;
     line-height: 24px;
     border-top: 1px solid #f0f0f6;
-    pre {
-      white-space: pre-line;
-    }
+    pre{white-space:pre-line;}
   }
+  
 `;
 const CommentsWrap = styled.div`
   box-shadow: 0px -2px 16px rgba(0, 0, 0, 0.08);
@@ -92,6 +87,7 @@ const CommentsWrap = styled.div`
     display: inline-block;
     vertical-align: top;
     .comments_length {
+     
     }
   }
 `;
@@ -100,108 +96,55 @@ const CommentsList = styled.div`
   padding: 0 20px 40px;
 `;
 
-export function Detail({ match, setUserId, setUserChk, sortChecked , changeChk }) {
+export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
+  
+  //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
-  const matchFn = match.params;
   const [detail, setDetail] = useState({});
-  const [detailTime, setDetailTime] = useState(0);
-  const [kids, setKids] = useState([]);
-  const [detailUrl, setDetailUrl] = useState("");
-
+  const matchFn = match.params;
+ 
   useEffect(() => {
     getDetailData(matchFn.id).then((data) => setDetail(data));
-    return () => {
-      setDetail({});
-    };
+    return ()=>{setDetail({})};
   }, [matchFn.id]);
 
-  useEffect(() => {
-    setListName("detail");
-    setDetailUrl(detail.url);
-  }, [detail]);
+  useEffect(()=>{
+    setListName('detail');
+  },[detail]);
 
-  function urlSplit(url) {
-    return url.split("/")[2];
+  function urlSplit(url){
+    return url.split('/')[2];
   }
-  //회원 id 누르면 id 값 가져오기
-  function viewUserId() {
+   //회원 id 누르면 id 값 가져오기
+   function viewUserId(){
     setUserId(detail.by);
     setUserChk(true);
   }
 
-  useEffect(() => {
-    setKids(detail.kids);
-    return () => {
-      setKids([]);
-    };
-  }, [detail.kids]);
-
-  useEffect(() => {
-    setDetailTime(detail.time);
-    return () => {
-      setDetailTime(0);
-    };
-  }, [detail]);
-
   return (
     <>
       <DetailContent>
-        <p className="time">{TimeForToday(detailTime)}</p>
+        <p className="time">{TimeForToday(detail.time)}</p>
         <div className="title">{detail.title}</div>
         <div className="user_info">
           <div>
             <span className="point">{detail.score} points</span>
-            <span className="user" onClick={viewUserId}>
-              {detail.by}
-            </span>
+            <span className="user" onClick={viewUserId}>{detail.by}</span>
           </div>
-          {detailUrl ? (
-            <a
-              href={detailUrl}
-              className="news_url"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {urlSplit(detailUrl)} <img src={IconLinkSmall} alt="뉴스링크" />
-            </a>
-          ) : (
-            <a
-              href={`https://news.ycombinator.com/item?id=${detail.id}`}
-              className="news_url"
-              target="_blank"
-              rel="noreferrer"
-            >
-              news.ycombinator.com <img src={IconLinkSmall} alt="뉴스링크" />
-            </a>
-          )}
+          {detail.url ? 
+          <a href={detail.url} className="news_url" target="_blank" rel="noopener  noreferrer" title="새창으로 열기" >{urlSplit(detail.url)} <img src={IconLinkSmall} alt="뉴스링크" /></a> : 
+          <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noopener noreferrer" title="새창으로 열기" >news.ycombinator.com <img src={IconLinkSmall} alt="뉴스링크" /></a>}
+          
         </div>
-        {detail.text && (
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{ __html: detail.text }}
-          ></div>
-        )}
+        {detail.text && <div className="content" dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
       </DetailContent>
       <CommentsWrap>
-        <CheckRadio
-          sortChecked ={sortChecked}
-          changeChk={changeChk}
-          listName={listName}
-          comments={detail.descendants}
-        />
+      <CheckRadio sortChecked={sortChecked} changeChk={changeChk} listName={listName} comments={detail.descendants}/>
         <CommentsList>
-          {kids &&
-            kids.map((kid, index) => (
-              <Comments
-                kid={kid}
-                key={index}
-                sortChecked ={sortChecked}
-                setUserId={setUserId}
-                setUserChk={setUserChk}
-              />
-            ))}
+          {detail.kids && detail.kids.map((kid, index) => <Comments kid={kid} key={index} sortChecked={sortChecked} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>
   );
-}
+};
+

@@ -10,84 +10,55 @@ export const baseItem = `${baseUrl}item/`;
 
 // ------------ 공통으로 data 가져오는 함수 ---------- //
 export const getData = async (getdataId) => {
-  try {
-    const { data } = await axios.get(`${baseItem + getdataId}.json`);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  const data = await axios
+    .get(`${baseItem + getdataId}.json`)
+    .then(({ data }) => data);
+  return data;
 };
 //--------------- top data--------------- //
 export const getTopStoryIds = async () => {
-  try {
-    const { data } = await axios.get(topStoriesUrl);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  const { data } = await axios.get(topStoriesUrl);
+  return data;
 };
 
 //--------------- Ask data--------------- //
-export const getAskIds = async () => {
-  try {
-    const { data } = await axios.get(askStoriesUrl);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
+export const getAskIds = async ()=>{
+  const { data } = await axios.get(askStoriesUrl);
+  return data;
+}
 
 //--------------- show data--------------- //
-export const getShowIds = async () => {
-  try {
-    const { data } = await axios.get(showStoriesUrl);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
+export const getShowIds = async ()=>{
+  const { data } = await axios.get(showStoriesUrl);
+  return data;
+}
 //--------------- jobs data--------------- //
-export const getJobsIds = async () => {
-  try {
-    const { data } = await axios.get(jobsStoriesUrl);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
+export const getJobsIds = async ()=>{
+  const { data } = await axios.get(jobsStoriesUrl);
+  return data;
+}
 //--------------- item data--------------- //
-export const getDetailData = async (itemId) => {
-  try {
-    const { data } = await axios.get(
-      `https://hacker-news.firebaseio.com/v0/item/${itemId}.json`
-    );
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
+export const getDetailData = async (itemId)=>{
+  const { data } = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`);
+  return data;
+}
 //--------------- user data--------------- //
 export const getUserData = async (getUserId) => {
-  try {
-    const { data } = await axios.get(
-      `https://hacker-news.firebaseio.com/v0/user/${getUserId}.json`
-    );
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  const { data } = await axios
+  .get(`https://hacker-news.firebaseio.com/v0/user/${getUserId}.json`);
+  return data;
 };
 
 // export const [api,setApi] = useReducer(reducer, []);
 // const reducer = (state, action ) =>{
 //   switch (action.type) {
-//     case "ARTICLE":
-//       return action.data;
-//     case "ASK" :
-//     return action.data;
-//     case "SHOW" :
-//     return action.data;
-//     case "JOBS" :
+//     case "ARTICLE": 
+//       return action.data; 
+//     case "ASK" : 
+//     return action.data; 
+//     case "SHOW" : 
+//     return action.data; 
+//     case "JOBS" : 
 //     return action.data;
 //     default:
 //       action.data;

@@ -18,13 +18,14 @@ opacity:0;
 &.active{opacity:1;}
 img{max-width:100%;}
 `;
-export const ScrollTopButton = () => {
+export const TopButton = ()=> {
   // const [ScrollY, setScrollY] = useState(0); //스크롤값 저장용
   const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
   let scrollY = 0;
   //스크롤 여부에 따른 버튼 노출
+
   const handleFollow = () => {
-    scrollY = window.pageYOffset;
+   scrollY = window.pageYOffset;
     if(scrollY > 100) {
       // 100 이상이면 버튼이 보이게
       setBtnStatus(true);

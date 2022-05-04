@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import IconComment from '../img/ic_comment.svg'
 import IconSmallMode from '../img/ic_small_mode.svg'
@@ -34,16 +35,17 @@ const ModeChgBtn = styled.button`
 
 export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onToggle, listName, comments}){
   return (
-  <CheckRadioBlick $listName={listName}>
+  <CheckRadioBlick listName={listName}>
+
     {listName === 'jobs' ?
     <>
-      <input onChange={changeChk} sortChecked={sortChecked} id="new" type="radio" name="list"/>
+      <input onChange={changeChk} checked={sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
     </> :
     <>
-      <input onChange={changeChk} sortChecked={!sortChecked} id="new" type="radio" name="list"/>
+      <input onChange={changeChk} checked={!sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
-      <input onChange={changeChk} sortChecked={sortChecked} id="top" type="radio" name="list" />
+      <input onChange={changeChk} checked={sortChecked} id="top" type="radio" name="list" />
       <label htmlFor="top" >TOP</label>
     </>
   }

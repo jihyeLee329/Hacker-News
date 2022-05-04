@@ -1,13 +1,12 @@
 //css
-import { GlobalStyle } from "./css/Common";
+import {GlobalStyle}  from './css/Common'
 import Header from "./components/Header";
-import UserInfo from "./components/UserInfo";
-import { ScrollTopButton } from "./components/ScrollTopButton";
-import React, { useState } from "react";
-import { Switch } from "react-router-dom";
+import UserInfo from './components/UserInfo'
+import { TopButton } from './components/TopButton';
+import React, { useEffect, useState } from "react";
 import Dimmed from "./components/Dimmed";
-import AboutSite from "./components/AboutSite";
-import AppRouter from "./Router/AppRoute";
+import AboutSite from './components/AboutSite'
+import AppRouter from './Router/AppRouter';
 
 function App() {
   //dimmed 효과
@@ -16,11 +15,11 @@ function App() {
     setDimmed(!dimmed);
   }
 
-  //about 사이트
+  //about 사이트 
   const [showAboutSite , setShowAboutSite ] = useState(false);
-
+  
   //사용자 정보
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState('');
   const [userChk, setUserChk] = useState(false);
 
   //체크여부
@@ -35,42 +34,24 @@ function App() {
     setOnToggle(!onToggle);
   }
 
-  // //listName 내가 어떤 페이지인지
-  // const [listName, setListName] = useState("");
-
   return (
     <>
-      <GlobalStyle userChk={userChk} />
+    <GlobalStyle  userChk={userChk} />
       <div className="wrapper">
-        <Dimmed
-          dimmed={dimmed}
-          setUserChk={setUserChk}
-          userChk={userChk}
-          setDimmed={setDimmed}
-        />
-        <Header setShowAboutSite={setShowAboutSite} showAboutSite={showAboutSite} />
-        <Switch>
-        <AppRouter
-          setUserId={setUserId}
-          setUserChk={setUserChk}
-          sortChecked={sortChecked}
-          changeChk={changeChk}
-          onToggle={onToggle}
-          onZoomToggle={onZoomToggle}
-          onDimmed={onDimmed}
-        />
-        </Switch>
+        <Dimmed dimmed={dimmed} setUserChk={setUserChk} userChk={userChk} setDimmed={setDimmed} />
+        <Header setShowAboutSite={setShowAboutSite} showAboutSite={showAboutSite}/>
+        <AppRouter 
+              sortChecked={sortChecked}
+              changeChk={changeChk}
+              onZoomToggle={onZoomToggle}
+              onToggle={onToggle}
+              setUserId={setUserId}
+              setUserChk={setUserChk} 
+              onDimmed={onDimmed}/>
       </div>
-      <AboutSite showAboutSite={showAboutSite} setShowAboutSite={setShowAboutSite} />
-      <UserInfo
-        userId={userId}
-        userChk={userChk}
-        setUserId={setUserId}
-        setUserChk={setUserChk}
-        dimmed={dimmed}
-        setDimmed={setDimmed}
-      />
-      <ScrollTopButton />
+      <AboutSite showAboutSite={showAboutSite} setShowAboutSite={setShowAboutSite}/>
+      <UserInfo userId={userId} userChk={userChk} setUserId={setUserId} setUserChk={setUserChk} dimmed={dimmed} setDimmed={setDimmed}/>
+      <TopButton />
     </>
   );
 }

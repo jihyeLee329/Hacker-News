@@ -1,13 +1,12 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import { HashRouter as Router, Route } from "react-router-dom";
 import Home from "./Home";
 import Article from "./Article";
 import Ask from "./Ask";
 import Show from "./Show";
 import Jobs from "./Jobs";
 import { Detail } from "./Detail";
-
-const AppRouter = ({setUserId, setUserChk, sortChecked ,changeChk, onToggle ,onZoomToggle, onDimmed})=>{
+export default function AppRouter({ sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUserChk ,onDimmed}){
     return (
         <>
         <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
@@ -33,7 +32,7 @@ const AppRouter = ({setUserId, setUserChk, sortChecked ,changeChk, onToggle ,onZ
           exact
           render={() => (
             <Ask
-            sortChecked={sortChecked}
+              sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
@@ -50,7 +49,7 @@ const AppRouter = ({setUserId, setUserChk, sortChecked ,changeChk, onToggle ,onZ
           exact
           render={() => (
             <Show
-            sortChecked={sortChecked}
+              sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
@@ -64,7 +63,7 @@ const AppRouter = ({setUserId, setUserChk, sortChecked ,changeChk, onToggle ,onZ
           exact
           render={() => (
             <Jobs
-            sortChecked={sortChecked}
+              sortChecked={sortChecked}
               changeChk={changeChk}
               onZoomToggle={onZoomToggle}
               onToggle={onToggle}
@@ -88,9 +87,7 @@ const AppRouter = ({setUserId, setUserChk, sortChecked ,changeChk, onToggle ,onZ
               {...props}
             />
           )}
-        />
-        </>
-
+        /></>
     )
+
 }
-export default AppRouter;

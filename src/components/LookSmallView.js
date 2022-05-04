@@ -49,15 +49,16 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
-  const [listId, setListId] = useState({}); //각각 data
+function LookSmallView({ data, listName, index , setUserId ,setUserChk}) {
+  const [eachListData, setEachListData] = useState({}); //각각 data
   const [time, setTime] = useState(0); //시간 함수에 넣을 time 
   const [detailUrl, setDetailUrl] = useState(""); //디테일 page link
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [indexNum , setIndexNum] =useState(0);
+
   //url 값 세팅
   useEffect(() => {
-    setListId(data);
+    setEachListData(data);
     if (listName === "jobs") {
       setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
     } else {
@@ -65,15 +66,15 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
       setOriginUrl(`https://news.ycombinator.com/item?id=${data.id}`)
     }
     return () => {
-      setListId({});
+      setEachListData({});
       setDetailUrl("");
     };
   }, [data, listName]);
 
   //시간 구하기 
   useEffect(() => {
-    setTime(listId.time);
-  }, [listId.time]);
+    setTime(eachListData.time);
+  }, [eachListData.time]);
 
   // index 값에 따라 0 or 00 붙여주기
  useEffect(() => {
@@ -82,7 +83,7 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
   
    //회원 id 누르면 id 값 가져오기
   function viewUserId(){
-    setUserId(listId.by);
+    setUserId(eachListData.by);
     setUserChk(true);
   }
 
@@ -91,12 +92,8 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
     return url.split('/')[2];
   }
 
-  const IndexNum= (indexNum)=>{
-    if(indexNum < 9){
-      return `00${indexNum + 1}`
-    }else if(9 < indexNum < 99){
-      return `0${indexNum + 1}`
-    }
+  const IndexNum = (indexNum)=>{
+    return String(indexNum).padStart(3, "00");
   }
   // {index < 9 ? `0${index + 1}` : index + 1}
 
@@ -105,11 +102,11 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
       <div className="list_top">
         {listName === 'jobs' ?
           <a href={detailUrl} target="__blank"> 
-            <span className="list_rank">{IndexNum(indexNum)}</span>
+            <span className="list_rank">{IndexNum(indexNum + 1)}</span>
             <span className="time">{TimeForToday(time)}</span>
           </a> : 
           <a href={detailUrl}> 
-            <span className="list_rank">{IndexNum(indexNum)}</span>
+            <span className="list_rank">{IndexNum(indexNum + 1)}</span>
             <span className="time">{TimeForToday(time)}</span>
           </a> 
         }
@@ -123,19 +120,19 @@ function LookSmallView({ data, listName,index , setUserId ,setUserChk}) {
       </div>
       <div className="list_title">
         {listName === 'jobs' ?   
-        <a href={detailUrl} target="__blank">{listId.title}</a>: 
-        <a href={detailUrl}>{listId.title}</a>
+        <a href={detailUrl} target="__blank">{eachListData.title}</a>: 
+        <a href={detailUrl}>{eachListData.title}</a>
         }
         
       </div>
       {listName === "jobs" ? null : (
         <div className="userWrap">
-          <p className="userId" onClick={viewUserId}>{listId.by}</p>
+          <p className="userId" onClick={viewUserId}>{eachListData.by}</p>
           <a href={detailUrl}>
             <div className="listInfo">
-              <span className="listPoint">{listId.score}</span>
+              <span className="listPoint">{eachListData.score}</span>
               <span className="listComments">
-                {listId.descendants ? listId.descendants : 0}
+                {eachListData.descendants ? eachListData.descendants : 0}
               </span>
             </div>
           </a>
