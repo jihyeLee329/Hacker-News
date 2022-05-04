@@ -100,13 +100,9 @@ export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
   
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
-  const matchFn = match.params;
   const [detail, setDetail] = useState({});
-  const [detailTime, setDetailTime] = useState(0);
-  const [kids, setKids] = useState([]);
-  const [detailUrl, setDetailUrl] = useState("");
+  const matchFn = match.params;
  
-
   useEffect(() => {
     getDetailData(matchFn.id).then((data) => setDetail(data));
     return ()=>{setDetail({})};
@@ -114,7 +110,6 @@ export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
 
   useEffect(()=>{
     setListName('detail');
-    setDetailUrl(detail.url);
   },[detail]);
 
   function urlSplit(url){
@@ -126,30 +121,19 @@ export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
     setUserChk(true);
   }
 
-  useEffect(() => {
-    setKids(detail.kids);
-    return ()=>{ setKids([])};
-  }, [detail.kids]);
-
-  useEffect(() => {
-    setDetailTime(detail.time);
-    return ()=>{setDetailTime(0)}
-  }, [detail]);
-
-
   return (
     <>
       <DetailContent>
-        <p className="time">{TimeForToday(detailTime)}</p>
+        <p className="time">{TimeForToday(detail.time)}</p>
         <div className="title">{detail.title}</div>
         <div className="user_info">
           <div>
             <span className="point">{detail.score} points</span>
             <span className="user" onClick={viewUserId}>{detail.by}</span>
           </div>
-          {detailUrl ? 
-          <a href={detailUrl} className="news_url" target="_blank" rel="noreferrer">{urlSplit(detailUrl)} <img src={IconLinkSmall} alt="뉴스링크" /></a> : 
-          <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noreferrer">news.ycombinator.com <img src={IconLinkSmall} alt="뉴스링크" /></a>}
+          {detail.url ? 
+          <a href={detail.url} className="news_url" target="_blank" rel="noopener  noreferrer" title="새창으로 열기" >{urlSplit(detail.url)} <img src={IconLinkSmall} alt="뉴스링크" /></a> : 
+          <a href={`https://news.ycombinator.com/item?id=${detail.id}`} className="news_url" target="_blank" rel="noopener noreferrer" title="새창으로 열기" >news.ycombinator.com <img src={IconLinkSmall} alt="뉴스링크" /></a>}
           
         </div>
         {detail.text && <div className="content" dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
@@ -157,7 +141,7 @@ export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
       <CommentsWrap>
       <CheckRadio sortChecked={sortChecked} changeChk={changeChk} listName={listName} comments={detail.descendants}/>
         <CommentsList>
-          {kids && kids.map((kid, index) => <Comments kid={kid} key={index} sortChecked={sortChecked} setUserId={setUserId} setUserChk={setUserChk}/>)}
+          {detail.kids && detail.kids.map((kid, index) => <Comments kid={kid} key={index} sortChecked={sortChecked} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>
