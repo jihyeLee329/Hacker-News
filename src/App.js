@@ -2,7 +2,7 @@
 import { GlobalStyle } from "./css/Common";
 import Header from "./components/Header";
 import UserInfo from "./components/UserInfo";
-import { ScrollTopButton } from "./components/ScrollTopButton";
+import { Button } from "./components/Button";
 import React, { useState } from "react";
 import { Switch } from "react-router-dom";
 import Dimmed from "./components/Dimmed";
@@ -49,6 +49,8 @@ function App() {
           setDimmed={setDimmed}
         />
         <Header setShowAboutSite={setShowAboutSite} showAboutSite={showAboutSite} />
+        <Switch>
+          <>
         <AppRouter
           setUserId={setUserId}
           setUserChk={setUserChk}
@@ -58,6 +60,8 @@ function App() {
           onZoomToggle={onZoomToggle}
           onDimmed={onDimmed}
         />
+        </>
+        </Switch>
       </div>
       <AboutSite showAboutSite={showAboutSite} setShowAboutSite={setShowAboutSite} />
       <UserInfo
@@ -68,7 +72,7 @@ function App() {
         dimmed={dimmed}
         setDimmed={setDimmed}
       />
-      <ScrollTopButton />
+      <Button />
     </>
   );
 }

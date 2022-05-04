@@ -18,14 +18,14 @@ opacity:0;
 &.active{opacity:1;}
 img{max-width:100%;}
 `;
-export const ScrollTopButton = () => {
-  // const [ScrollY, setScrollY] = useState(0); //스크롤값 저장용
+export const Button = ()=> {
+  const [ScrollY, setScrollY] = useState(0); //스크롤값 저장용
   const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
-  let scrollY = 0;
+  
   //스크롤 여부에 따른 버튼 노출
   const handleFollow = () => {
-    scrollY = window.pageYOffset;
-    if(scrollY > 100) {
+    setScrollY(window.pageYOffset);
+    if(ScrollY > 100) {
       // 100 이상이면 버튼이 보이게
       setBtnStatus(true);
     } else {
@@ -40,7 +40,7 @@ export const ScrollTopButton = () => {
       top: 0,
       behavior: "smooth"
     });
-    scrollY = 0;  // ScrollY 의 값을 초기화
+    setScrollY(0);  // ScrollY 의 값을 초기화
     setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
   }
 
