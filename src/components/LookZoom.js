@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, forwardRef} from "react";
 import styled from "styled-components";
 import {TimeForToday} from "./TimeForToday";
 import IconComment from '../img/ic_comment.svg'
@@ -83,6 +83,7 @@ const SwiperBox = styled.div`
   border-radius: 16px;
   .swipe-action{min-width:80px;}
 `;
+
 function LookZoom({data, listName, index, setUserId, setUserChk}) {
   const [eachListData, setEachListData] = useState({}); //각각 data
   const [time, setTime] = useState(0); // 시간 계산
@@ -166,7 +167,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
     )
 
   return (
-    <> 
+    <>
         <List>
           <div className="list_title">
             {
