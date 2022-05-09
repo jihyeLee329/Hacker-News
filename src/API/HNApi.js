@@ -10,9 +10,8 @@ export const baseItem = `${baseUrl}item/`;
 
 // ------------ 공통으로 data 가져오는 함수 ---------- //
 export const getData = async (getdataId) => {
-  const data = await axios
-    .get(`${baseItem + getdataId}.json`)
-    .then(({ data }) => data);
+  const {data} = await axios
+    .get(`${baseItem + getdataId}.json`);
   return data;
 };
 //--------------- top data--------------- //

@@ -81,6 +81,11 @@ export default function AboutSite({showAboutSite, setShowAboutSite }){
   const [tabClick, setTabClick] = useState(false);
   const [tabName, setTabName] = useState("");
   const TabBar = useRef();
+
+  const LIST_NAME ={
+    MENU : 'Menu',
+   APPEARANCE :'Appearance',
+   }
   function clikTab(e){
     setTabName(e.target.outerText);
     setTabClick(tabClick => !tabClick);
@@ -111,7 +116,7 @@ export default function AboutSite({showAboutSite, setShowAboutSite }){
         <Tab onClick={clikTab} ref={TabBar} >
           <p>Menu</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
-        { tabClick && tabName === 'Menu' ? 
+        { tabClick && tabName === LIST_NAME.MENU ? 
           <TabContent>
             <div>
               <p>Home</p>
@@ -137,7 +142,7 @@ export default function AboutSite({showAboutSite, setShowAboutSite }){
         <Tab onClick={clikTab} ref={TabBar} >
           <p>Appearance</p><span><img src={IconGrayArrow} alt="arrow"/></span>
         </Tab>
-        { tabClick && tabName === 'Appearance' ?
+        { tabClick && tabName === LIST_NAME.APPEARANCE ?
           <TabContent>
             <div>
               <p>Tap the icon to change the theme</p>

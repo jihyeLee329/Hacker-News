@@ -34,10 +34,11 @@ const ModeChgBtn = styled.button`
 `;
 
 export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onToggle, listName, comments}){
+ 
+  const LIST_NAME={JOBS : 'jobs', DETAIL:'detail'};
   return (
   <CheckRadioBlick listName={listName}>
-
-    {listName === 'jobs' ?
+    {listName === LIST_NAME.JOBS ?
     <>
       <input onChange={changeChk} checked={sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
@@ -49,7 +50,7 @@ export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onTog
       <label htmlFor="top" >TOP</label>
     </>
   }
-  {listName === 'detail' ?
+  {listName === LIST_NAME.DETAIL ?
    <div className='comment_length'><img src={IconComment} alt="코멘트갯수"/>{comments}</div>
   : <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
       {onToggle ? <img src={IconSmallMode} alt="작게보기"/> :

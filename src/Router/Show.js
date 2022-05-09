@@ -6,7 +6,15 @@ import CheckRadio from "../components/CheckRadio";
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  padding-bottom:67px;
+ padding-bottom: 67px;
+
+ .total-length{
+   padding:10px 25px 15px;
+   color:#FF6600;
+   font-size: 13px;
+   line-height: 20px;
+   font-weight:normal;
+ }
 `;
 
 const RefWrapper = React.forwardRef((props, ref)=>{
@@ -34,6 +42,7 @@ function Show({
 
   const childContent = React.createRef();
   const initialDatas = dataList;
+  const totalLength = showIds.length;
 
   
   //ListName 정의, show API 받아오기
@@ -80,6 +89,7 @@ function Show({
         onToggle={onToggle}
         listName={listName}
       />
+       <h1 className="total-length">TOTAL : {totalLength}</h1>
       {datas.map((data, index) =>
           onToggle ? (
             <RefWrapper ref={childContent} key={data.id} >

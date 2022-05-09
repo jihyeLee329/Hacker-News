@@ -55,7 +55,9 @@ function LookSmallView({ data, listName, index , setUserId ,setUserChk}) {
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [indexNum , setIndexNum] =useState(0);
 
-  const LIST_NAME = {JOBS : 'jobs'}
+  const LIST_NAME = {JOBS : 'jobs'};
+
+  
   //url 값 세팅
   useEffect(() => {
     setEachListData(data);

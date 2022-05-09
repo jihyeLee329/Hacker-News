@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom';
+import {ThemeProvider} from 'styled-components';
+const RightMode = {
+  bgColor:'#fff',
+  txtColor: '#111',
+}
+const DarkMode = {
+  bgColor : '#111',
+  txtColor: '#fff',
+}
 ReactDOM.render(
+
+
   <React.StrictMode>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <App />
+      <ThemeProvider theme={DarkMode}>
+        <App />
+    </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
