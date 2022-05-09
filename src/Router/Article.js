@@ -1,45 +1,71 @@
-import React, { useEffect, useState } from 'react'
-import {getTopStoryIds, getData} from '../API/HNApi';
-import LookZoom from '../components/LookZoom';
-import LookSmallView from '../components/LookSmallView';
-import CheckRadio from '../components/CheckRadio'
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import { getTopStoryIds, getData } from "../API/HNApi";
+import LookZoom from "../components/LookZoom";
+import LookSmallView from "../components/LookSmallView";
+import CheckRadio from "../components/CheckRadio";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 const Wrapper = styled.div`
-  padding-bottom:67px;
+  padding-bottom: 67px;
 `;
-function Article({sortChecked, changeChk, onZoomToggle, onToggle, setUserId,setUserChk }){
+
+const RefWrapper = React.forwardRef((props, ref)=>{
+  return <div ref={ref}>
+    {props.children}
+  </div>
+});
+
+function Article({
+  sortChecked,
+  changeChk,
+  onZoomToggle,
+  onToggle,
+  setUserId,
+  setUserChk,
+  scrollOptions
+}) {
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
   const [articleIds, setArticleIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [dataList, setDataList] = useState([]);
-  
-  useEffect(()=>{
+  const [datas, setDatas] = useState([]); //데이터 보여줄거 
+  const initialDatas = dataList;
+  const childContent = React.createRef();
+const params = useParams();
+console.log(params)
+  //설정한 api 갯수만큼 보여주기
+  useEffect(() => {
+    setDatas(initialDatas.slice(0, scrollOptions.childLength));
+    return ()=>setDatas([]);
+  }, [initialDatas, scrollOptions.childLength]);
+
+  useEffect(() => {
     setListName("article");
     getTopStoryIds().then((data) => setArticleIds(data));
     return () => setArticleIds([]);
-  },[]);
-  
+  }, []);
+
   useEffect(() => {
-    articleIds
-      .slice(0, 10)
-      .forEach((articleId) => getData(articleId).then((data) => data && setListId(data)));
+    articleIds.forEach((articleId) =>
+        getData(articleId).then((data) => data && setListId(data))
+      );
     return () => setListId([]);
   }, [articleIds]);
 
   useEffect(() => {
     setDataList(dataList.concat(listId));
-     return () => setDataList([]);
+    return () => setDataList([]);
   }, [listId]);
 
-  if(sortChecked === false){
-    dataList.sort(function(a,b){
-      return b.time - a.time; 
+  if (sortChecked === false) {
+    dataList.sort(function (a, b) {
+      return b.time - a.time;
     });
-  }else{
-    dataList.sort(function(a,b){
-      return b.score - a.score; 
+  } else {
+    dataList.sort(function (a, b) {
+      return b.score - a.score;
     });
   }
   
@@ -52,14 +78,16 @@ function Article({sortChecked, changeChk, onZoomToggle, onToggle, setUserId,setU
         onToggle={onToggle}
         listName={listName}
       />
-      {dataList
-        .slice(0, 10)
-        .map((data, index) =>
+      {datas.map((data, index) =>
           onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            <RefWrapper ref={childContent} key={data.id} >
+              <LookZoom data={data} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            </RefWrapper>
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
-          )
+            <RefWrapper ref={childContent} key={data.id} >
+            <LookSmallView  data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
+            </RefWrapper>
+            )
         )}
     </Wrapper>
   );

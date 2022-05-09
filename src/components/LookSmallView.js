@@ -9,9 +9,8 @@ import IconArrow from '../img/ic_arrow.svg'
 
 const List = styled.div`
 a{display:block;}
-& +& {margin-top:12px;}
 width:calc(100vw - 40px); 
-margin:0 auto;
+margin:0 auto 12px;
 span, .userId{ font-size:12px; line-height:16px;}
 box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 border-radius: 16px;
@@ -56,10 +55,11 @@ function LookSmallView({ data, listName, index , setUserId ,setUserChk}) {
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [indexNum , setIndexNum] =useState(0);
 
+  const LIST_NAME = {JOBS : 'jobs'}
   //url 값 세팅
   useEffect(() => {
     setEachListData(data);
-    if (listName === "jobs") {
+    if (listName === LIST_NAME.JOBS) {
       setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
     } else {
       setDetailUrl(`/${listName}/detail/${data.id}`);
@@ -100,32 +100,41 @@ function LookSmallView({ data, listName, index , setUserId ,setUserChk}) {
   return (
     <List>
       <div className="list_top">
-        {listName === 'jobs' ?
-          <a href={detailUrl} target="__blank"> 
+        {listName === LIST_NAME.JOBS ?
+        <>
+          <a href={detailUrl} target="__blank" rel="noreferrer"> 
             <span className="list_rank">{IndexNum(indexNum + 1)}</span>
             <span className="time">{TimeForToday(time)}</span>
-          </a> : 
+          </a> 
+          <span className="list_link">
+            <a href={detailUrl} target="_blank" rel="noreferrer">
+            {urlSplit(detailUrl)}
+            <img src={IconLinkSmall} alt="link" />
+            </a>
+          </span>
+          </>
+         : <>
           <a href={detailUrl}> 
             <span className="list_rank">{IndexNum(indexNum + 1)}</span>
             <span className="time">{TimeForToday(time)}</span>
           </a> 
-        }
           <span className="list_link">
             <a href={originUrl} >
             {urlSplit(originUrl)}
             <img src={IconLinkSmall} alt="link" />
             </a>
           </span>
-        
+          </>
+         }
       </div>
       <div className="list_title">
-        {listName === 'jobs' ?   
+        {listName === LIST_NAME.JOBS ?   
         <a href={detailUrl} target="__blank">{eachListData.title}</a>: 
         <a href={detailUrl}>{eachListData.title}</a>
         }
         
       </div>
-      {listName === "jobs" ? null : (
+      {listName === LIST_NAME.JOBS ? null : (
         <div className="userWrap">
           <p className="userId" onClick={viewUserId}>{eachListData.by}</p>
           <a href={detailUrl}>

@@ -22,10 +22,9 @@ const List = styled.div `
 a{ display:block;}
 padding:16px 16px 0; 
 background:#fff;
-& +& {margin-top:12px;}
   width:calc(100vw - 40px); 
   overflow:hidden;
-  margin:0 auto;
+  margin:0 auto 12px;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   .list_title{
@@ -92,13 +91,13 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
   const [idUrl, setIdUrl] = useState(""); //각각 회원 정보
   const [indexNum, setIndexNum] = useState(0);
 
-
+  const LIST_NAME = {JOBS : 'jobs'}
     useEffect(() => {
       setEachListData(data);
     }, [data]);
 
     useEffect(() => {
-      if (listName === "jobs") {
+      if (listName === LIST_NAME.JOBS) {
         setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
       } else {
         setDetailUrl(`/${listName}/detail/${data.id}`);
@@ -171,7 +170,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
         <List>
           <div className="list_title">
             {
-              listName === 'jobs'
+              listName === LIST_NAME.JOBS
                 ? <a href={detailUrl} rel="noreferrer" target="_blank">
                       {eachListData.title}
                   </a>
@@ -181,7 +180,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
             }
           </div>
             {
-              listName === "jobs"
+              listName === LIST_NAME.JOBS
                 ? null
                 : (
                 <div className="user_wrap">

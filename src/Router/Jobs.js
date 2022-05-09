@@ -8,13 +8,31 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   padding-bottom:67px;
 `;
-function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUserChk}){
+
+const RefWrapper = React.forwardRef((props, ref)=>{
+  return <div ref={ref}>
+    {props.children}
+  </div>
+});
+
+function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUserChk, scrollOptions
+}){
   
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
   const [jobsIds, setJobsIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [dataList, setDataList] = useState([]);
+
+  const [datas, setDatas] = useState([]); //데이터 보여줄거 
+  const initialDatas = dataList;
+  const childContent = React.createRef();
+
+  //설정한 api 갯수만큼 보여주기
+  useEffect(() => {
+    setDatas(initialDatas.slice(0, scrollOptions.childLength));
+    return ()=>setDatas([]);
+  }, [initialDatas, scrollOptions.childLength]);
 
   useEffect(()=>{
     setListName("jobs");
@@ -25,7 +43,6 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUse
   
   useEffect(() => {
     jobsIds
-      .slice(0, 10)
       .map((jobsId) => getData(jobsId).then((data) => data && setListId(data)));
     return () => setListId([]);
   }, [jobsIds]);
@@ -44,6 +61,9 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUse
       return b.score - a.score; 
     });
   }
+
+
+
   return (
     <Wrapper>
       <CheckRadio
@@ -53,14 +73,17 @@ function Ask({sortChecked, changeChk, onZoomToggle, onToggle , setUserId, setUse
         onToggle={onToggle}
         listName={listName}
       />
-      {dataList
-        .slice(0, 10)
+      {datas
         .map((data, index) =>
           onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            <RefWrapper ref={childContent} key={data.id} >
+              <LookZoom data={data} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+            </RefWrapper>
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
-          )
+            <RefWrapper ref={childContent} key={data.id} >
+            <LookSmallView  data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
+            </RefWrapper>
+            )
         )}
     </Wrapper>
   );

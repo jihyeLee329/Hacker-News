@@ -65,6 +65,8 @@ span {
   color: #111;
   max-width: 1050px;
   width: 100%;
+  max-height:100vh; 
+  overflow-y: auto;
 }
 
 html,body{

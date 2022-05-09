@@ -18,14 +18,14 @@ opacity:0;
 &.active{opacity:1;}
 img{max-width:100%;}
 `;
-export const TopButton = ()=> {
+export const TopButton = ({scrollY})=> {
+  const [BtnStatus, setBtnStatus] = useState(false); 
+  const wrapperDiv = document.querySelector('.wrapper');
   // const [ScrollY, setScrollY] = useState(0); //스크롤값 저장용
-  const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
-  let scrollY = 0;
+  // const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
+  // let scrollY = 0;
   //스크롤 여부에 따른 버튼 노출
-
-  const handleFollow = () => {
-   scrollY = window.pageYOffset;
+   const handleFollow = () => {
     if(scrollY > 100) {
       // 100 이상이면 버튼이 보이게
       setBtnStatus(true);
@@ -37,23 +37,21 @@ export const TopButton = ()=> {
 
 
   const handleTop = () => {  // 클릭하면 스크롤이 위로 올라가는 함수
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    wrapperDiv.scroll({
+      top:0, 
+      behavior:'smooth'
     });
-    scrollY = 0;  // ScrollY 의 값을 초기화
+    // wrapperDiv.scrollTop = 0;
+    // scrollY = 0;  // ScrollY 의 값을 초기화
     setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
   }
 
   useEffect(() => {
     const watch = () => {
-      window.addEventListener('scroll', handleFollow)
+      handleFollow()
     }
     watch();
-    return () => {
-      window.removeEventListener('scroll', handleFollow)
-    }
-  })
+  },[scrollY])
 
 
   return <ButtonWrap>
