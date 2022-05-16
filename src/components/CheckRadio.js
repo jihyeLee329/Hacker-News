@@ -5,6 +5,8 @@ import IconSmallMode from '../img/ic_small_mode.svg'
 import IconZoomMode from '../img/ic_zoom_mode.svg'
 import IconCheck from '../img/ic_check.png'
 import IconCheckDefault from '../img/ic_check.svg'
+import { useRecoilState } from 'recoil'
+import { ListModeToggle, SortCheckedAtom } from '../atom'
 const CheckRadioBlick = styled.div`
 ${(props) => {
   // console.log(props)
@@ -33,11 +35,22 @@ const ModeChgBtn = styled.button`
   position:absolute; right:20px;
 `;
 
-export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onToggle, listName, comments}){
+export default function CheckRadio ({listName, comments}){
+  const [sortChecked, setSorChecked] = useRecoilState(SortCheckedAtom);
+  const [listModeToggle, setListModeToggle] = useRecoilState(ListModeToggle);
+  const LIST_NAME = {JOBS : 'jobs', DETAIL:'detail'}
+
+  function changeChk() {
+    setSorChecked(!sortChecked);
+  }
+  function onListModeToggle(){
+    setListModeToggle(prev => !prev);
+  }
+
   return (
   <CheckRadioBlick listName={listName}>
 
-    {listName === 'jobs' ?
+    {listName === LIST_NAME.JOBS ?
     <>
       <input onChange={changeChk} checked={sortChecked} id="new" type="radio" name="list"/>
       <label htmlFor="new">NEW</label>
@@ -49,10 +62,10 @@ export default function CheckRadio ({sortChecked, changeChk, onZoomToggle, onTog
       <label htmlFor="top" >TOP</label>
     </>
   }
-  {listName === 'detail' ?
+  {listName === LIST_NAME.DETAIL ?
    <div className='comment_length'><img src={IconComment} alt="코멘트갯수"/>{comments}</div>
-  : <ModeChgBtn onClick={onZoomToggle} checked={onToggle}>
-      {onToggle ? <img src={IconSmallMode} alt="작게보기"/> :
+  : <ModeChgBtn onClick={onListModeToggle} checked={listModeToggle}>
+      {listModeToggle ? <img src={IconSmallMode} alt="작게보기"/> :
        <img src={IconZoomMode} alt="크게보기"/>}
     </ModeChgBtn>
     }

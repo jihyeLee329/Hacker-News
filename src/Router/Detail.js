@@ -7,6 +7,8 @@ import {getDetailData} from '../API/HNApi'
 import CheckRadio from '../components/CheckRadio'
 import IconArrow from '../img/ic_arrow.svg'
 import IconLinkSmall from '../img/ic_link_s.png'
+import { useRecoilState } from "recoil";
+import { UserChkAtom, UserIdAtom } from "../atom";
 
 const DetailContent = styled.div`
   a,
@@ -96,11 +98,13 @@ const CommentsList = styled.div`
   padding: 0 20px 40px;
 `;
 
-export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
+export function Detail({match}){
   
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
   const [detail, setDetail] = useState({});
+  const [userChk, setUserChk]= useRecoilState(UserChkAtom);
+  const [userId, setUserId]= useRecoilState(UserIdAtom);
   const matchFn = match.params;
  
   useEffect(() => {
@@ -139,9 +143,9 @@ export function Detail({match, setUserId, setUserChk, sortChecked, changeChk}){
         {detail.text && <div className="content" dangerouslySetInnerHTML={{ __html: detail.text }}></div>}
       </DetailContent>
       <CommentsWrap>
-      <CheckRadio sortChecked={sortChecked} changeChk={changeChk} listName={listName} comments={detail.descendants}/>
+      <CheckRadio listName={listName} comments={detail.descendants}/>
         <CommentsList>
-          {detail.kids && detail.kids.map((kid, index) => <Comments kid={kid} key={index} sortChecked={sortChecked} setUserId={setUserId} setUserChk={setUserChk}/>)}
+          {detail.kids && detail.kids.map((kid, index) => <Comments kid={kid} key={index} setUserId={setUserId} setUserChk={setUserChk}/>)}
         </CommentsList>
       </CommentsWrap>
     </>

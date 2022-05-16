@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
 import {getUserData} from '../API/HNApi'
+import { DimmedAtom, UserChkAtom, UserIdAtom } from '../atom'
 import IconUserLink from '../img/ic_user_link.svg'
 
 const UserInforBox = styled.div`
@@ -45,15 +47,16 @@ const UserInforBox = styled.div`
     }
 `;
 
-export default function UserInfo({userChk, setUserChk, userId, setDimmed, dimmed}){
+export default function UserInfo(){
   const [user, setUser] = useState({}); //클릭해서 받아온 유저아이디 저장용
-
+  const [dimmed, setDimmed] = useRecoilState(DimmedAtom);
+  const [userChk, setUserChk]= useRecoilState(UserChkAtom);
+  const [userId, setUserId]= useRecoilState(UserIdAtom);
   //user API조회하여 setUser에 세팅
   // userId 를 클릭 전엔 userId 값이 비어 있음. 따라서 비어있는 상태에서 userChk에 따라 api를 불러오면 401 에러 발생. 
   // userId를 눌렀을 때, userId가 저장 되면 그때 api 불러오기
   useEffect(()=>{
     userId !== '' && getUserData(userId).then((data)=> data && setUser(data) ); 
-    console.log(userId);
       return ()=>setUser({});
   },[userChk]);
 

@@ -5,6 +5,8 @@ import Logo from '../img/ic_logo.svg'
 import IconMode from '../img/ic_mode.svg'
 import IconInfo from '../img/ic_Info.svg'
 import Nav from "./Nav";
+import { useRecoilSnapshot, useRecoilState } from "recoil";
+import { ShowAboutAtom } from "../atom";
 
 const HeaderWrap = styled.header`
   width: 100%;
@@ -43,8 +45,8 @@ const IconWrap = styled.div`
 `;
 
 //---------- 헤더 컴포넌트  ------------- //
-function Header({setShowAboutSite, showAboutSite}) {
-
+function Header() {
+  const [showAboutSite , setShowAboutSite] =useRecoilState(ShowAboutAtom);
   //헤더에서 about info 버튼 클릭여부 알려주는 함수 
   function viewAbout(){
     setShowAboutSite(!showAboutSite);

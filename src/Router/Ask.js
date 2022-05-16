@@ -4,6 +4,8 @@ import LookZoom from "../components/LookZoom";
 import LookSmallView from "../components/LookSmallView";
 import CheckRadio from "../components/CheckRadio";
 import styled from "styled-components";
+import { ListModeToggle, SortCheckedAtom } from "../atom";
+import { useRecoilValue } from "recoil";
 
 const Wrapper = styled.div`
   padding-bottom: 67px;
@@ -16,12 +18,6 @@ const RefWrapper = React.forwardRef((props, ref)=>{
 });
 
 function Ask({
-  sortChecked,
-  changeChk,
-  onZoomToggle,
-  onToggle,
-  setUserId,
-  setUserChk,
   scrollOptions
 }) {
   //listName 내가 어떤 페이지인지
@@ -30,6 +26,8 @@ function Ask({
   const [listId, setListId] = useState([]);
   const [dataList, setDataList] = useState([]);
   const [datas, setDatas] = useState([]); //데이터 보여줄거 
+  const sortChecked = useRecoilValue(SortCheckedAtom);
+  const listModeToggle = useRecoilValue(ListModeToggle);
   const initialDatas = dataList;
   const childContent = React.createRef();
 
@@ -71,20 +69,16 @@ function Ask({
   return (
     <Wrapper>
       <CheckRadio
-        sortChecked={sortChecked}
-        changeChk={changeChk}
-        onZoomToggle={onZoomToggle}
-        onToggle={onToggle}
         listName={listName}
       />
       {datas.map((data, index) =>
-          onToggle ? (
+          listModeToggle ? (
             <RefWrapper ref={childContent} key={data.id} >
-              <LookZoom data={data} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+              <LookZoom data={data} index={index} listName={listName}/>
             </RefWrapper>
           ) : (
             <RefWrapper ref={childContent} key={data.id} >
-            <LookSmallView  data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
+            <LookSmallView  data={data} key={data.id} index={index} listName={listName} />
             </RefWrapper>
             )
         )}

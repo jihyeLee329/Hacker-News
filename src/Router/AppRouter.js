@@ -7,7 +7,7 @@ import Show from "./Show";
 import Jobs from "./Jobs";
 import ListPage from'./ListPage';
 import { Detail } from "./Detail";
-export default function AppRouter({sortChecked, changeChk, onZoomToggle, onToggle, setUserId, setUserChk ,onDimmed, scrollOptions, setScrollOptions}){
+export default function AppRouter({scrollOptions, setScrollOptions}){
     return (
         <>
         {/* <Route path="/list" render={(props)=>(
@@ -21,55 +21,35 @@ export default function AppRouter({sortChecked, changeChk, onZoomToggle, onToggl
         )}>
          
         </Route> */}
-        <Route path="/article/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
-              changeChk={changeChk} {...props}/>)} />
+        <Route path="/article/detail/:id" render={(props) =>(<Detail {...props}/>)} />
         <Route
           path="/article"
           exact
           render={() => (
             <Article
             scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-            sortChecked={sortChecked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
             />
           )}
         />
-        <Route path="/ask/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
-              changeChk={changeChk} {...props}/>)} />
+        <Route path="/ask/detail/:id" render={(props) =>(<Detail
+              {...props}/>)} />
         <Route
           path="/ask"
           exact
           render={() => (
             <Ask
             scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-              sortChecked={sortChecked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
             />
           )}
         />
 
-        <Route path="/show/detail/:id" render={(props) =>(<Detail setUserId={setUserId} setUserChk={setUserChk} sortChecked={sortChecked}
-              changeChk={changeChk} {...props}/>)} />
+        <Route path="/show/detail/:id" render={(props) =>(<Detail {...props}/>)} />
         <Route
           path="/show"
           exact
           render={() => (
             <Show
               scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-              sortChecked={sortChecked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
             />
           )}
         />
@@ -79,12 +59,6 @@ export default function AppRouter({sortChecked, changeChk, onZoomToggle, onToggl
           render={() => (
             <Jobs
             scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-              sortChecked={sortChecked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
             />
           )}
         />
@@ -93,13 +67,6 @@ export default function AppRouter({sortChecked, changeChk, onZoomToggle, onToggl
           exact
           render={(props) => (
             <Home
-              onDimmed={onDimmed}
-              sortChecked={sortChecked}
-              changeChk={changeChk}
-              onZoomToggle={onZoomToggle}
-              onToggle={onToggle}
-              setUserId={setUserId}
-              setUserChk={setUserChk}
               {...props}
             />
           )}

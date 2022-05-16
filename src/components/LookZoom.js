@@ -17,6 +17,8 @@ import {
     Type as ListType
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
+import { useRecoilState } from "recoil";
+import { UserChkAtom, UserIdAtom } from "../atom";
 
 const List = styled.div `
 a{ display:block;}
@@ -83,13 +85,17 @@ const SwiperBox = styled.div`
   .swipe-action{min-width:80px;}
 `;
 
-function LookZoom({data, listName, index, setUserId, setUserChk}) {
+function LookZoom({data, listName, index}) {
   const [eachListData, setEachListData] = useState({}); //각각 data
   const [time, setTime] = useState(0); // 시간 계산
   const [detailUrl, setDetailUrl] = useState(""); //각각 list 의 url
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [idUrl, setIdUrl] = useState(""); //각각 회원 정보
   const [indexNum, setIndexNum] = useState(0);
+  const [userChk, setUserChk]= useRecoilState(UserChkAtom);
+  const [userId, setUserId]= useRecoilState(UserIdAtom);
+
+
 
   const LIST_NAME = {JOBS : 'jobs'}
     useEffect(() => {
@@ -122,7 +128,7 @@ function LookZoom({data, listName, index, setUserId, setUserChk}) {
     //회원 id 누르면 id 값 가져오기
     function viewUserId() {
       setUserId(eachListData.by);
-      setUserChk(true);
+      setUserChk(!userChk);
     }
 
     const IndexNum = (indexNum) => {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { getData } from "../../API/HNApi";
 import styled from "styled-components";
 import "swiper/css";
+import { useRecoilState } from "recoil";
+import { UserChkAtom, UserIdAtom } from "../../atom";
 
 
 const TopItemWrap = styled.div`
@@ -59,8 +61,10 @@ const TopItemCard = styled.div`
     overflow: hidden;
   }
 `;
-export const TopItem = ({ topStoryId, index ,setUserId,setUserChk }) => {
+export const TopItem = ({ topStoryId, index }) => {
   const [top, setTop] = useState({});
+  const [userChk, setUserChk]= useRecoilState(UserChkAtom);
+  const [userId, setUserId]= useRecoilState(UserIdAtom);
   // useEffect(() => {
   //   getData(topStoryId).then((data) => data && data.url && setTop(data));
   // }, []);

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {useRecoilState} from 'recoil'
+import { DimmedAtom,UserChkAtom } from "../atom";
 
 const DimmedBlock = styled.div`
   width: 100vw;
@@ -13,10 +15,12 @@ const DimmedBlock = styled.div`
   opacity: 0.5;
 `;
 
-export default function Dimmed({ setUserChk, userChk, setDimmed, dimmed }) {
+export default function Dimmed() {
+  const [dimmed, setDimmed] = useRecoilState(DimmedAtom);
+  const [userChk, setUserChk]= useRecoilState(UserChkAtom);
   function closeUserBox(){
-    setUserChk(!userChk);
-    setDimmed(!dimmed);
+    setUserChk((userChk) => !userChk);
+    setDimmed((dimmed)=> !dimmed);
   }
   return dimmed && <DimmedBlock onClick={closeUserBox} />;
 }

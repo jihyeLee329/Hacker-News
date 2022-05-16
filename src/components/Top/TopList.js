@@ -43,7 +43,7 @@ margin-bottom:16px;
   }
 `;
 
-export const TopList = ({ topStoryIds, setUserId, setUserChk }) => {
+export const TopList = ({ topStoryIds}) => {
   const [currentTops, setCurrentTops]=useState([]);
   const [currentTop, setCurrentTop] =useState([]);
   const [topFive, setTopFive] = useState([]);
@@ -86,8 +86,6 @@ export const TopList = ({ topStoryIds, setUserId, setUserChk }) => {
                 topStoryId={topfive}
                 key={topfive}
                 index={index}
-                 setUserId={setUserId}
-                 setUserChk={setUserChk}
               ></TopItem>
             </SwiperSlide>
           ))}

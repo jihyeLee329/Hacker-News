@@ -11,8 +11,14 @@ import sortOptionNew from '../img/sort_option_new.png'
 import whiteMode from '../img/whitemode.png'
 import blackMode from '../img/blackmode.png'
 import IconGrayInfo from '../img/gray_info.svg'
+import {useRecoilState} from 'recoil'
+import { DimmedAtom, ShowAboutAtom } from "../atom";
+import Dimmed from "./Dimmed";
+
+
 
 const DimmedAbout = styled.div`
+
   width:100vw; height:100vh; background:rgba(17,17,17,0.5);
   position:fixed; top:0; leff:0; right:0; bottom:0;  z-index:10;
 `;
@@ -77,10 +83,13 @@ const TabContent = styled.div`
   .copyRight{font-size:10px; color:#999;margin-top:40px;};
 `;
 
-export default function AboutSite({showAboutSite, setShowAboutSite }){
+export default function AboutSite(){
   const [tabClick, setTabClick] = useState(false);
   const [tabName, setTabName] = useState("");
+  const [showAboutSite , setShowAboutSite ] = useRecoilState(ShowAboutAtom);
+  
   const TabBar = useRef();
+
   function clikTab(e){
     setTabName(e.target.outerText);
     setTabClick(tabClick => !tabClick);

@@ -4,6 +4,8 @@ import LookZoom from "../components/LookZoom";
 import LookSmallView from "../components/LookSmallView";
 import CheckRadio from "../components/CheckRadio";
 import styled from 'styled-components'
+import { useRecoilValue } from "recoil";
+import { ListModeToggle, SortCheckedAtom } from "../atom";
 
 const Wrapper = styled.div`
   padding-bottom:67px;
@@ -16,12 +18,6 @@ const RefWrapper = React.forwardRef((props, ref)=>{
 });
 
 function Show({
-  sortChecked,
-  changeChk,
-  onZoomToggle,
-  onToggle,
-  setUserId,
-  setUserChk,
   scrollOptions
 }) {
   
@@ -31,7 +27,8 @@ function Show({
   const [listId, setListId] = useState([]); //각각 하나의게시글
   const [dataList, setDataList] = useState([]);
   const [datas, setDatas] = useState([]); //데이터 보여줄거 
-
+  const sortChecked = useRecoilValue(SortCheckedAtom);
+  const listModeToggle = useRecoilValue(ListModeToggle);
   const childContent = React.createRef();
   const initialDatas = dataList;
 
@@ -74,20 +71,16 @@ function Show({
   return (
     <Wrapper>
       <CheckRadio
-        sortChecked={sortChecked}
-        changeChk={changeChk}
-        onZoomToggle={onZoomToggle}
-        onToggle={onToggle}
         listName={listName}
       />
       {datas.map((data, index) =>
-          onToggle ? (
+          listModeToggle ? (
             <RefWrapper ref={childContent} key={data.id} >
-              <LookZoom data={data} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+              <LookZoom data={data} index={index} listName={listName}/>
             </RefWrapper>
           ) : (
             <RefWrapper ref={childContent} key={data.id} >
-            <LookSmallView  data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
+            <LookSmallView  data={data} key={data.id} index={index} listName={listName} />
             </RefWrapper>
             )
         )}

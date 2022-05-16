@@ -5,6 +5,8 @@ import IconComment from '../img/ic_comment.svg'
 import IconPoint from '../img/ic_point.svg'
 import IconLinkSmall from '../img/ic_link_s.png'
 import IconArrow from '../img/ic_arrow.svg'
+import { useRecoilState } from "recoil";
+import { UserChkAtom, UserIdAtom } from "../atom";
 
 
 const List = styled.div`
@@ -48,12 +50,15 @@ padding:16px 16px 0; background:#fff;
   }
   `;
 
-function LookSmallView({ data, listName, index , setUserId ,setUserChk}) {
+function LookSmallView({ data, listName, index }) {
   const [eachListData, setEachListData] = useState({}); //각각 data
   const [time, setTime] = useState(0); //시간 함수에 넣을 time 
   const [detailUrl, setDetailUrl] = useState(""); //디테일 page link
   const [originUrl, setOriginUrl] = useState(""); //본래 해커뉴스 link
   const [indexNum , setIndexNum] =useState(0);
+  const [userChk, setUserChk]= useRecoilState(UserChkAtom);
+  const [userId, setUserId]= useRecoilState(UserIdAtom);
+
 
   const LIST_NAME = {JOBS : 'jobs'}
   //url 값 세팅
@@ -84,7 +89,7 @@ function LookSmallView({ data, listName, index , setUserId ,setUserChk}) {
    //회원 id 누르면 id 값 가져오기
   function viewUserId(){
     setUserId(eachListData.by);
-    setUserChk(true);
+    setUserChk(!userChk);
   }
 
   //url split 

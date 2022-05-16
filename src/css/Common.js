@@ -1,4 +1,5 @@
 import {createGlobalStyle } from 'styled-components'
+import { UserChkAtom } from '../atom';
 
 export const GlobalStyle =  createGlobalStyle`
 html,body,div,span,applet,objectiframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,q,s,samp,small,
@@ -70,8 +71,8 @@ span {
 }
 
 html,body{
-    ${({ userChk }) => {
-        return userChk ? `overflow: hidden;` : `overflow-y:auto;`
+    ${({ UserChkAtom }) => {
+        return UserChkAtom ? `overflow: hidden;` : `overflow-y:auto;`
     }};
 }
 

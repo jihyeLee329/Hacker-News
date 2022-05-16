@@ -5,18 +5,22 @@ import LookZoom from '../components/LookZoom';
 import LookSmallView from '../components/LookSmallView';
 import { getTopStoryIds, getData } from '../API/HNApi'
 import styled from 'styled-components'
+import { useRecoilValue } from "recoil";
+import { ListModeToggle, SortCheckedAtom } from "../atom";
 
 const Wrapper = styled.div`
   padding-bottom:67px;
 `;
 //---------- 메인 컴포넌트  ------------- //
-export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, onToggle, setUserId, setUserChk}) {
+export default function Home() {
   
   //listName 내가 어떤 페이지인지
   const [listName, setListName] = useState("");
   const [topStoryIds, setTopStoryIds] = useState([]);
   const [listId, setListId] = useState([]);
   const [dataList, setDataList] = useState([]);
+  const sortChecked = useRecoilValue(SortCheckedAtom);
+  const listModeToggle = useRecoilValue(ListModeToggle);
 
   useEffect(() => {
     setListName('article');
@@ -48,15 +52,15 @@ export default function Home({onDimmed, sortChecked, changeChk ,onZoomToggle, on
   
   return (
     <Wrapper>
-      <TopList topStoryIds={dataList} setUserId={setUserId} setUserChk={setUserChk}/>
-      <CheckRadio sortChecked={sortChecked} changeChk={changeChk} onZoomToggle={onZoomToggle} onToggle={onToggle} listName={listName}/>
+      <TopList topStoryIds={dataList}/>
+      <CheckRadio listName={listName}/>
       {dataList
         .slice(0, 10)
         .map((data, index) =>
-          onToggle ? (
-            <LookZoom data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk}/>
+        listModeToggle ? (
+            <LookZoom data={data} key={data.id} index={index} listName={listName} />
           ) : (
-            <LookSmallView data={data} key={data.id} index={index} listName={listName} setUserId={setUserId} setUserChk={setUserChk} />
+            <LookSmallView data={data} key={data.id} index={index} listName={listName}  />
           )
         )}
     </Wrapper>
