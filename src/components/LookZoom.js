@@ -23,30 +23,31 @@ import { UserChkAtom, UserIdAtom } from "../atom";
 const List = styled.div `
 a{ display:block;}
 padding:16px 16px 0; 
-background:#fff;
+background:${(props) => props.theme.cardBgColor};
   width:calc(100vw - 40px); 
   overflow:hidden;
   margin:0 auto 12px;
-  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: ${(props) => props.theme.boxShadow};
   border-radius: 16px;
   .list_title{
+    color:${(props) => props.theme.textColor};
     font-size:18px; line-height:24px;
     padding-bottom:12px; 
   }
   .user_wrap {
-    border-top: 1px solid #F0F0F6;
+    border-top: 1px solid ${(props) => props.theme.borderColor};
     padding-top:8px; padding-bottom:12px; display:flex; justify-content:space-between; font-size:12px; line-height:16px;}
-  .userId{color:#767676; line-height:inherit; font-size:inherit; width:45%;
+  .userId{color:${(props) => props.theme.grayColor}; line-height:inherit; font-size:inherit; width:45%;
     &:after{content:url(${IconArrow}); display:inline-block; vertical-align:top;}
   }
   .listInfo{line-height:inherit; font-size:inherit; width:55%; text-align:right;
     span{display:inline-block; vertical-align:top;}
     span:before {display:inline-block; vertical-align:top; margin-right:3px;}
-    .listComments{color:#FF6600; margin-left:8px;
+    .listComments{color:${(props) => props.theme.mainColor}; margin-left:8px;
       &:before {content:url(${IconComment});}
       }
   }
-  .listPoint{color:#505050;
+  .listPoint{color:${(props) => props.theme.pointColor};
     &:before{content:url(${IconPoint});
   }
   `;

@@ -31,4 +31,10 @@ const ListModeToggle = atom({
     default: true
 })
 
-export {DimmedAtom, ShowAboutAtom,UserChkAtom,UserIdAtom,SortCheckedAtom,ListModeToggle};
+const DarkModeBtn = atom({
+    key:'darkMode',
+    default:false
+})
+
+export {DimmedAtom, ShowAboutAtom, UserChkAtom, UserIdAtom, 
+    SortCheckedAtom,ListModeToggle, DarkModeBtn};

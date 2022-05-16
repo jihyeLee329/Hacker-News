@@ -7,13 +7,13 @@ import React, { useRef, useState ,useCallback } from "react";
 import Dimmed from "./components/Dimmed";
 import AboutSite from './components/AboutSite'
 import AppRouter from './Router/AppRouter';
+import {ThemeProvider} from 'styled-components'
+import {lightTheme, darkTheme} from './theme'
+import { useRecoilValue } from 'recoil';
+import { DarkModeBtn } from './atom';
 
 function App() {
-  //List에서 보기모드 변경 버튼
-  const [onToggle, setOnToggle] = useState(true);
-  function onZoomToggle() {
-    setOnToggle(!onToggle);
-  }
+  const darkMode = useRecoilValue(DarkModeBtn);
 
   // 무한스크롤
   const fullContent = useRef();
@@ -43,6 +43,7 @@ function App() {
 
   return (
     <>
+    <ThemeProvider theme={darkMode ? lightTheme:darkTheme}>
       <GlobalStyle />
       <div className="wrapper" ref={fullContent} onScroll={onScroll}>
         <Dimmed />
@@ -52,6 +53,7 @@ function App() {
       </div>
       <AboutSite/>
       <UserInfo/>
+      </ThemeProvider>
        </>
   );
 }

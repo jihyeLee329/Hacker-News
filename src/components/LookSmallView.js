@@ -14,38 +14,39 @@ a{display:block;}
 width:calc(100vw - 40px); 
 margin:0 auto 12px;
 span, .userId{ font-size:12px; line-height:16px;}
-box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+box-shadow: ${(props) => props.theme.boxShadow};
 border-radius: 16px;
-padding:16px 16px 0; background:#fff;
+padding:16px 16px 0; background:${(props) => props.theme.cardBgColor};
   .list_top{position:relative;}
   .list_rank{
-    font-size:20px; line-height:22px; color:#FF6600; margin-right:4px; 
+    font-size:20px; line-height:22px; color:${(props) => props.theme.mainColor}; margin-right:4px; 
   }
   .list_link{
-    position:absolute; right:0; bottom:0; color:#999;
+    position:absolute; right:0; bottom:0; color:${(props) => props.theme.noneColor};
     img{width:16px; vertical-align:top;}
   }
-  .time{ color:#FF660080; margin: 0 10px;}
+  .time{ color:${(props) => props.theme.mainSubColor}; margin: 0 10px;}
   .list_title{
+    color:${(props) => props.theme.textColor};
     font-size:14px; line-height:20px;
     padding-bottom:12px; 
-    & + div{border-top: 1px solid F0F0F6;}
+    & + div{border-top: 1px solid ${(props) => props.theme.borderColor};}
   }
   >div:not(.list_top) {display:flex;justify-content:space-between; padding-top:8px;padding-bottom:12px; 
  }
- .userWrap{  border-top:1px solid #F0F0F6;}
-  .userId{color:#767676; width:45%;
+ .userWrap{  border-top:1px solid ${(props) => props.theme.borderColor};}
+  .userId{color:${(props) => props.theme.grayColor}; width:45%;
     &:after{content:url(${IconArrow}); display:inline-block; vertical-align:top;}
   }
   .userId + a {width:74.5%;text-align:right;}
   .listInfo{line-height:inherit; font-size:inherit;
     >span{display:inline-block; vertical-align:top;}
     >span:before {display:inline-block; vertical-align:top; margin-right:3px;}
-    .listComments{color:#FF6600; margin-left:8px;
+    .listComments{color:${(props) => props.theme.mainColor}; margin-left:8px;
       &:before {content:url(${IconComment});}
       }
   }
-  .listPoint{color:#505050;
+  .listPoint{color:${(props) => props.theme.pointColor};
     &:before{content:url(${IconPoint});
   }
   `;

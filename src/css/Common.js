@@ -29,6 +29,7 @@ section {
 }
 body {
   line-height: 1;
+  background-color:${(props) => props.theme.bgColor};
 }
 ol,
 ul {
@@ -63,7 +64,7 @@ span {
 }
 .wrapper {
   font-family: "Roboto", sans-serif;
-  color: #111;
+  color: ${(props) => props.theme.textColor};
   max-width: 1050px;
   width: 100%;
   max-height:100vh; 

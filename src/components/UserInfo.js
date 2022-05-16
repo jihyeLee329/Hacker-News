@@ -13,7 +13,7 @@ const UserInforBox = styled.div`
       return userChk ? `bottom: 0vh; opacity:1;` :` bottom:-100vh; opacity:0;  transition:all .8s;`;
     }};
     z-index:100;
-    width:100vw; height:calc(100vh - 212px); background:#fff;
+    width:100vw; height:calc(100vh - 212px); background:${(props) => props.theme.bgColor};
     box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.2);
     border-radius: 20px 20px 0px 0px;
     padding:0 20px 41px;
@@ -23,21 +23,21 @@ const UserInforBox = styled.div`
         position:absolute; transform:translate(-50%, 0); left:50%; top:8px;}
     }
 
-    .userId{padding:20px; font-size:28px; line-height:1; color:#111; font-weight:500; text-align:center;
+    .userId{padding:20px; font-size:28px; line-height:1; color:${(props) => props.theme.textColor}; font-weight:500; text-align:center;
     > span {display:block; margin-top:2px;font-size:10px; line-height:1; color:#bfbfbf;font-weight:300;}
     }
 
-    .userCreate{display:flex;justify-content:center; padding-bottom:32px; border-bottom: 1px solid #F0F0F6;
+    .userCreate{display:flex;justify-content:center; padding-bottom:32px; border-bottom: 1px solid ${(props) => props.theme.borderColor};;
       >div {padding:0 32px;}
-       h3{color:#767676; font-size:14px; line-height:20px; text-align:center;padding-bottom:4px;}
-       p{color:#FF6600; font-size:20px; line-height:22px; font-weight:500; text-align:center;}
+       h3{color:${(props) => props.theme.grayColor}; font-size:14px; line-height:20px; text-align:center;padding-bottom:4px;}
+       p{color:${(props) => props.theme.mainColor}; font-size:20px; line-height:22px; font-weight:500; text-align:center;}
     }
-    .content{min-height:168px; max-height:168px; overflow-y:scroll; margin:16px 0; font-size:14px;line-height:20px; color:#767676;
+    .content{min-height:168px; max-height:168px; overflow-y:scroll; margin:16px 0; font-size:14px;line-height:20px; color:${(props) => props.theme.grayColor};
       *{word-break: break-word; max-width:100%;}
     }
     .profileWrap{
       > .profile{display:block;
-        background: #F9FAFB; border-radius: 8px;padding:12px 12px 12px 20px; font-size:16px; line-height:24px; color:#111;
+        background: ${(props) => props.theme.tabBgColor}; border-radius: 8px;padding:12px 12px 12px 20px; font-size:16px; line-height:24px; color:${(props) => props.theme.textColor};
       }
       > .profile + .profile{margin-top:8px;}
       > .profile img{

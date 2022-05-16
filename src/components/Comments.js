@@ -10,20 +10,20 @@ const Comment = styled.div`
     line-height: 16px;
   }
   & + & {
-    border-top: 1px solid #f0f0f6;
+    border-top: 1px solid ${(props) => props.theme.borderColor};
   }
   padding: 16px 0;
   > div {
     position: relative;
   }
   .user {
-    color: #ff6600;
+    color: ${(props) => props.theme.mainColor};
     padding: 0 12px;
-    border: 1px solid #ff6600;
+    border: 1px solid ${(props) => props.theme.mainColor};
     border-radius: 20px;
   }
   .time {
-    color: #999;
+    color: ${(props) => props.theme.noneColor};
     margin-left: 8px;
   }
   button {
@@ -35,7 +35,7 @@ const Comment = styled.div`
     margin-top: 8px;
     font-size: 16px;
     line-height: 24px;
-    color: #505050;
+    color: ${(props) => props.theme.grayColor2};
     word-break: break-word;
     pre{white-space:pre-line;}
   }

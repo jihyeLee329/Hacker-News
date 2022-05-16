@@ -8,7 +8,7 @@ import { UserChkAtom, UserIdAtom } from "../../atom";
 
 const TopItemWrap = styled.div`
   width: 100%;
-  background: #f2f3f7;
+  background: ${(props) => props.theme.bannerColor};
   padding: 54px 0 73px;
 `;
 const TopItemCard = styled.div`
@@ -22,7 +22,7 @@ const TopItemCard = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
-    background: linear-gradient(158.71deg, #e8ebf2 2.84%, #f2f3f7 97.53%);
+    background: ${(props) => props.theme.bannerGradient};
     border: 1px solid rgba(255, 255, 255, 0.5);
     box-sizing: border-box;
     box-shadow: 10px 10px 30px rgba(15, 41, 107, 0.12);
@@ -43,14 +43,14 @@ const TopItemCard = styled.div`
   }
   .ranking {
     font-size: 28px;
-    color: #ff6600;
+    color: ${(props) => props.theme.mainColor};
     font-style: italic;
   }
   .title {
     margin: 12px 0;
     font-size: 18px;
     line-height: 24px;
-    color: #767676;
+    color: ${(props) => props.theme.grayColor};
     font-weight: 500;
     display: -webkit-box;
     -webkit-line-clamp: 4; 

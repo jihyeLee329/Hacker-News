@@ -11,7 +11,8 @@ const DimmedBlock = styled.div`
   right: 0;
   bottom: 0;
   z-index: 11;
-  background: #111;
+  background: ${(props) => props.theme.dimmedColor};
+  box-shadow:${(props) => props.theme.boxShadowUserInfo};
   opacity: 0.5;
 `;
 

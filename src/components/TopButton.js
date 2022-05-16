@@ -9,8 +9,8 @@ const ScrollTop = styled.button`
 
 transition:all 0.4s;
 position:fixed; bottom: 56px; right:10px; 
-background: #FFFFFF;
-box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2);
+background: ${(props) => props.theme.topBtnBg};
+box-shadow: ${(props) => props.theme.topBtnBoxShadow};
 border-radius: 12px;
 width:40px; height:40px; border:none; outline:none;
 padding:12px 14px 13px;

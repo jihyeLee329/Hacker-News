@@ -20,10 +20,10 @@ const DetailContent = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 24px 20px 40px;
-  background: #ffffff;
+  background: ${(props) => props.theme.bgColor};
   filter: drop-shadow(0px 3px 16px rgba(0, 0, 0, 0.08));
   .time {
-    color: #ff6600;
+    color: ${(props) => props.theme.mainColor};
     opacity: 0.5;
     font-size: 12px;
     line-height: 16px;
@@ -33,13 +33,14 @@ const DetailContent = styled.div`
     font-weight: 500;
     font-size: 20px;
     line-height: 28px;
-    color: #111;
+    color: ${(props) => props.theme.textColor};
   }
   .user_info {
     width: 100%;
     margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
+    color:${(props) => props.theme.grayColor}
   }
   .user {
     margin-left: 10px;
@@ -76,7 +77,7 @@ const DetailContent = styled.div`
     word-break: break-word;
     padding: 29px 16px 0;
     line-height: 24px;
-    border-top: 1px solid #f0f0f6;
+    border-top: 1px solid ${(props) => props.theme.borderColor};
     pre{white-space:pre-line;}
   }
   

@@ -6,7 +6,7 @@ import IconMode from '../img/ic_mode.svg'
 import IconInfo from '../img/ic_Info.svg'
 import Nav from "./Nav";
 import { useRecoilState } from "recoil";
-import { ShowAboutAtom } from "../atom";
+import { DarkModeBtn, ShowAboutAtom } from "../atom";
 
 const HeaderWrap = styled.header`
   width: 100%;
@@ -46,10 +46,14 @@ const IconWrap = styled.div`
 
 //---------- 헤더 컴포넌트  ------------- //
 function Header() {
-  const [showAboutSite , setShowAboutSite] =useRecoilState(ShowAboutAtom);
+  const [showAboutSite , setShowAboutSite] = useRecoilState(ShowAboutAtom);
+  const [darkMode, setDarkMode] = useRecoilState(DarkModeBtn);
   //헤더에서 about info 버튼 클릭여부 알려주는 함수 
   function viewAbout(){
     setShowAboutSite(!showAboutSite);
+  }
+  function changeMode (){
+    setDarkMode(prop => !prop);
   }
 
   return (
@@ -61,7 +65,7 @@ function Header() {
           </Link>
         </LogoWrap>
         <IconWrap>
-          <span
+          <span onClick={changeMode}
             className="mode"
             style={{ backgroundImage: `url(${IconMode})` }}
           ></span>

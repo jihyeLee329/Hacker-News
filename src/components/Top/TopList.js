@@ -15,6 +15,7 @@ margin-bottom:16px;
     padding: 32px 22px 24px;
     font-size: 28px;
     line-height: 1;
+    color:${(props) => props.theme.textColor};
   }
   .swiper-horizontal > .swiper-pagination-bullets {
     top: auto;
@@ -22,12 +23,12 @@ margin-bottom:16px;
     .swiper-pagination-bullet {
       width: 5px;
       height: 5px;
-      background: #e5e5ec;
+      background: ${(props) => props.theme.swiperPagination};
       margin: 0 4px;
       opacity: 1;
     }
     .swiper-pagination-bullet-active {
-      background: #ff6600;
+      background:${(props) => props.theme.mainColor};
     }
   }
 
@@ -39,7 +40,7 @@ margin-bottom:16px;
     transform: translate(-50%, 0);
     font-size: 12px;
     line-height: 16px;
-    color: #999;
+    color: ${(props) => props.theme.noneColor};
   }
 `;
 
