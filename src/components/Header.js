@@ -5,7 +5,7 @@ import Logo from '../img/ic_logo.svg'
 import IconMode from '../img/ic_mode.svg'
 import IconInfo from '../img/ic_Info.svg'
 import Nav from "./Nav";
-import { useRecoilSnapshot, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { ShowAboutAtom } from "../atom";
 
 const HeaderWrap = styled.header`

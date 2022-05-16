@@ -43,7 +43,7 @@ function App() {
 
   return (
     <>
-    <GlobalStyle />
+      <GlobalStyle />
       <div className="wrapper" ref={fullContent} onScroll={onScroll}>
         <Dimmed />
         <Header/>
