@@ -11,7 +11,6 @@ const UserInforBox = styled.div`
     transition:all .4s;
     ${({ userChk }) => {
       return userChk ? `bottom: 0vh; opacity:1;` :` bottom:-100vh; opacity:0;  transition:all .8s;`;
-
     }};
     z-index:100;
     width:100vw; height:calc(100vh - 212px); background:#fff;

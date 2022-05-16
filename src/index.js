@@ -7,6 +7,8 @@ import {BrowserRouter} from 'react-router-dom'
 import {RecoilRoot} from 'recoil';
 
 ReactDOM.render(
+
+
   <React.StrictMode>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <RecoilRoot>

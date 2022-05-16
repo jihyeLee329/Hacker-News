@@ -60,7 +60,9 @@ function LookSmallView({ data, listName, index }) {
   const [userId, setUserId]= useRecoilState(UserIdAtom);
 
 
-  const LIST_NAME = {JOBS : 'jobs'}
+  const LIST_NAME = {JOBS : 'jobs'};
+
+  
   //url 값 세팅
   useEffect(() => {
     setEachListData(data);

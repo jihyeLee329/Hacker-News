@@ -8,7 +8,15 @@ import { useRecoilValue } from 'recoil';
 import { ListModeToggle, SortCheckedAtom } from '../atom';
 
 const Wrapper = styled.div`
-  padding-bottom:67px;
+ padding-bottom: 67px;
+
+ .total-length{
+   padding:10px 25px 15px;
+   color:#FF6600;
+   font-size: 13px;
+   line-height: 20px;
+   font-weight:normal;
+ }
 `;
 
 const RefWrapper = React.forwardRef((props, ref)=>{
@@ -30,6 +38,8 @@ function Ask({scrollOptions
   const [datas, setDatas] = useState([]); //데이터 보여줄거 
   const initialDatas = dataList;
   const childContent = React.createRef();
+  const totalLength = jobsIds.length;
+
 
   //설정한 api 갯수만큼 보여주기
   useEffect(() => {
@@ -72,6 +82,7 @@ function Ask({scrollOptions
       <CheckRadio
         listName={listName}
       />
+      <h1 className="total-length">TOTAL : {totalLength}</h1>
       {datas
         .map((data, index) =>
         listModeToggle ? (
