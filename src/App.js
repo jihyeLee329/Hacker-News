@@ -40,10 +40,9 @@ function App() {
       myScroll === scrollOptions.fullHeight && showMoreData(); // 사용자의 스크롤 영역이 하단에 도달했을때 shoowMoreData함수를 실행시킨다.
     },[scrollOptions, setScrollOptions]
   )
-
   return (
     <>
-    <ThemeProvider theme={darkMode ? lightTheme:darkTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme:lightTheme}>
       <GlobalStyle />
       <div className="wrapper" ref={fullContent} onScroll={onScroll}>
         <Dimmed />
