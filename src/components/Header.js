@@ -1,8 +1,9 @@
 import React, {useState,useEffect} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Logo from '../img/ic_logo.svg'
-import IconMode from '../img/ic_mode.svg'
+import {ReactComponent as Logo} from '../img/ic_logo.svg'
+import IconModeLight from '../img/ic_mode_light.svg'
+import IconModeDark from '../img/ic_mode_dark.svg'
 import IconInfo from '../img/ic_Info.svg'
 import Nav from "./Nav";
 import { useRecoilState } from "recoil";
@@ -22,10 +23,14 @@ const LogoWrap = styled.div`
   width: calc(100% - 65px);
   font-size: 0;
 `;
-const LogoImg = styled.img`
+const LogoImg = styled(Logo)`
   display: inline-block;
   width: 102px;
   height: auto;
+  path{
+    // fill: ${(props) => props.theme.mainColor === "#F15E2F" ?  '#cfcfcf' : "#505050"};
+    stroke: ${(props) => props.theme.mainColor === "#F15E2F" ?  '#cfcfcf' : "#111"};
+  }
 `;
 
 const IconWrap = styled.div`
@@ -44,6 +49,10 @@ const IconWrap = styled.div`
   }
 `;
 
+const IconMode = styled.span`
+background : ${(props) => props.theme.mainColor ==="#F15E2F" ? `url(${IconModeDark})` : `url(${IconModeLight})`} 
+`
+
 //---------- 헤더 컴포넌트  ------------- //
 function Header() {
   const [showAboutSite , setShowAboutSite] = useRecoilState(ShowAboutAtom);
@@ -61,14 +70,13 @@ function Header() {
       <div>
         <LogoWrap>
           <Link to="/">
-            <LogoImg src={Logo} alt="logo" />
+            <LogoImg alt="logo" />
           </Link>
         </LogoWrap>
         <IconWrap>
-          <span onClick={changeMode}
+          <IconMode onClick={changeMode}
             className="mode"
-            style={{ backgroundImage: `url(${IconMode})` }}
-          ></span>
+           />
           <span onClick={viewAbout}
             className="info"
             style={{ backgroundImage: `url(${IconInfo})`  }}
