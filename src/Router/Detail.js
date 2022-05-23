@@ -9,6 +9,7 @@ import IconArrow from '../img/ic_arrow.svg'
 import IconLinkSmall from '../img/ic_link_s.png'
 import { useRecoilState } from "recoil";
 import { UserChkAtom, UserIdAtom } from "../atom";
+import { Outlet, useParams } from "react-router-dom";
 
 const DetailContent = styled.div`
   a,
@@ -99,17 +100,19 @@ const CommentsList = styled.div`
   padding: 0 20px 40px;
 `;
 
-export function Detail({match}){
+export function Detail(props){
   
   //listName 내가 어떤 페이지인지
+  const [loading, setLoading] = useState(true);
   const [listName, setListName] = useState("");
   const [detail, setDetail] = useState({});
   const [userChk, setUserChk]= useRecoilState(UserChkAtom);
   const [userId, setUserId]= useRecoilState(UserIdAtom);
-  const matchFn = match.params;
- 
+  const matchFn = useParams();
+
   useEffect(() => {
     getDetailData(matchFn.id).then((data) => setDetail(data));
+    setLoading(false);
     return ()=>{setDetail({})};
   }, [matchFn.id]);
 
@@ -127,7 +130,9 @@ export function Detail({match}){
   }
 
   return (
+   
     <>
+      <Outlet/>
       <DetailContent>
         <p className="time">{TimeForToday(detail.time)}</p>
         <div className="title">{detail.title}</div>

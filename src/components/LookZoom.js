@@ -19,6 +19,7 @@ import {
 import 'react-swipeable-list/dist/styles.css';
 import { useRecoilState } from "recoil";
 import { UserChkAtom, UserIdAtom } from "../atom";
+import { Link, Outlet, useParams } from "react-router-dom";
 
 const List = styled.div `
 a{ display:block;}
@@ -95,7 +96,8 @@ function LookZoom({data, listName, index}) {
   const [indexNum, setIndexNum] = useState(0);
   const [userChk, setUserChk]= useRecoilState(UserChkAtom);
   const [userId, setUserId]= useRecoilState(UserIdAtom);
-
+  const dataID = data.id;
+  const id = useParams();
 
 
   const LIST_NAME = {JOBS : 'jobs'}
@@ -107,7 +109,7 @@ function LookZoom({data, listName, index}) {
       if (listName === LIST_NAME.JOBS) {
         setDetailUrl(`https://news.ycombinator.com/item?id=${data.id}`);
       } else {
-        setDetailUrl(`/${listName}/detail/${data.id}`);
+        // setDetailUrl(`/${listName}/${data.id}`);
         setOriginUrl(`https://news.ycombinator.com/item?id=${data.id}`)
       }
       return() => {
@@ -181,9 +183,12 @@ function LookZoom({data, listName, index}) {
                 ? <a href={detailUrl} rel="noreferrer" target="_blank">
                       {eachListData.title}
                   </a>
-                : <a href={detailUrl} rel="noreferrer">
+                : 
+                <>
+                 <Link to={`${dataID}`} rel="noreferrer">
                     {eachListData.title}
-                  </a>
+                  </Link>
+                </>
             }
           </div>
             {
@@ -193,12 +198,12 @@ function LookZoom({data, listName, index}) {
                 <div className="user_wrap">
                   <p className="userId" onClick={viewUserId}>{eachListData.by}</p>
                   <div className="listInfo">
-                    <a href={detailUrl} rel="noreferrer">
+                    <Link to={`${dataID}`} rel="noreferrer">
                       <span className="listPoint">{eachListData.score}</span>
                       <span className="listComments">
                           {eachListData.descendants ? eachListData.descendants : 0 }
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               )

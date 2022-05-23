@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, useParams } from "react-router-dom";
 import Home from "./Home";
 import Article from "./Article";
 import Ask from "./Ask";
@@ -8,6 +8,7 @@ import Jobs from "./Jobs";
 import ListPage from'./ListPage';
 import { Detail } from "./Detail";
 export default function AppRouter({scrollOptions, setScrollOptions}){
+
     return (
         <>
         {/* <Route path="/list" render={(props)=>(
@@ -21,56 +22,17 @@ export default function AppRouter({scrollOptions, setScrollOptions}){
         )}>
          
         </Route> */}
-        <Route path="/article/detail/:id" render={(props) =>(<Detail {...props}/>)} />
-        <Route
-          path="/article"
-          exact
-          render={() => (
-            <Article
-            scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-            />
-          )}
-        />
-        <Route path="/ask/detail/:id" render={(props) =>(<Detail
-              {...props}/>)} />
-        <Route
-          path="/ask"
-          exact
-          render={() => (
-            <Ask
-            scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-            />
-          )}
-        />
-
-        <Route path="/show/detail/:id" render={(props) =>(<Detail {...props}/>)} />
-        <Route
-          path="/show"
-          exact
-          render={() => (
-            <Show
-              scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-            />
-          )}
-        />
-        <Route
-          path="/jobs"
-          exact
-          render={() => (
-            <Jobs
-            scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}
-            />
-          )}
-        />
-        <Route
-          path="/"
-          exact
-          render={(props) => (
-            <Home
-              {...props}
-            />
-          )}
-        /></>
+        <Routes>
+          <Route path="/article/:id" element={<Detail/>} />
+          <Route path="/article" element={ <Article scrollOptions={scrollOptions} setScrollOptions={setScrollOptions} />} />
+          <Route path="/ask/:id" element={<Detail />} />
+          <Route path="/ask" element={ <Ask scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}/>}/>
+          <Route path="/show/:id" element={<Detail/>} />
+          <Route path="/show" element={ <Show scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}/>}/>
+          <Route path="/jobs" element={<Jobs scrollOptions={scrollOptions} setScrollOptions={setScrollOptions}/> }/>
+          <Route path="/" element={<Home />}/>
+        </Routes>
+        </>
     )
 
 }

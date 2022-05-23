@@ -54,16 +54,16 @@ function Nav() {
   return (
     <NavUl>
       <div className="header-section">
-        <NavLi to="/article" activeClassName="active">
+        <NavLi to="/article" className={({ isActive }) => isActive ? 'active' : '' }>
           Article
         </NavLi>
-        <NavLi to="/ask" activeClassName="active">
+        <NavLi to="/ask" className={({ isActive }) => isActive ? 'active' : '' }>
           Ask
         </NavLi>
-        <NavLi to="/show" activeClassName="active">
+        <NavLi to="/show" className={({ isActive }) => isActive ? 'active' : '' }>
           Show
         </NavLi>
-        <NavLi to="/jobs" activeClassName="active">
+        <NavLi to="/jobs" className={({ isActive }) => isActive ? 'active' : '' }>
           Jobs
         </NavLi>
         </div>
